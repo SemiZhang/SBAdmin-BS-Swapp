@@ -3,7 +3,7 @@
     "name": "startbootstrap-sb-admin-2",
     "version": "4.1.4",
     "scripts": {
-        "start": "node_modules/.bin/gulp watch"
+        "start": "/node_modules/.bin/gulp watch"
     },
     "description": "An open source Bootstrap 4 admin theme.",
     "keywords": [
@@ -35,8 +35,13 @@
         "bootstrap": "4.6.0",
         "chart.js": "2.9.4",
         "datatables.net-bs4": "1.10.24",
+        "echarts": "^5.3.0",
+        "echarts-gl": "^2.0.8",
         "jquery": "3.6.0",
-        "jquery.easing": "^1.4.1"
+        "jquery.easing": "^1.4.1",
+        "plotly.js-dist": "^2.9.0",
+        "plotly.js-dist-min": "^2.9.0",
+        "vis-graph3d": "^6.0.2"
     },
     "devDependencies": {
         "browser-sync": "2.26.14",
