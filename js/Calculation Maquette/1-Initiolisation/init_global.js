@@ -106,7 +106,7 @@ let points_r_local = {
 
 
 var layout = {
-    // margin: {t: 0, l: 0, b: 0, r: 0},
+    margin: {t: 0, l: 0, b: 0, r: 0},
     autosize: true, // set autosize to rescale
     automargin: true,
     sliders: [{
