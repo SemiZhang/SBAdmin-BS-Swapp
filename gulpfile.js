@@ -77,7 +77,12 @@ function modules() {
       '!./node_modules/jquery/dist/core.js'
     ])
     .pipe(gulp.dest('./vendor/jquery'));
-  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing);
+  // Plotly
+  var plotly = gulp.src('./node_modules/plotly*/*.js')
+      .pipe(gulp.dest('./vendor/plotly'));
+  var mathjs = gulp.src('./node_modules/mathjs/lib/browser/*.js')
+      .pipe(gulp.dest('./vendor/mathjs'));
+  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing, plotly, mathjs);
 }
 
 // CSS task
