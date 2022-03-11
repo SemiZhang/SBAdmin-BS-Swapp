@@ -1,59 +1,67 @@
 {
-    "title": "SB Admin 2",
-    "name": "startbootstrap-sb-admin-2",
-    "version": "4.1.4",
-    "scripts": {
-        "start": "/node_modules/.bin/gulp watch"
-    },
-    "description": "An open source Bootstrap 4 admin theme.",
-    "keywords": [
-        "css",
-        "sass",
-        "html",
-        "responsive",
-        "theme",
-        "template",
-        "admin",
-        "app"
-    ],
-    "homepage": "https://startbootstrap.com/theme/sb-admin-2",
-    "bugs": {
-        "url": "https://github.com/StartBootstrap/startbootstrap-sb-admin-2/issues",
-        "email": "feedback@startbootstrap.com"
-    },
-    "license": "MIT",
-    "author": "Start Bootstrap",
-    "contributors": [
-        "David Miller (https://davidmiller.io/)"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/StartBootstrap/startbootstrap-sb-admin-2.git"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-free": "5.15.3",
-        "bootstrap": "4.6.0",
-        "chart.js": "2.9.4",
-        "datatables.net-bs4": "1.10.24",
-        "echarts": "^5.3.0",
-        "echarts-gl": "^2.0.8",
-        "jquery": "3.6.0",
-        "jquery.easing": "^1.4.1",
-        "plotly.js-dist": "^2.9.0",
-        "plotly.js-dist-min": "^2.9.0",
-        "vis-graph3d": "^6.0.2"
-    },
-    "devDependencies": {
-        "browser-sync": "2.26.14",
-        "del": "6.0.0",
-        "gulp": "4.0.2",
-        "gulp-autoprefixer": "7.0.1",
-        "gulp-clean-css": "4.3.0",
-        "gulp-header": "2.0.9",
-        "gulp-plumber": "^1.2.1",
-        "gulp-rename": "2.0.0",
-        "gulp-sass": "4.1.0",
-        "gulp-uglify": "3.0.2",
-        "merge-stream": "2.0.0"
-    }
+  "title": "SB Admin 2",
+  "name": "startbootstrap-sb-admin-2",
+  "version": "4.1.4",
+  "scripts": {
+    "start": "gulp watch"
+  },
+  "description": "An open source Bootstrap 4 admin theme.",
+  "keywords": [
+    "css",
+    "sass",
+    "html",
+    "responsive",
+    "theme",
+    "template",
+    "admin",
+    "app"
+  ],
+  "homepage": "https://startbootstrap.com/theme/sb-admin-2",
+  "bugs": {
+    "url": "https://github.com/StartBootstrap/startbootstrap-sb-admin-2/issues",
+    "email": "feedback@startbootstrap.com"
+  },
+  "license": "MIT",
+  "author": "Start Bootstrap",
+  "contributors": [
+    "David Miller (https://davidmiller.io/)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StartBootstrap/startbootstrap-sb-admin-2.git"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.15.3",
+    "bootstrap": "4.6.0",
+    "chart.js": "2.9.4",
+    "datatables.net-bs4": "1.10.24",
+    "echarts": "^5.3.0",
+    "echarts-gl": "^2.0.8",
+    "firebase": "^9.6.7",
+    "jquery": "3.6.0",
+    "jquery.easing": "^1.4.1",
+    "mathjs": "^10.1.1",
+    "plotly.js-dist": "^2.9.0",
+    "plotly.js-dist-min": "^2.9.0",
+    "three": "^0.138.3",
+    "vis-graph3d": "^6.0.2"
+  },
+  "devDependencies": {
+    "browser-sync": "2.26.14",
+    "del": "6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "7.0.1",
+    "gulp-clean-css": "4.3.0",
+    "gulp-cli": "^2.3.0",
+    "gulp-header": "2.0.9",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "2.0.0",
+    "gulp-sass": "4.1.0",
+    "gulp-uglify": "3.0.2",
+    "jest": "^27.5.1",
+    "merge-stream": "2.0.0",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "main": "gulpfile.js"
 }
