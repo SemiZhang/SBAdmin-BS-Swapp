@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Charts</title>
+    <title>SWApp - Mesure</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
 
 </head>
 
@@ -35,7 +36,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">SWAPP <sup>2</sup></div>
             </a>
 
             <!-- Divider -->
@@ -124,7 +125,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                    <span>Mesure Photo</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
@@ -359,64 +360,86 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-                    <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme.
-                        The charts below have been customized - for further customization options, please visit the <a
-                            target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js
-                            documentation</a>.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Mesure Photo</h1>
+                    <p class="mb-4">Mesurer les paramètres du fauteuil par deux photos, pour plus de détail, veuillez consulter notre <a
+                            target="_blank" href="https://www.chartjs.org/docs/latest/">Mode d'emploi</a>.</p>
 
                     <!-- Content Row -->
                     <div class="row">
 
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-xl-7 col-lg-6">
+
 
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Téléchargement</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-preview img-thumbnail" data-trigger="fileinput"
+                                             style="width: 300px; height: 250px;"></div>
+                                        <div>
+                                            <span class="btn btn-outline-secondary btn-file">
+                                              <span class="fileinput-new">Select image</span>
+                                              <span class="fileinput-exists">Change</span>
+                                              <input type="file" name="...">
+                                            </span>
+                                            <a href="#" class="btn btn-outline-secondary fileinput-exists"
+                                               data-dismiss="fileinput">Remove</a>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    Styling for the area chart can be found in the
-                                    <code>/js/demo/chart-area-demo.js</code> file.
+
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-preview img-thumbnail" data-trigger="fileinput"
+                                             style="width: 300px; height: 250px;"></div>
+                                        <div>
+                                            <span class="btn btn-outline-secondary btn-file">
+                                              <span class="fileinput-new">Select image</span>
+                                              <span class="fileinput-exists">Change</span>
+                                              <input type="file" name="...">
+                                            </span>
+                                            <a href="#" class="btn btn-outline-secondary fileinput-exists"
+                                               data-dismiss="fileinput">Remove</a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <!-- Bar Chart -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Conseils</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-bar">
-                                        <canvas id="myBarChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the bar chart can be found in the
-                                    <code>/js/demo/chart-bar-demo.js</code> file.
+                                    <p>Prenez les photos à 4 mètres</p>
+                                    <p>MODE D'EMPLOI</p>
                                 </div>
                             </div>
 
                         </div>
 
                         <!-- Donut Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-5 col-lg-6">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Liste des points / Liste d'enregistrement</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-pie pt-4">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the donut chart can be found in the
-                                    <code>/js/demo/chart-pie-demo.js</code> file.
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                        <tr><th>Name</th><th>Description</th><th>Actions</th></tr>
+                                        </thead>
+                                        <tbody data-link="row" class="rowlink">
+                                        <tr><td><a href="#fileinput">Haut de Dossier</a></td><td>Le sommet du dossier</td><td class="rowlink-skip"><a href="#">Action</a></td></tr>
+                                        <tr><td><a href="http://www.jasny.net/" target="_blank">Fauteuil ACTION3</a></td><td>Enregistré le 13 mars 2022</td><td class="rowlink-skip"><a href="#">Action</a></td></tr>
+                                        <tr><td><a href="#rowlinkModal" data-toggle="modal">Launch modal</a></td><td>Toggle a modal via JavaScript by clicking this row.</td><td class="rowlink-skip"><a href="#">Action</a></td></tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -481,6 +504,8 @@
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
