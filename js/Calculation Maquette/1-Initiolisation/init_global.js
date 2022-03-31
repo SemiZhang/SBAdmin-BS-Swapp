@@ -116,11 +116,22 @@ for (let i in points.roue) {
 
 let data = Array();
 
+let color = {
+    roue:{
+        avt: 'green',
+        arr: 'green',
+        mc: 'red',
+    }
+}
+
 for (let i in points.roue) {
     for (let i2 in points.roue[i]) {
         let data_temp = {
             type: 'scatter3d',
             mode: 'lines',
+            marker:{
+                color : color.roue[i],
+            },
             x: points.roue[i][i2][0],
             y: points.roue[i][i2][2],
             z: points.roue[i][i2][1],
