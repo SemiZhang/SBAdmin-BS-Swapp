@@ -26,6 +26,16 @@ function cal_repere_roue(side,deportX,deportY,deportZ,theta) {
     return rep;
 }
 
+function cal_repere_assise(deport,hauteurSiege,profondeurSiege,angleSiege){
+    centre = [deport,hauteurSiege-profondeurSiege*Math.sin(angleSiege*Math.PI/180),0];
+    vectX = [Math.cos( angleSiege*Math.PI/180),Math.sin(angleSiege*Math.PI/180),0];
+    vectY = [-Math.sin( angleSiege*Math.PI/180),Math.cos(angleSiege*Math.PI/180),0];
+    vectZ = [0,0,1];
+
+    rep=transpose([vectX,vectY,vectZ,centre]);
+    rep.push([0,0,0,1]);
+    return rep;
+}
 
 let point;
 let theta;
@@ -44,6 +54,20 @@ function cercle(centre,rayon,side,MC_distance){
 }
 
 let reglage = {
+    siege: {
+        assise:{
+            largeur: 35,
+            profondeur: 40,
+            hauteur: 45,
+            angle: 10,
+            distanceFourche: 0,
+        },
+        dossier:{
+            largeur: 40,
+            hauteur: 20,
+            angle: 90,
+        }
+    },
     roue: {
         avt: {
             deport: 50,
@@ -63,6 +87,9 @@ let reglage = {
 };
 
 let repere = {
+    siege:{
+        assise: cal_repere_assise(reglage.roue.arr.deport,reglage.siege.assise.hauteur,reglage.siege.assise.profondeur,reglage.siege.assise.angle),
+    },
     roue:{
         avt:{
             g: cal_repere_roue(-1, reglage.roue.avt.deport, reglage.roue.avt.rayon, reglage.roue.avt.voie, reglage.roue.avt.carrosage),
@@ -80,6 +107,30 @@ let repere = {
 };
 
 let points = {
+    siege:{
+        assise:{
+            AvtDroit1: [reglage.siege.assise.profondeur,0,reglage.siege.assise.largeur/2],
+            AvtDroit2: [reglage.siege.assise.profondeur,3,reglage.siege.assise.largeur/2],
+            AvtGauche1: [reglage.siege.assise.profondeur,0,-reglage.siege.assise.largeur/2],
+            AvtGauche2: [reglage.siege.assise.profondeur,3,-reglage.siege.assise.largeur/2],
+            ArrDroit1: [0,0,reglage.siege.assise.largeur/2],
+            ArrDroit2: [0,3,reglage.siege.assise.largeur/2],
+            ArrGauche1: [0,0,-reglage.siege.assise.largeur/2],
+            ArrGauche2: [0,3,-reglage.siege.assise.largeur/2],
+        },
+        fourchette:{
+            g: [Math.sqrt(Math.pow(reglage.siege.distanceFourche,2)-Math.pow((reglage.roue.avt.voie-reglage.siege.largeur)/2,2)),reglage.roue.arr.rayon-reglage.roue.avt.rayon,-(reglage.roue.avt.voie-reglage.siege.largeur)/2],
+            d: [Math.sqrt(Math.pow(reglage.siege.distanceFourche,2)-Math.pow((reglage.roue.avt.voie-reglage.siege.largeur)/2,2)),reglage.roue.arr.rayon-reglage.roue.avt.rayon,(reglage.roue.avt.voie-reglage.siege.largeur)/2],
+        },
+        fourchetteBas:{
+            g: [Math.sqrt(Math.pow(reglage.siege.distanceFourche,2)-Math.pow((reglage.roue.avt.voie-reglage.siege.largeur)/2,2)),0,-(reglage.roue.avt.voie-reglage.siege.largeur)/2],
+            d: [Math.sqrt(Math.pow(reglage.siege.distanceFourche,2)-Math.pow((reglage.roue.avt.voie-reglage.siege.largeur)/2,2)),0,(reglage.roue.avt.voie-reglage.siege.largeur)/2],
+        },
+        Dossier:{
+            g: [-reglage.siege.dossier.hauteur*Math.sin((reglage.siege.dossier.angle-90)*Math.PI/180),reglage.siege.dossier.hauteur*Math.cos((reglage.siege.dossier.angle-90)*Math.PI/180),reglage.siege.dossier.largeur/2],
+            d: [-reglage.siege.dossier.hauteur*Math.sin((reglage.siege.dossier.angle-90)*Math.PI/180),-reglage.siege.dossier.hauteur*Math.cos((reglage.siege.dossier.angle-90)*Math.PI/180),reglage.siege.dossier.largeur/2],
+        }
+    },
     roue: {
         avt:{
             g: cercle([0,0,0], reglage.roue.avt.rayon, -1, 0),
@@ -102,6 +153,11 @@ for (let i in points.roue) {
     }
 }
 
+for (let i in points.siege.assise) {
+    points.siege.assise[i].push(1);
+}
+
+
 let points_r_local = points;
 
 for (let i in points.roue) {
@@ -114,9 +170,17 @@ for (let i in points.roue) {
     }
 }
 
+for (let i in points.siege.assise) {
+    points.siege.assise[i]=math.multiply(repere.siege.assise,points.siege.assise[i]);
+}
+
+
 let data = Array();
 
 let color = {
+    siege:{
+        assise: 'red',
+    },
     roue:{
         avt: 'green',
         arr: 'green',
@@ -124,6 +188,7 @@ let color = {
     }
 }
 
+// Roues
 for (let i in points.roue) {
     for (let i2 in points.roue[i]) {
         let data_temp = {
@@ -131,6 +196,10 @@ for (let i in points.roue) {
             mode: 'lines',
             marker:{
                 color : color.roue[i],
+
+                line:{
+                    width: 50,
+                }
             },
             x: points.roue[i][i2][0],
             y: points.roue[i][i2][2],
@@ -139,10 +208,10 @@ for (let i in points.roue) {
         data.push(data_temp);
     }
 }
-
+// Barres des Roues
 for (let a=0;a<4;a+=1) {
     for (let i=0;i<(data[a].x.length-1)/2;i+=2) {
-        data_temp = {
+        let data_temp = {
             type: 'scatter3d',
             mode: 'lines',
             opacity: 0.2,
@@ -156,6 +225,90 @@ for (let a=0;a<4;a+=1) {
         data.push(data_temp);
     }
 }
+
+// Assise
+/*
+let data_temp = {
+    type: 'mesh3d',
+    color : color.siege.assise,
+    opacity: 1,
+    flatshading: true, // important
+    lighting: {
+        facenormalsepsilon: 0 // important
+    },
+    x: Array(),
+    y: Array(),
+    z: Array(),
+    i: [0, 2, 1, 3, 0, 1, 4, 5, 0, 0, 3, 2],
+    j: [2, 4, 3, 5, 1, 2, 6, 6, 4, 1, 6, 3],
+    k: [4, 6, 5, 7, 2, 3, 5, 7, 5, 5, 7, 6],
+}
+let data_temp = {
+    type: 'scatter3d',
+    surfaceaxis: 2,
+    // color : color.siege.assise,
+    // opacity: 1,
+    x: Array(),
+    y: Array(),
+    z: Array(),
+}
+for (let i in points.siege.assise) {
+    data_temp.x.push(points.siege.assise[i][0]);
+    data_temp.y.push(-points.siege.assise[i][2]);
+    data_temp.z.push(points.siege.assise[i][1]);
+}
+*/
+
+x = [
+    [points.siege.assise.AvtDroit1[0],points.siege.assise.AvtGauche1[0],points.siege.assise.ArrDroit1[0],points.siege.assise.ArrGauche1[0]],
+    [points.siege.assise.AvtDroit2[0],points.siege.assise.AvtGauche2[0],points.siege.assise.ArrDroit2[0],points.siege.assise.ArrGauche2[0]],
+    [points.siege.assise.AvtDroit1[0],points.siege.assise.AvtGauche1[0],points.siege.assise.AvtDroit2[0],points.siege.assise.AvtGauche2[0]],
+    [points.siege.assise.ArrDroit1[0],points.siege.assise.ArrGauche1[0],points.siege.assise.ArrDroit2[0],points.siege.assise.ArrGauche2[0]],
+    [points.siege.assise.AvtDroit1[0],points.siege.assise.ArrDroit1[0],points.siege.assise.AvtDroit2[0],points.siege.assise.ArrDroit2[0]],
+    [points.siege.assise.AvtGauche1[0],points.siege.assise.ArrGauche1[0],points.siege.assise.AvtGauche2[0],points.siege.assise.ArrGauche2[0]]
+];
+y = [
+    [points.siege.assise.AvtDroit1[2],points.siege.assise.AvtGauche1[2],points.siege.assise.ArrDroit1[2],points.siege.assise.ArrGauche1[2]],
+    [points.siege.assise.AvtDroit2[2],points.siege.assise.AvtGauche2[2],points.siege.assise.ArrDroit2[2],points.siege.assise.ArrGauche2[2]],
+    [points.siege.assise.AvtDroit1[2],points.siege.assise.AvtGauche1[2],points.siege.assise.AvtDroit2[2],points.siege.assise.AvtGauche2[2]],
+    [points.siege.assise.ArrDroit1[2],points.siege.assise.ArrGauche1[2],points.siege.assise.ArrDroit2[2],points.siege.assise.ArrGauche2[2]],
+    [points.siege.assise.AvtDroit1[2],points.siege.assise.ArrDroit1[2],points.siege.assise.AvtDroit2[2],points.siege.assise.ArrDroit2[2]],
+    [points.siege.assise.AvtGauche1[2],points.siege.assise.ArrGauche1[2],points.siege.assise.AvtGauche2[2],points.siege.assise.ArrGauche2[2]]
+];
+z = [
+    [points.siege.assise.AvtDroit1[1],points.siege.assise.AvtGauche1[1],points.siege.assise.ArrDroit1[1],points.siege.assise.ArrGauche1[1]],
+    [points.siege.assise.AvtDroit2[1],points.siege.assise.AvtGauche2[1],points.siege.assise.ArrDroit2[1],points.siege.assise.ArrGauche2[1]],
+    [points.siege.assise.AvtDroit1[1],points.siege.assise.AvtGauche1[1],points.siege.assise.AvtDroit2[1],points.siege.assise.AvtGauche2[1]],
+    [points.siege.assise.ArrDroit1[1],points.siege.assise.ArrGauche1[1],points.siege.assise.ArrDroit2[1],points.siege.assise.ArrGauche2[1]],
+    [points.siege.assise.AvtDroit1[1],points.siege.assise.ArrDroit1[1],points.siege.assise.AvtDroit2[1],points.siege.assise.ArrDroit2[1]],
+    [points.siege.assise.AvtGauche1[1],points.siege.assise.ArrGauche1[1],points.siege.assise.AvtGauche2[1],points.siege.assise.ArrGauche2[1]]
+];
+
+let data_temp;
+for (let i=0;i<6;i++) {
+    if (i >= 4) {
+        data_temp = {
+            type: 'scatter3d',
+            mode: 'none',
+            surfaceaxis: 1,
+            surfacecolor: 'blue',
+            // color : color.siege.assise,
+            x: x[i],
+            y: y[i],
+            z: z[i],
+        }
+    } else {
+        data_temp = {
+            type: 'mesh3d',
+            // color : color.siege.assise,
+            x: x[i],
+            y: y[i],
+            z: z[i],
+        }
+    }
+    data.push(data_temp);
+}
+
 
 var layout = {
     margin: {t: 0, l: 0, b: 0, r: 0},
