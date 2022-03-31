@@ -1,4 +1,4 @@
-function transition(input){
+function transpose(input){
     return input[0].map(function(col, i) {
         return input.map(function(row) {
             return row[i];
@@ -11,27 +11,27 @@ let centre;
 let vectX;
 let vectY;
 let vectZ;
-let rep_roue;
+let rep;
 
 function cal_repere_roue(side,deportX,deportY,deportZ,theta) {
     // rep_roue = [];
+    //repere_roue.m
     centre=[deportX, deportY, side * deportZ];
     vectX=[1,0,0];
     vectY=[0,Math.cos( -side * theta),Math.sin(-side * theta)];
     vectZ=[0,-Math.sin(-side * theta),Math.cos(-side * theta)];
 
-    rep_roue=transition([vectX,vectY,vectZ,centre]);
-    rep_roue.push([0,0,0,1]);
-    return rep_roue;
+    rep=transpose([vectX,vectY,vectZ,centre]);
+    rep.push([0,0,0,1]);
+    return rep;
 }
 
 
 let point;
 let theta;
-let i
 function cercle(centre,rayon,side,MC_distance){
     point=Array()
-    for (i=0;i<=360;i+=10) {
+    for (let i=0;i<=360;i+=10) {
         // console.log(i);
         theta = i * Math.PI / 180;
         x = centre[1] + rayon * Math.cos(theta);
@@ -39,7 +39,7 @@ function cercle(centre,rayon,side,MC_distance){
         z = side * MC_distance;
         point.push([x,y,z]);
     }
-    point = transition(point);
+    point = transpose(point);
     return point;
 }
 
