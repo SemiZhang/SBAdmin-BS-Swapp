@@ -71,13 +71,13 @@ let reglage = {
     roue: {
         avt: {
             deport: 50,
-            voie: 35,
+            voie: 18,
             rayon: 5,
             carrosage: 0,
         },
         arr: {
             deport: 0,
-            voie: 40,
+            voie: 20,
             rayon: 30,
             carrosage: 0,
             MC_distance: 2,
