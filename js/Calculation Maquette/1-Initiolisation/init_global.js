@@ -102,31 +102,6 @@ let points_r_local = {
         avt:{
             g: transpose(points.roue.avt.g),
             d: transpose(points.roue.avt.d),
-
-        },
-        arr:{
-            g: points.roue.arr.g.push(new Array(points.roue.arr.g[0].length).fill(1)),
-            d: points.roue.arr.d.push(new Array(points.roue.arr.d[0].length).fill(1)),
-        },
-    }
-}
-
-
-var layout = {
-    margin: {t: 0, l: 0, b: 0, r: 0},
-    autosize: true, // set autosize to rescale
-    automargin: true,
-    sliders: [{
-        pad: {t: 30},
-        x: 0.05,
-        len: 0.95,
-        currentvalue: {
-            xanchor: 'right',
-            prefix: 'color: ',
-            font: {
-                color: '#888',
-                size: 0
-            }
         },
 
         arr: {
@@ -140,9 +115,6 @@ var layout = {
     }
 }
 
-var config = {
-    responsive: true,
-};
 
 var data_roue_avt_g = {
     type: 'scatter3d',
