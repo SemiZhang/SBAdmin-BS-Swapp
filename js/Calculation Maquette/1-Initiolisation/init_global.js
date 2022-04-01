@@ -225,10 +225,9 @@ for (let i in points.roue) {
             mode: 'lines',
             marker:{
                 color : color.roue[i],
-
-                line:{
-                    width: 50,
-                }
+            },
+            line:{
+                width: 10,
             },
             x: points.roue[i][i2][0],
             y: points.roue[i][i2][2],
@@ -246,6 +245,9 @@ for (let a=0;a<4;a+=1) {
             opacity: 0.2,
             marker:{
                 color : 'black',
+            },
+            line:{
+                width: 3,
             },
             x: [data[a].x[i],data[a].x[i+(data[a].x.length-1)/2]],
             y: [data[a].y[i],data[a].y[i+(data[a].x.length-1)/2]],
