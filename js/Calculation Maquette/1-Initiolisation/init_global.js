@@ -37,6 +37,17 @@ function cal_repere_assise(deport,hauteurSiege,profondeurSiege,angleSiege){
     return rep;
 }
 
+function cal_repere_potence(profondeurSiege,longueurPotence,anglePotence){
+    centre = [profondeurSiege+longueurPotence*Math.sin((anglePotence-90)*Math.PI/180),-longueurPotence*Math.cos((anglePotence-90)*Math.PI/180),0];
+    vectX = [Math.cos((anglePotence-90)*Math.PI/180),Math.sin((anglePotence-90)*Math.PI/180),0];
+    vectY = [-Math.sin((anglePotence-90)*Math.PI/180),Math.cos((anglePotence-90)*Math.PI/180),0];
+    vectZ = [0,0,1];
+
+    rep=transpose([vectX,vectY,vectZ,centre]);
+    rep.push([0,0,0,1]);
+    return rep;
+}
+
 let point;
 let theta;
 function cercle(centre,rayon,side,MC_distance){
@@ -66,6 +77,10 @@ let reglage = {
             largeur: 40,
             hauteur: 20,
             angle: 90,
+        },
+        potence:{
+            longueur: 35,
+            angle: 130,
         }
     },
     roue: {
@@ -89,6 +104,7 @@ let reglage = {
 let repere = {
     siege:{
         assise: cal_repere_assise(reglage.roue.arr.deport,reglage.siege.assise.hauteur,reglage.siege.assise.profondeur,reglage.siege.assise.angle),
+        potence: cal_repere_potence(reglage.siege.assise.profondeur,reglage.siege.potence.longueur,reglage.siege.potence.angle),
     },
     roue:{
         avt:{
@@ -105,6 +121,7 @@ let repere = {
         }
     },
 };
+repere.siege.potence = math.multiply(repere.siege.assise,repere.siege.potence);
 
 let points = {
     siege:{
@@ -129,6 +146,10 @@ let points = {
         Dossier:{
             g: [-reglage.siege.dossier.hauteur*Math.sin((reglage.siege.dossier.angle-90)*Math.PI/180),reglage.siege.dossier.hauteur*Math.cos((reglage.siege.dossier.angle-90)*Math.PI/180),reglage.siege.dossier.largeur/2],
             d: [-reglage.siege.dossier.hauteur*Math.sin((reglage.siege.dossier.angle-90)*Math.PI/180),-reglage.siege.dossier.hauteur*Math.cos((reglage.siege.dossier.angle-90)*Math.PI/180),reglage.siege.dossier.largeur/2],
+        },
+        potence:{
+            g: [0,0,-reglage.siege.assise.largeur/2],
+            d: [0,0,reglage.siege.assise.largeur/2]
         }
     },
     roue: {
@@ -157,6 +178,10 @@ for (let i in points.siege.assise) {
     points.siege.assise[i].push(1);
 }
 
+for (let i in points.siege.potence) {
+    points.siege.potence[i].push(1);
+}
+
 
 let points_r_local = points;
 
@@ -172,6 +197,10 @@ for (let i in points.roue) {
 
 for (let i in points.siege.assise) {
     points.siege.assise[i]=math.multiply(repere.siege.assise,points.siege.assise[i]);
+}
+
+for (let i in points.siege.potence) {
+    points.siege.potence[i]=math.multiply(repere.siege.potence,points.siege.potence[i]);
 }
 
 
@@ -305,6 +334,27 @@ for (let i=0;i<6;i++) {
             y: y[i],
             z: z[i],
         }
+    }
+    data.push(data_temp);
+}
+
+let potence_connection = ['AvtGauche1','AvtDroit1'];
+for (let i in points.siege.potence){
+    Object.keys(points.siege.potence).indexOf()
+    let data_temp = {
+        type: 'scatter3d',
+        mode: 'lines',
+        opacity: 1,
+        marker:{
+
+        },
+        line:{
+            color : 'black',
+            width: 8,
+        },
+        x: [points.siege.assise[potence_connection[Object.keys(points.siege.potence).indexOf(i)]][0],points.siege.potence[i][0]],
+        y: [-points.siege.assise[potence_connection[Object.keys(points.siege.potence).indexOf(i)]][2],-points.siege.potence[i][2]],
+        z: [points.siege.assise[potence_connection[Object.keys(points.siege.potence).indexOf(i)]][1],points.siege.potence[i][1]],
     }
     data.push(data_temp);
 }
