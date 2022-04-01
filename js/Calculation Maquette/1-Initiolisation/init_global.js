@@ -367,6 +367,37 @@ var layout = {
     autosize: true, // set autosize to rescale
     automargin: true,
     showlegend: false,
+    scene: {
+        xaxis: {
+            showgrid: false,
+            // showline: false,
+            // zeroline: false,
+            showticklabels: false,
+            title: {text: ""},
+            // type: "linear"
+        },
+        yaxis: {
+            showgrid: false,
+            // showline: false,
+            // zeroline: false,
+            showticklabels: false,
+            title: {text: ""},
+            // type: "linear"
+        },
+        zaxis: {
+            showgrid: false,
+            // showline: false,
+            // zeroline: false,
+            showticklabels: false,
+            title: {text: ""},
+            // type: "linear"
+        },
+        // aspectratio: {
+        //     x: 1,
+        //     y: 1,
+        //     z: 1
+        // }
+    },
 };
 
 var config = {
