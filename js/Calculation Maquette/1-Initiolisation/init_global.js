@@ -219,6 +219,14 @@ function init_data() {
         }
     }
 
+    let width = {
+        roue:{
+            avt: 10,
+            arr: 14,
+            mc: 8,
+        }
+    }
+
 // Roues
     for (let i in points.roue) {
         for (let i2 in points.roue[i]) {
@@ -229,7 +237,7 @@ function init_data() {
                     color: color.roue[i],
                 },
                 line: {
-                    width: 10,
+                    width: width.roue[i],
                 },
                 x: points.roue[i][i2][0],
                 y: points.roue[i][i2][2],
