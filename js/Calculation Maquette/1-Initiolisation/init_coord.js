@@ -15,6 +15,11 @@ let reglage = {
         potence:{
             longueur: 35,
             angle: 130,
+        },
+        repose:{
+            longueur: 15,
+            largeur: 5,
+            angle: 90,
         }
     },
     roue: {
