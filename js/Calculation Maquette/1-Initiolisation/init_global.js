@@ -7,45 +7,46 @@ function transpose(input){
 };
 
 function cal_repere_roue(side,deportX,deportY,deportZ,theta) {
-    // rep_roue = [];
     //repere_roue.m
-    centre=[deportX, deportY, side * deportZ];
-    vectX=[1,0,0];
-    vectY=[0,Math.cos( -side * theta),Math.sin(-side * theta)];
-    vectZ=[0,-Math.sin(-side * theta),Math.cos(-side * theta)];
+    let centre=[deportX, deportY, side * deportZ];
+    let vectX=[1,0,0];
+    let vectY=[0,Math.cos( -side * theta),Math.sin(-side * theta)];
+    let vectZ=[0,-Math.sin(-side * theta),Math.cos(-side * theta)];
 
-    rep=transpose([vectX,vectY,vectZ,centre]);
+    let rep=transpose([vectX,vectY,vectZ,centre]);
     rep.push([0,0,0,1]);
     return rep;
 }
 
 function cal_repere_assise(deport,hauteurSiege,profondeurSiege,angleSiege){
-    centre = [deport,hauteurSiege-profondeurSiege*Math.sin(angleSiege*Math.PI/180),0];
-    vectX = [Math.cos( angleSiege*Math.PI/180),Math.sin(angleSiege*Math.PI/180),0];
-    vectY = [-Math.sin( angleSiege*Math.PI/180),Math.cos(angleSiege*Math.PI/180),0];
-    vectZ = [0,0,1];
+    let theta = angleSiege*Math.PI/180;
+    let centre = [deport,hauteurSiege-profondeurSiege*Math.sin(theta),0];
+    let vectX = [Math.cos( theta),Math.sin(theta),0];
+    let vectY = [-Math.sin( theta),Math.cos(theta),0];
+    let vectZ = [0,0,1];
 
-    rep=transpose([vectX,vectY,vectZ,centre]);
+    let rep=transpose([vectX,vectY,vectZ,centre]);
     rep.push([0,0,0,1]);
     return rep;
 }
 
 function cal_repere_potence(profondeurSiege,longueurPotence,anglePotence){
-    centre = [profondeurSiege+longueurPotence*Math.sin((anglePotence-90)*Math.PI/180),-longueurPotence*Math.cos((anglePotence-90)*Math.PI/180),0];
-    vectX = [Math.cos((anglePotence-90)*Math.PI/180),Math.sin((anglePotence-90)*Math.PI/180),0];
-    vectY = [-Math.sin((anglePotence-90)*Math.PI/180),Math.cos((anglePotence-90)*Math.PI/180),0];
-    vectZ = [0,0,1];
+    let theta = (anglePotence-90)*Math.PI/180;
+    let centre = [profondeurSiege+longueurPotence*Math.sin(theta),-longueurPotence*Math.cos(theta),0];
+    let vectX = [Math.cos(theta),Math.sin(theta),0];
+    let vectY = [-Math.sin(theta),Math.cos(theta),0];
+    let vectZ = [0,0,1];
 
-    rep=transpose([vectX,vectY,vectZ,centre]);
+    let rep=transpose([vectX,vectY,vectZ,centre]);
     rep.push([0,0,0,1]);
     return rep;
 }
 
 function cercle(centre,rayon,side,MC_distance){
-    point=Array()
+    let point=Array()
     for (let i=0;i<=360;i+=10) {
         // console.log(i);
-        theta = i * Math.PI / 180;
+        let theta = i * Math.PI / 180;
         x = centre[0] + rayon * Math.cos(theta);
         y = centre[1] + rayon * Math.sin(theta);
         z = centre[2] + (side * MC_distance);
@@ -55,16 +56,7 @@ function cercle(centre,rayon,side,MC_distance){
     return point;
 }
 
-function init_global() {
-
-    let centre;
-    let vectX;
-    let vectY;
-    let vectZ;
-    let rep;
-
-    let point;
-    let theta;
+function init_data() {
 
     let repere = {
         siege: {
@@ -325,6 +317,8 @@ function init_global() {
     }
 
 
+
+function init_layout() {
     var layout = {
         margin: {t: 0, l: 0, b: 0, r: 0},
         autosize: true, // set autosize to rescale
@@ -367,8 +361,13 @@ function init_global() {
         responsive: true,
     };
 
-    Plotly.react('myPloty3DChart', data, layout, config);
+    return [layout,config];
+}
 
+function init_global() {
+    let data = init_data();
+    let layout = init_layout();
+    Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
 }
 
 init_global();
