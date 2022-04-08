@@ -100,9 +100,9 @@ function init_data() {
                 g: [Math.sqrt(Math.pow(reglage.siege.distanceFourche, 2) - Math.pow((reglage.roue.avt.voie - reglage.siege.largeur) / 2, 2)), 0, -(reglage.roue.avt.voie - reglage.siege.largeur) / 2],
                 d: [Math.sqrt(Math.pow(reglage.siege.distanceFourche, 2) - Math.pow((reglage.roue.avt.voie - reglage.siege.largeur) / 2, 2)), 0, (reglage.roue.avt.voie - reglage.siege.largeur) / 2],
             },
-            Dossier: {
+            dossier: {
                 g: [-reglage.siege.dossier.hauteur * Math.sin((reglage.siege.dossier.angle - 90) * Math.PI / 180), reglage.siege.dossier.hauteur * Math.cos((reglage.siege.dossier.angle - 90) * Math.PI / 180), reglage.siege.dossier.largeur / 2],
-                d: [-reglage.siege.dossier.hauteur * Math.sin((reglage.siege.dossier.angle - 90) * Math.PI / 180), -reglage.siege.dossier.hauteur * Math.cos((reglage.siege.dossier.angle - 90) * Math.PI / 180), reglage.siege.dossier.largeur / 2],
+                d: [-reglage.siege.dossier.hauteur * Math.sin((reglage.siege.dossier.angle - 90) * Math.PI / 180), reglage.siege.dossier.hauteur * Math.cos((reglage.siege.dossier.angle - 90) * Math.PI / 180), -reglage.siege.dossier.largeur / 2],
             },
             potence: {
                 g: [0, 0, -reglage.siege.assise.largeur / 2],
@@ -134,6 +134,9 @@ function init_data() {
     for (let i in points.siege.assise) {
         points.siege.assise[i].push(1);
     }
+    for (let i in points.siege.dossier) {
+        points.siege.dossier[i].push(1);
+    }
 
     for (let i in points.siege.potence) {
         points.siege.potence[i].push(1);
@@ -154,6 +157,9 @@ function init_data() {
 
     for (let i in points.siege.assise) {
         points.siege.assise[i] = math.multiply(repere.siege.assise, points.siege.assise[i]);
+    }
+    for (let i in points.siege.dossier) {
+        points.siege.dossier[i] = math.multiply(repere.siege.assise, points.siege.dossier[i]);
     }
 
     for (let i in points.siege.potence) {
@@ -253,7 +259,8 @@ function init_data() {
         [points.siege.assise.AvtDroit1[0], points.siege.assise.AvtGauche1[0], points.siege.assise.AvtDroit2[0], points.siege.assise.AvtGauche2[0]],
         [points.siege.assise.ArrDroit1[0], points.siege.assise.ArrGauche1[0], points.siege.assise.ArrDroit2[0], points.siege.assise.ArrGauche2[0]],
         [points.siege.assise.AvtDroit1[0], points.siege.assise.ArrDroit1[0], points.siege.assise.AvtDroit2[0], points.siege.assise.ArrDroit2[0]],
-        [points.siege.assise.AvtGauche1[0], points.siege.assise.ArrGauche1[0], points.siege.assise.AvtGauche2[0], points.siege.assise.ArrGauche2[0]]
+        [points.siege.assise.AvtGauche1[0], points.siege.assise.ArrGauche1[0], points.siege.assise.AvtGauche2[0], points.siege.assise.ArrGauche2[0]],
+        [points.siege.assise.ArrGauche2[0], points.siege.assise.ArrDroit2[0], points.siege.dossier.g[0], points.siege.dossier.d[0]]
     ];
     y = [
         [points.siege.assise.AvtDroit1[2], points.siege.assise.AvtGauche1[2], points.siege.assise.ArrDroit1[2], points.siege.assise.ArrGauche1[2]],
@@ -261,7 +268,8 @@ function init_data() {
         [points.siege.assise.AvtDroit1[2], points.siege.assise.AvtGauche1[2], points.siege.assise.AvtDroit2[2], points.siege.assise.AvtGauche2[2]],
         [points.siege.assise.ArrDroit1[2], points.siege.assise.ArrGauche1[2], points.siege.assise.ArrDroit2[2], points.siege.assise.ArrGauche2[2]],
         [points.siege.assise.AvtDroit1[2], points.siege.assise.ArrDroit1[2], points.siege.assise.AvtDroit2[2], points.siege.assise.ArrDroit2[2]],
-        [points.siege.assise.AvtGauche1[2], points.siege.assise.ArrGauche1[2], points.siege.assise.AvtGauche2[2], points.siege.assise.ArrGauche2[2]]
+        [points.siege.assise.AvtGauche1[2], points.siege.assise.ArrGauche1[2], points.siege.assise.AvtGauche2[2], points.siege.assise.ArrGauche2[2]],
+        [points.siege.assise.ArrGauche2[2], points.siege.assise.ArrDroit2[2], points.siege.dossier.g[2], points.siege.dossier.d[2]]
     ];
     z = [
         [points.siege.assise.AvtDroit1[1], points.siege.assise.AvtGauche1[1], points.siege.assise.ArrDroit1[1], points.siege.assise.ArrGauche1[1]],
@@ -269,12 +277,13 @@ function init_data() {
         [points.siege.assise.AvtDroit1[1], points.siege.assise.AvtGauche1[1], points.siege.assise.AvtDroit2[1], points.siege.assise.AvtGauche2[1]],
         [points.siege.assise.ArrDroit1[1], points.siege.assise.ArrGauche1[1], points.siege.assise.ArrDroit2[1], points.siege.assise.ArrGauche2[1]],
         [points.siege.assise.AvtDroit1[1], points.siege.assise.ArrDroit1[1], points.siege.assise.AvtDroit2[1], points.siege.assise.ArrDroit2[1]],
-        [points.siege.assise.AvtGauche1[1], points.siege.assise.ArrGauche1[1], points.siege.assise.AvtGauche2[1], points.siege.assise.ArrGauche2[1]]
+        [points.siege.assise.AvtGauche1[1], points.siege.assise.ArrGauche1[1], points.siege.assise.AvtGauche2[1], points.siege.assise.ArrGauche2[1]],
+        [points.siege.assise.ArrGauche2[1], points.siege.assise.ArrDroit2[1], points.siege.dossier.g[1], points.siege.dossier.d[1]]
     ];
 
     let data_temp;
-    for (let i = 0; i < 6; i++) {
-        if (i >= 4) {
+    for (let i = 0; i < 7; i++) {
+        if (i >= 4 && i < 6) {
             data_temp = {
                 type: 'scatter3d',
                 mode: 'none',
