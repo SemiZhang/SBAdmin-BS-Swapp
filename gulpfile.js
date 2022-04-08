@@ -80,7 +80,7 @@ function modules() {
   // Plotly
   var plotly = gulp.src('./node_modules/plotly*/*.js')
       .pipe(gulp.dest('./vendor/plotly'));
-  var mathjs = gulp.src('./node_modules/mathjs/lib/browser/*.js')
+  var mathjs = gulp.src('./node_modules/mathjs/lib/browser/math.*')
       .pipe(gulp.dest('./vendor/mathjs'));
   return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing, plotly, mathjs);
 }
