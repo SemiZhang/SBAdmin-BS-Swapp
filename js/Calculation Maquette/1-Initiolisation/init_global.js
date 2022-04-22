@@ -94,6 +94,8 @@ function init_data() {
     repere.siege.repose = math.multiply(math.multiply(repere.siege.assise, repere.siege.potence),repere.siege.repose);
     repere.siege.potence = math.multiply(repere.siege.assise, repere.siege.potence);
 
+
+
     let points = {
         siege: {
             assise: {
@@ -106,13 +108,13 @@ function init_data() {
                 ArrGauche1: [0, 0, -reglage.siege.assise.largeur / 2],
                 ArrGauche2: [0, 3, -reglage.siege.assise.largeur / 2],
             },
-            fourchette: {
-                g: [Math.sqrt(Math.pow(reglage.siege.distanceFourche, 2) - Math.pow((reglage.roue.avt.voie - reglage.siege.largeur) / 2, 2)), reglage.roue.arr.rayon - reglage.roue.avt.rayon, -(reglage.roue.avt.voie - reglage.siege.largeur) / 2],
-                d: [Math.sqrt(Math.pow(reglage.siege.distanceFourche, 2) - Math.pow((reglage.roue.avt.voie - reglage.siege.largeur) / 2, 2)), reglage.roue.arr.rayon - reglage.roue.avt.rayon, (reglage.roue.avt.voie - reglage.siege.largeur) / 2],
+            fourche: {
+                g: [0, reglage.roue.arr.rayon - reglage.roue.avt.rayon, 0],
+                d: [0, reglage.roue.arr.rayon - reglage.roue.avt.rayon, 0],
             },
-            fourchetteBas: {
-                g: [Math.sqrt(Math.pow(reglage.siege.distanceFourche, 2) - Math.pow((reglage.roue.avt.voie - reglage.siege.largeur) / 2, 2)), 0, -(reglage.roue.avt.voie - reglage.siege.largeur) / 2],
-                d: [Math.sqrt(Math.pow(reglage.siege.distanceFourche, 2) - Math.pow((reglage.roue.avt.voie - reglage.siege.largeur) / 2, 2)), 0, (reglage.roue.avt.voie - reglage.siege.largeur) / 2],
+            fourcheBas: {
+                g: [0, 0, 0],
+                d: [0, 0, 0],
             },
             dossier: {
                 g: [-reglage.siege.dossier.hauteur * Math.sin((reglage.siege.dossier.angle - 90) * Math.PI / 180), reglage.siege.dossier.hauteur * Math.cos((reglage.siege.dossier.angle - 90) * Math.PI / 180), reglage.siege.dossier.largeur / 2],
@@ -148,6 +150,20 @@ function init_data() {
                 g: cercle([0, 0, 0], reglage.roue.arr.MC_rayon, -1, reglage.roue.arr.MC_distance),
                 d: cercle([0, 0, 0], reglage.roue.arr.MC_rayon, 1, reglage.roue.arr.MC_distance),
             }
+        },
+        roue_centre: {
+            avt: {
+                g: [0, 0, 0, 1],
+                d: [0, 0, 0, 1],
+            },
+            arr: {
+                g: [0, 0, 0, 1],
+                d: [0, 0, 0, 1],
+            },
+            mc: {
+                g: [0, 0, 0, 1],
+                d: [0, 0, 0, 1],
+            }
         }
     }
 
@@ -155,6 +171,13 @@ function init_data() {
         for (let i2 in points.roue[i]) {
             points.roue[i][i2].push(new Array(points.roue[i][i2][0].length).fill(1))
         }
+    }
+
+    for (let i in points.siege.fourche) {
+        points.siege.fourche[i].push(1);
+    }
+    for (let i in points.siege.fourcheBas) {
+        points.siege.fourcheBas[i].push(1);
     }
 
     for (let i in points.siege.assise) {
@@ -186,6 +209,18 @@ function init_data() {
         }
     }
 
+    for (let i in points.roue_centre) {
+        for (let i2 in points.roue_centre[i]) {
+            points.roue_centre[i][i2] = math.multiply(repere.roue[i][i2], points.roue_centre[i][i2]);
+        }
+    }
+    for (let i in points.siege.fourche) {
+        points.siege.fourche[i] = math.multiply(repere.roue.avt[i], points.siege.fourche[i]);
+    }
+    for (let i in points.siege.fourcheBas) {
+        points.siege.fourcheBas[i] = math.multiply(repere.roue.avt[i], points.siege.fourcheBas[i]);
+    }
+
     for (let i in points.siege.assise) {
         points.siege.assise[i] = math.multiply(repere.siege.assise, points.siege.assise[i]);
     }
@@ -202,6 +237,8 @@ function init_data() {
             points.siege.repose[i][i2] = math.multiply(repere.siege.repose, points.siege.repose[i][i2]);
         }
     }
+
+
 
 
     let data = Array();
@@ -384,6 +421,28 @@ function init_data() {
             x: transpose(points.siege.repose[i])[0],
             y: math.multiply(transpose(points.siege.repose[i])[2],-1),
             z: transpose(points.siege.repose[i])[1],
+        }
+        data.push(data_temp);
+    }
+
+    let chassisConnection = Array();
+    chassisConnection.push(transpose([points.roue_centre.arr.g,points.roue_centre.arr.d]));
+    chassisConnection.push(transpose([points.siege.assise.ArrGauche1,points.roue_centre.arr.g,points.siege.fourche.g,points.siege.fourcheBas.g]));
+    chassisConnection.push(transpose([points.siege.assise.ArrDroit1,points.roue_centre.arr.d,points.siege.fourche.d,points.siege.fourcheBas.d]));
+    for (let i in chassisConnection) {
+        let data_temp = {
+            type: 'scatter3d',
+            mode: 'lines',
+            opacity: 0.6,
+            marker: {
+                color: 'grey',
+            },
+            line: {
+                width: 4,
+            },
+            x: chassisConnection[i][0],
+            y: chassisConnection[i][2],
+            z: chassisConnection[i][1],
         }
         data.push(data_temp);
     }
