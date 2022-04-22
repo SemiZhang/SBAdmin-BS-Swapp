@@ -176,13 +176,11 @@ function init_data() {
 
 
 
-    let points_r_local = points;
-
     for (let i in points.roue) {
         for (let i2 in points.roue[i]) {
-            points_r_local.roue[i][i2] = transpose(points.roue[i][i2]);
-            for (let i3 in points_r_local.roue[i][i2]) {
-                points.roue[i][i2][i3] = math.multiply(repere.roue[i][i2], points_r_local.roue[i][i2][i3]);
+            points.roue[i][i2] = transpose(points.roue[i][i2]);
+            for (let i3 in points.roue[i][i2]) {
+                points.roue[i][i2][i3] = math.multiply(repere.roue[i][i2], points.roue[i][i2][i3]);
             }
             points.roue[i][i2] = transpose(points.roue[i][i2]);
         }
@@ -355,7 +353,6 @@ function init_data() {
 
     let potence_connection = ['AvtGauche1', 'AvtDroit1'];
     for (let i in points.siege.potence) {
-        Object.keys(points.siege.potence).indexOf()
         let data_temp = {
             type: 'scatter3d',
             mode: 'lines',
