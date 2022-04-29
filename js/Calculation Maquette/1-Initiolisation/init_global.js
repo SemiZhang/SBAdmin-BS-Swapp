@@ -8,10 +8,11 @@ function transpose(input){
 
 function cal_repere_roue(side,deportX,deportY,deportZ,theta) {
     //repere_roue.m
-    let centre=[deportX, deportY, side * deportZ];
-    let vectX=[1,0,0];
-    let vectY=[0,Math.cos( -side * theta),Math.sin(-side * theta)];
-    let vectZ=[0,-Math.sin(-side * theta),Math.cos(-side * theta)];
+    theta = theta * Math.PI / 180;
+    let centre = [deportX, deportY, side * deportZ];
+    let vectX = [1, 0, 0];
+    let vectY = [0, Math.cos(-side * theta), Math.sin(-side * theta)];
+    let vectZ = [0, -Math.sin(-side * theta), Math.cos(-side * theta)];
 
     let rep=transpose([vectX,vectY,vectZ,centre]);
     rep.push([0,0,0,1]);
@@ -483,6 +484,20 @@ function init_layout() {
                 title: {text: ""},
                 // type: "linear"
             },
+            // hovermode: false,
+            camera: {
+                center:{
+                    x: 0,
+                    y: 0,
+                    z: -0.1,
+                },
+                eye: {
+                    x: 1,
+                    y: 1,
+                    z: 1,
+                },
+            },
+
             // aspectratio: {
             //     x: 1,
             //     y: 1,
@@ -505,3 +520,41 @@ function init_global() {
 }
 
 init_global();
+
+function rotation() {
+    var gd = document.getElementById('myPloty3DChart');
+
+    function run() {
+        rotate('scene', Math.PI / 360);
+        // rotate('scene2', -Math.PI / 180);
+        requestAnimationFrame(run);
+    }
+
+    run();
+
+    function rotate(id, angle) {
+        var eye0 = gd.layout[id].camera.eye
+        var rtz = xyz2rtz(eye0);
+        rtz.t += angle;
+
+        var eye1 = rtz2xyz(rtz);
+        Plotly.relayout(gd, id + '.camera.eye', eye1)
+    }
+
+    function xyz2rtz(xyz) {
+        return {
+            r: Math.sqrt(xyz.x * xyz.x + xyz.y * xyz.y),
+            t: Math.atan2(xyz.y, xyz.x),
+            z: xyz.z
+        };
+    }
+
+    function rtz2xyz(rtz) {
+        return {
+            x: rtz.r * Math.cos(rtz.t),
+            y: rtz.r * Math.sin(rtz.t),
+            z: rtz.z
+        };
+    }
+}
+rotation();
