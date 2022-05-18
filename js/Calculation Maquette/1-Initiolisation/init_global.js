@@ -448,10 +448,90 @@ function init_data() {
         data.push(data_temp);
     }
 
+
+
+
+    //reglage.patient.bras.angle = 45;
+    let thetaD = reglage.siege.dossier.angle;
+    let thetaBras = reglage_patient.bras.angle;
+    let thetaP = reglage.siege.potence.angle;
+
+    let repere_patient={};
+
+    let MP_R0_Rassise_Construction = repere.siege.assise;
+    let rotx_90 = matrice_Rotation('x',90,4);
+
+    let LBassin = patient.Lbassin;
+    let lBassin = patient.lbassin / 2;
+    let hTronc=patient.Htronc;
+    let LEpaule=patient.Lepaules/2;
+    let LCuisse=patient.Lcuisse;
+    let lCuisse=patient.lcuisse/2;
+    let LTibia=patient.Ltibia;
+    let lTibia=patient.ltibia;
+
+    // Repere bassin
+    let MP_R0_Rbassin_org=MP_R0_Rassise_Construction;
+    let Centre_loc=[lBassin,lBassin+3,0,1];
+    let Centre_glob=math.multiply(MP_R0_Rbassin_org,Centre_loc);
+    let MP_R0_Rbassin_construction=math.transpose(MP_R0_Rbassin_org);
+    MP_R0_Rbassin_construction[3] = Centre_glob;
+    MP_R0_Rbassin_construction=math.transpose(MP_R0_Rbassin_construction);
+    let MP_R0_Rbassin_visualisation=math.multiply(rotx_90,MP_R0_Rbassin_construction);
+    repere_patient.bassin=MP_R0_Rbassin_visualisation;
+
+    // Repere Tronc
+    let MP_R0_Rtronc_org=MP_R0_Rbassin_org;
+    let R1=matrice_Rotation('z',thetaD-90,3);
+    let MP_R0_Rtronc_construction = math.transpose(MP_R0_Rtronc_org);
+    MP_R0_Rtronc_construction[3] = Centre_glob;
+    MP_R0_Rtronc_construction = math.transpose(MP_R0_Rtronc_construction);
+    let MP_R0_Rtronc_visualisation = math.multiply(rotx_90,MP_R0_Rtronc_construction);
+    console.log(MP_R0_Rtronc_visualisation);
+    repere_patient.tronc=MP_R0_Rtronc_visualisation;
+
+
+
     console.log(data)
     return data;
 }
 
+function matrice_Rotation(axe,angle_deg,dim) {
+    let angle_rad = angle_deg * Math.PI / 180;
+    let Matrice_Rotation=[];
+    switch (axe) {
+        case'x':
+            Matrice_Rotation=[
+                [1,0,0],
+                [0,Math.cos(angle_rad),-Math.sin(angle_rad)],
+                [0,Math.sin(angle_rad),Math.cos(angle_rad)]
+            ]
+            break;
+        case'y':
+            Matrice_Rotation=[
+                [Math.cos(angle_rad),0,Math.sin(angle_rad)],
+                [0,1,0,],
+                [-Math.sin(angle_rad),0,Math.cos(angle_rad)]
+            ]
+            break;
+        case'z':
+            Matrice_Rotation=[
+                [Math.cos(angle_rad),-Math.sin(angle_rad),0],
+                [Math.sin(angle_rad),Math.cos(angle_rad),0],
+                [0,0,1]
+            ]
+            break;
+    }
+
+    if (dim == 4){
+        Matrice_Rotation.push([0,0,0]);
+        Matrice_Rotation=transpose(Matrice_Rotation);
+        Matrice_Rotation.push([0,0,0,1]);
+        Matrice_Rotation=transpose(Matrice_Rotation);
+    }
+
+    return Matrice_Rotation;
+}
 
 function init_layout() {
     var layout = {
