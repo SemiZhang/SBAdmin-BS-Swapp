@@ -31,21 +31,28 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center my-2" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">SWApp <sup>2</sup></div>
         </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+                <!-- Divider -->
+        <hr class="sidebar-divider my-1">
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
             <a class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <i class="fas fa-fw fa-wheelchair"></i>
+                <span>Réglage du Fauteuil</span></a>
+        </li>
+
+        <!-- Nav Item - Mesure -->
+        <li class="nav-item">
+            <a class="nav-link" href="charts.html">
+                <i class="fas fa-fw fa-chart-area fa-ruler-combined"></i>
+                <span>Mesure Photo</span></a>
         </li>
 
         <!-- Divider -->
@@ -53,7 +60,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Interface
+            Configuration
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
@@ -61,7 +68,7 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
+                <span>Applications</span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -96,15 +103,15 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Addons
+            Documents
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
+                <i class="fas fa-fw fa-database"></i>
+                <span>Données enregistrés</span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -120,26 +127,26 @@
             </div>
         </li>
 
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Mesure Photo</span></a>
-        </li>
-
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
+                <i class="fas fa-fw fa-book-open"></i>
+                <span>Mode d'emploie</span></a>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
+        <!-- Nav Item - Help -->
+        <li class="nav-item">
+            <a class="nav-link" href="tables.html">
+                <i class="fas fa-fw fa-phone-alt"></i>
+                <span>Aide & Contact</span></a>
+        </li>
+
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            <button class="rounded-circle border-0 my-4" id="sidebarToggle"></button>
         </div>
 
         <!-- Sidebar Message -->
@@ -186,12 +193,13 @@
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                         <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
+<!--
 
-                <!-- Topbar Navbar -->
+                &lt;!&ndash; Topbar Navbar &ndash;&gt;
                 <ul class="navbar-nav ml-auto">
 
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <!--<li class="nav-item dropdown no-arrow d-sm-none">
+                    &lt;!&ndash; Nav Item - Search Dropdown (Visible Only XS) &ndash;&gt;
+                    &lt;!&ndash;<li class="nav-item dropdown no-arrow d-sm-none">
                         <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-search fa-fw"></i>
@@ -212,18 +220,18 @@
                                 </div>
                             </form>
                         </div>
-                    </li>-->
+                    </li>&ndash;&gt;
 
-                    <!-- Nav Item - Alerts -->
+                    &lt;!&ndash; Nav Item - Alerts &ndash;&gt;
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
+                            &lt;!&ndash; Counter - Alerts &ndash;&gt;
                             <span class="badge badge-danger badge-counter">3+</span>
                         </a>
-                        <!-- Dropdown - Alerts -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        &lt;!&ndash; Dropdown - Alerts &ndash;&gt;
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"
                              aria-labelledby="alertsDropdown">
                             <h6 class="dropdown-header">
                                 Alerts Center
@@ -265,16 +273,16 @@
                         </div>
                     </li>
 
-                    <!-- Nav Item - Messages -->
+                    &lt;!&ndash; Nav Item - Messages &ndash;&gt;
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-envelope fa-fw"></i>
-                            <!-- Counter - Messages -->
+                            &lt;!&ndash; Counter - Messages &ndash;&gt;
                             <span class="badge badge-danger badge-counter">7</span>
                         </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        &lt;!&ndash; Dropdown - Messages &ndash;&gt;
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"
                              aria-labelledby="messagesDropdown">
                             <h6 class="dropdown-header">
                                 Message Center
@@ -337,7 +345,7 @@
 
                     <div class="topbar-divider d-none d-sm-block"></div>
 
-                    <!-- Nav Item - User Information -->
+                    &lt;!&ndash; Nav Item - User Information &ndash;&gt;
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -345,8 +353,8 @@
                             <img class="img-profile rounded-circle"
                                  src="img/undraw_profile.svg">
                         </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        &lt;!&ndash; Dropdown - User Information &ndash;&gt;
+                        <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"
                              aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -369,6 +377,7 @@
                     </li>
 
                 </ul>
+-->
 
             </nav>
             <!-- End of Topbar -->
@@ -387,7 +396,7 @@
 
 
                 <!-- Left Panel -->
-                <div class="col-xl-5 col-lg-6">
+                <div class="col-xl-6 col-lg-6">
                     <!-- Parameters -->
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
@@ -427,7 +436,7 @@
                                                         <span class="fa-pull-right">
                                                             <span tag="RangeOutput" id="RangeOutput_siege_assise_largeur"
                                                                   style="font-weight:bold;color:red">
-                                                                35
+                                                                0
                                                             </span>
                                                             <span>
                                                                 cm
@@ -448,7 +457,7 @@
                                                         <span class="fa-pull-right">
                                                             <span tag="RangeOutput" id="RangeOutput_siege_assise_profondeur"
                                                                   style="font-weight:bold;color:red">
-                                                                35
+                                                                0
                                                             </span>
                                                             <span>
                                                                 cm
@@ -469,7 +478,7 @@
                                                         <span class="fa-pull-right">
                                                             <span tag="RangeOutput" id="RangeOutput_siege_assise_hauteur"
                                                                   style="font-weight:bold;color:red">
-                                                                35
+                                                                0
                                                             </span>
                                                             <span>
                                                                 cm
@@ -490,7 +499,7 @@
                                                         <span class="fa-pull-right">
                                                             <span tag="RangeOutput" id="RangeOutput_siege_assise_angle"
                                                                   style="font-weight:bold;color:red">
-                                                                35
+                                                                0
                                                             </span>
                                                             <span>
                                                                 °
@@ -499,7 +508,9 @@
                                                     </p>
                                                 </div>
                                                 <div class="slidecontainer">
-                                                    <input tag="RangeInput" id="RangeInput_siege_assise_angle" class="form-range" type="range"
+                                                    <input tag="RangeInput" id="RangeInput_siege_assise_angle"
+                                                           class="form-range" type="range"
+                                                           min="-25" max="35"
                                                            style="width: 100%"/>
                                                 </div>
                                             </div>
@@ -510,7 +521,7 @@
                                                         <span class="fa-pull-right">
                                                             <span tag="RangeOutput" id="RangeOutput_siege_dossier_largeur"
                                                                   style="font-weight:bold;color:red">
-                                                                35
+                                                                0
                                                             </span>
                                                             <span>
                                                                 cm
@@ -530,7 +541,7 @@
                                                         <span class="fa-pull-right">
                                                             <span tag="RangeOutput" id="RangeOutput_siege_dossier_hauteur"
                                                                   style="font-weight:bold;color:red">
-                                                                35
+                                                                0
                                                             </span>
                                                             <span>
                                                                 cm
@@ -552,7 +563,7 @@
                                                         <span class="fa-pull-right">
                                                             <span tag="RangeOutput" id="RangeOutput_siege_dossier_angle"
                                                                   style="font-weight:bold;color:red">
-                                                                35
+                                                                0
                                                             </span>
                                                             <span>
                                                                 °
@@ -571,50 +582,88 @@
                                         <div class="row mt-4">
                                             <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
                                                 <div class="align-items-center ">
-                                                    <p><span class="label" contenteditable="true">Groupe2-1</span>
+                                                    <p><span class="label" contenteditable="true">Roue Avant - Diamètre</span>
                                                         <span class="fa-pull-right">
-                                                                    <span tag="RangeOutput"
-                                                                          style="font-weight:bold;color:red">
-                                                                        35
-                                                                    </span>
-                                                                </span>
+                                                            <span tag="RangeOutput" id="RangeOutput_roue_avt_rayon"
+                                                                  style="font-weight:bold;color:red">
+                                                                0
+                                                            </span>
+                                                            <span>
+                                                                cm
+                                                            </span>
+                                                        </span>
                                                     </p>
                                                 </div>
                                                 <div class="slidecontainer">
-                                                    <input tag="RangeInput" class="form-range" type="range"
+                                                    <input tag="RangeInput" id="RangeInput_roue_avt_rayon"
+                                                           class="form-range" type="range"
+                                                           max="15"
                                                            style="width: 100%"/>
                                                 </div>
                                             </div>
 
                                             <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
                                                 <div class="align-items-center ">
-                                                    <p><span class="label" contenteditable="true">Groupe2-2</span>
+                                                    <p><span class="label" contenteditable="true">Roue Arrière - Rayon</span>
                                                         <span class="fa-pull-right">
-                                                                    <span tag="RangeOutput"
-                                                                          style="font-weight:bold;color:red">
-                                                                        35
-                                                                    </span>
-                                                                </span>
+                                                            <span tag="RangeOutput" id="RangeOutput_roue_arr_rayon"
+                                                                  style="font-weight:bold;color:red">
+                                                                0
+                                                            </span>
+                                                            <span>
+                                                                cm
+                                                            </span>
+                                                        </span>
                                                     </p>
                                                 </div>
                                                 <div class="slidecontainer">
-                                                    <input tag="RangeInput" class="form-range" type="range"
+                                                    <input tag="RangeInput" id="RangeInput_roue_arr_rayon"
+                                                           class="form-range" type="range"
+                                                           max="60"
                                                            style="width: 100%"/>
                                                 </div>
                                             </div>
+
                                             <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
                                                 <div class="align-items-center ">
-                                                    <p><span class="label" contenteditable="true">Groupe2-3</span>
+                                                    <p><span class="label" contenteditable="true">Potence - Longueur</span>
                                                         <span class="fa-pull-right">
-                                                                    <span tag="RangeOutput"
-                                                                          style="font-weight:bold;color:red">
-                                                                        35
-                                                                    </span>
-                                                                </span>
+                                                            <span tag="RangeOutput" id="RangeOutput_siege_potence_longueur"
+                                                                  style="font-weight:bold;color:red">
+                                                                0
+                                                            </span>
+                                                            <span>
+                                                                cm
+                                                            </span>
+                                                        </span>
                                                     </p>
                                                 </div>
                                                 <div class="slidecontainer">
-                                                    <input tag="RangeInput" class="form-range" type="range"
+                                                    <input tag="RangeInput" id="RangeInput_siege_potence_longueur"
+                                                           class="form-range" type="range"
+                                                           max="40"
+                                                           style="width: 100%"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                                <div class="align-items-center ">
+                                                    <p><span class="label" contenteditable="true">Potence - Angle</span>
+                                                        <span class="fa-pull-right">
+                                                            <span tag="RangeOutput" id="RangeOutput_siege_potence_angle"
+                                                                  style="font-weight:bold;color:red">
+                                                                0
+                                                            </span>
+                                                            <span>
+                                                                °
+                                                            </span>
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div class="slidecontainer">
+                                                    <input tag="RangeInput" id="RangeInput_siege_potence_angle"
+                                                           class="form-range" type="range"
+                                                           min="60" max="180"
                                                            style="width: 100%"/>
                                                 </div>
                                             </div>
@@ -650,7 +699,7 @@
                                         <span class="fa-pull-right">
                                             
                                             <span tag="RangeOutput" style="font-weight:bold;color:red">
-                                                35
+                                                0
                                             </span>
                                         </span>
                                     </p>
@@ -666,7 +715,7 @@
                                         <span class="fa-pull-right">
                                             
                                             <span tag="RangeOutput" style="font-weight:bold;color:red">
-                                                35
+                                                0
                                             </span>
                                         </span>
                                     </p>
@@ -682,7 +731,7 @@
                                         <span class="fa-pull-right">
                                             
                                             <span tag="RangeOutput" style="font-weight:bold;color:red">
-                                                35
+                                                0
                                             </span>
                                         </span>
                                     </p>
@@ -711,7 +760,7 @@
                 </div>
 
                 <!-- Right Panel-->
-                <div class="col-xl-7 col-lg-6">
+                <div class="col-xl-6 col-lg-6">
                     <!-- Ploty 3D -->
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
@@ -753,9 +802,9 @@
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">0.76</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
+<!--                                        <div class="col-auto">-->
+<!--                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -771,12 +820,12 @@
                                                 Largeur Horstout
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <p class="mb-0">70 80 90</p>
+                                                <p class="mb-0">40*67,5*75 cm</p>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
+<!--                                        <div class="col-auto">-->
+<!--                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -788,9 +837,12 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Garde au Sol
                                             </div>
-                                            <div class="row no-gutters align-items-center">
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <p class="mb-0">12.5 cm</p>
+                                            </div>
+                                            <!--<div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
                                                 </div>
@@ -801,11 +853,11 @@
                                                              aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
+<!--                                        <div class="col-auto">-->
+<!--                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -818,13 +870,13 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests
+                                                Hauteur Centre du masse
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">28 cm</div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
+<!--                                        <div class="col-auto">-->
+<!--                                            <i class="fas fa-comments fa-2x text-gray-300"></i>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -870,18 +922,14 @@
                     </div>
                 </div>
 
-
-                <!-- Content Row -->
-
-
+<!--
+                &lt;!&ndash; Content Row &ndash;&gt;
                 <div class="col-lg-5 mb-4">
 
-
                 </div>
-
+-->
 
             </div>
-            <!-- /.container-fluid -->
 
         </div>
         <!-- End of Main Content -->
@@ -972,6 +1020,18 @@
 <!--<script src="vendor/mathjs/math.min.js" type="text/javascript"></script>-->
 <script src="vendor/mathjs/math.js"></script>
 
+<!--ndArray-->
+<!--<script src="vendor/ndarray/ndarray.js"></script>-->
+<!--<script src="vendor/ndarray-meshgrid/index.js"></script>-->
+
+<!--numjs-->
+<!--<script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>-->
+<!--<script type="module" src="vendor/numjs/index.js"></script>-->
+
+<!--<script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>-->
+
+
+
 
 <!--
     &lt;!&ndash; Include the ECharts file you just downloaded &ndash;&gt;
@@ -993,9 +1053,14 @@
     <script src="js/demo/vis.js"></script>
 -->
 
-<script src="js/Calculation Maquette/1-Initiolisation/init_coord.js"></script>
-<script src="js/Calculation Maquette/1-Initiolisation/init_global.js"></script>
-<script src="js/slider.js"></script>
+
+<!--<script src="js/Calculation_Maquette/1-Initialisation/init_coord.js"></script>-->
+<!--<script type="module" src="js/Calculation_Maquette/1-Initialisation/init_global.js"></script>-->
+
+
+<script src="public/main.js"></script>
+
+<!--<script src="js/slider.js"></script>-->
 
 </body>
 
