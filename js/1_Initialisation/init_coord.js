@@ -1,4 +1,4 @@
-let reglage = {
+reglage_chair = {
     siege: {
         assise:{
             largeur: 35,
@@ -14,7 +14,7 @@ let reglage = {
         },
         potence:{
             longueur: 35,
-            angle: 130,
+            angle: 90,
         },
         repose:{
             longueur: 15,
@@ -40,15 +40,21 @@ let reglage = {
     },
 };
 
-let taille = 175;
-let patient = {
+reglage_patient = {
+    bras:{
+        angle: 45,
+    },
+},
+
+taille = 175;
+patient = {
     taille: taille,
     Lpied: 0.146*taille,
     Ltibia: 0.246*taille,
     Lcuisse: 0.245*taille,
     Lbassin: 0.174*taille,
     Htronc: 0.34*taille,
-    Lepaules: 0.259*taille,
+    Lepaule: 0.259*taille,
     Ltete:0.130*taille,
     Lbras:0.136*taille,
     LavtBras:0.146*taille,
@@ -58,7 +64,7 @@ let patient = {
     ltronc: 0.15*taille,
 }
 patient.ltete = 3/4*patient.Ltete;
-patient.lpien = 1/2*patient.ltete;
+patient.lpied = 1/2*patient.ltete;
 
 patient.lcuisse = 0.3*patient.Lcuisse;
 patient.ltibia = 0.3*patient.Ltibia;
