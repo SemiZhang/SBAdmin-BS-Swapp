@@ -431,6 +431,75 @@ function init_data() {
     repere_patient.tronc=MP_R0_Rtronc_visualisation;
     // console.log(MP_R0_Rtronc_visualisation)
 
+    // Repere Bras
+    let Centre_loc_D = [0,hTronc-5/4*lBassin,LEpaule,1];
+    let Centre_glob_D = math.multiply(MP_R0_Rtronc_construction,Centre_loc_D);
+    let R1_D=matrice_Rotation('x',-thetaBras,3);
+
+    let MP_R0_RbrasD_org = matSlice(MP_R0_Rtronc_construction);
+    MP_R0_RbrasD_org = math.multiply(R1_D,MP_R0_RbrasD_org);
+
+    let MP_R0_RbrasD_construction = matComb(MP_R0_RbrasD_org,MP_R0_Rbassin_construction);
+    MP_R0_RbrasD_construction = math.transpose(MP_R0_RbrasD_construction);
+    MP_R0_RbrasD_construction[3] = Centre_glob_D;
+    MP_R0_RbrasD_construction = math.transpose(MP_R0_RbrasD_construction);
+
+    let MP_R0_RbrasD_visualisation = math.multiply(rotx_90,MP_R0_RbrasD_construction);
+    repere_patient.brasD=MP_R0_RbrasD_visualisation;
+    // console.log(MP_R0_RbrasD_visualisation);
+
+
+    let Centre_loc_G = [0,hTronc-5/4*lBassin,-LEpaule,1];
+    let Centre_glob_G = math.multiply(MP_R0_Rtronc_construction,Centre_loc_G);
+    let R1_G=matrice_Rotation('x',thetaBras,3);
+
+    let MP_R0_RbrasG_org = matSlice(MP_R0_Rtronc_construction);
+    MP_R0_RbrasG_org = math.multiply(R1_G,MP_R0_RbrasG_org);
+
+    let MP_R0_RbrasG_construction = matComb(MP_R0_RbrasG_org,MP_R0_Rbassin_construction);
+    MP_R0_RbrasG_construction = math.transpose(MP_R0_RbrasG_construction);
+    MP_R0_RbrasG_construction[3] = Centre_glob_G;
+    MP_R0_RbrasG_construction = math.transpose(MP_R0_RbrasG_construction);
+
+    let MP_R0_RbrasG_visualisation = math.multiply(rotx_90,MP_R0_RbrasG_construction);
+    repere_patient.brasG=MP_R0_RbrasG_visualisation;
+    // console.log(MP_R0_RbrasG_visualisation);
+
+
+    // Repere Cuisse
+    Centre_loc = [lBassin/2+LCuisse,lCuisse+3,-(LBassin-lCuisse)/2,1];
+    Centre_glob = math.multiply(MP_R0_Rassise_construction,Centre_loc);
+
+    let MP_R0_Rcuisse_construction = math.transpose(MP_R0_Rassise_construction);
+    MP_R0_Rcuisse_construction[3] = Centre_glob;
+    MP_R0_Rcuisse_construction = math.transpose(MP_R0_Rcuisse_construction);
+
+    let MP_R0_RcuisseD_visualisation = math.multiply(rotx_90,MP_R0_Rcuisse_construction);
+    repere_patient.cuisseD=MP_R0_RcuisseD_visualisation;
+    //console.log(repere_patient.cuisseD);
+
+    let MP_R0_RcuisseG_visualisation = math.multiply(rotx_90,MP_R0_Rcuisse_construction);
+    MP_R0_RcuisseG_visualisation[1][3] = -1 * MP_R0_RcuisseG_visualisation[1][3];
+    repere_patient.cuisseG=MP_R0_RcuisseG_visualisation;
+    //console.log(repere_patient.cuisseG);
+
+
+    // Repere Tibia
+    let MP_R0_Rtibia_org = matSlice(MP_R0_Rassise_construction);
+    R1 = matrice_Rotation('z',thetaP-90,3);
+
+    let MP_R0_Rtibia_construction = math.multiply(R1,MP_R0_Rtibia_org);
+    MP_R0_Rtibia_construction = matComb(MP_R0_Rtibia_construction,MP_R0_Rcuisse_construction);
+
+    let MP_R0_RtibiaD_visualisation = math.multiply(rotx_90,MP_R0_Rtibia_construction);
+    repere_patient.tibiaD=MP_R0_RtibiaD_visualisation;
+    //console.log(repere_patient.tibiaD);
+
+    let MP_R0_RtibiaG_visualisation = math.multiply(rotx_90,MP_R0_Rtibia_construction);
+    MP_R0_RtibiaG_visualisation[1][3] = -1 * MP_R0_RtibiaG_visualisation[1][3];
+    repere_patient.tibiaG=MP_R0_RtibiaG_visualisation;
+    //console.log(repere_patient.tibiaG);
+
 
 
     console.log(data)
