@@ -514,15 +514,11 @@ function init_data() {
 
         for (let i1 in mesh.tronc.x){
             for (let i2 in mesh.tronc.x[i1]) {
-                let vector_rotate = math.multiply(repere_patient.tronc,[mesh.tronc.x[i1][i2],mesh.tronc.y[i1][i2],mesh.tronc.z[i1][i2],1])
+                let repere_tronc = math.multiply(repere_patient.tronc,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_tronc,[mesh.tronc.x[i1][i2],mesh.tronc.y[i1][i2],mesh.tronc.z[i1][i2],1])
                 mesh.tronc.x[i1][i2] = vector_rotate[0];
                 mesh.tronc.y[i1][i2] = vector_rotate[1];
                 mesh.tronc.z[i1][i2] = vector_rotate[2];
-            }
-        }
-        for (let i1 in mesh.tronc.y) {
-            for (let i2 in mesh.tronc.y[i1]) {
-                mesh.tronc.z[i1][i2] += patient.Htronc/2;
             }
         }
         data_temp = {
@@ -962,6 +958,15 @@ function matrice_Rotation(axe,angle_deg,dim) {
     }
 
     return Matrice_Rotation;
+}
+
+function matrice_Translation(x,y,z) {
+    return [
+        [1,0,0,x],
+        [0,1,0,y],
+        [0,0,1,z],
+        [0,0,0,1]
+    ]
 }
 
 function init_layout() {
