@@ -1,8 +1,17 @@
 data = Array();
+import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
+import {reglage_patient} from "/js/1_Initialisation/init_coord.js";
+import {patient} from "/js/1_Initialisation/init_coord.js";
+
+export let repere_chair = Array();
+export let points_chair = Array();
+export let repere_patient={};
+export let data = Array();
 init_global();
 
 function init_global() {
     let data = init_data();
+export function init_global() {
     let layout = init_layout();
     Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
 }
@@ -10,7 +19,7 @@ function init_global() {
 
 // Fonction principale
 
-function init_data() {
+export function init_data() {
 
     repere_chair = {
         siege: {

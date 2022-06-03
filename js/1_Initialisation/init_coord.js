@@ -1,4 +1,4 @@
-reglage_chair = {
+export let reglage_chair = {
     siege: {
         assise:{
             largeur: 35,
@@ -34,20 +34,20 @@ reglage_chair = {
             voie: 20,
             rayon: 30,
             carrosage: 0,
-            MC_distance: 2,
+            MC_distance: 3.5,
             MC_rayon: 28,
         },
     },
 };
 
-reglage_patient = {
+export let reglage_patient = {
     bras:{
         angle: 45,
     },
 },
 
-taille = 175;
-patient = {
+let taille = 175;
+export let patient = {
     taille: taille,
     Lpied: 0.146*taille,
     Ltibia: 0.246*taille,
