@@ -501,9 +501,61 @@ function init_data() {
     //console.log(repere_patient.tibiaG);
 
 
+    // Mesh
+    mesh_accuracy = 25;
+    mesh_opacity = 0.6;
+    
+    mesh = {};
+
+    // Mesh Tronc
+    mesh.tronc = {};
+    for (let i in [0,1]) {
+        [mesh.tronc.x,mesh.tronc.y,mesh.tronc.z] = ellipsoid(0,0,patient.Htronc,patient.ltronc,patient.ptronc,patient.Htronc,mesh_accuracy,i);
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.tronc.x.flat(),
+            y: mesh.tronc.y.flat(),
+            z: mesh.tronc.z.flat(),
+        }
+        data.push(data_temp);
+    }
 
     console.log(data)
     return data;
+}
+
+function ellipsoid(cx,cy,cz,x,y,z,accuracy,side) {
+    let ellipsoid_accuracy = accuracy;
+    let theta_all = [[-Math.PI/2,0],[0,Math.PI/2]];
+    // theta_all = theta_all[side];
+    // for (let theta_range in theta_all) {
+        let phi = makeArr(0,2*Math.PI,ellipsoid_accuracy);
+        // console.log(phi)
+        let theta = makeArr(theta_all[side][0], theta_all[side][1], ellipsoid_accuracy);
+        // console.log(theta)
+
+        let phi_mesh = Array(ellipsoid_accuracy).fill(phi);
+        // console.log(phi_mesh)
+        let theta_mesh = Array(ellipsoid_accuracy).fill(theta);
+        theta_mesh = math.transpose(theta_mesh);
+        // console.log(theta_mesh)
+
+        let x_mesh = [];
+        let y_mesh = [];
+        let z_mesh = [];
+
+        for (let i1 in phi_mesh) {
+            x_mesh[i1]=[];
+            y_mesh[i1]=[];
+            z_mesh[i1]=[];
+            for (let i2 in phi_mesh[i1]) {
+                x_mesh[i1][i2] = Math.cos(theta_mesh[i1][i2]) * Math.sin(phi_mesh[i1][i2]) * x/2 + cx;
+                y_mesh[i1][i2] = Math.cos(theta_mesh[i1][i2]) * Math.cos(phi_mesh[i1][i2]) * y/2 + cy;
+                z_mesh[i1][i2] = Math.sin(theta_mesh[i1][i2]) * z/2 + cz;
+            }
+        }
+    return [x_mesh,y_mesh,z_mesh];
 }
 
 // Calcul Repere
