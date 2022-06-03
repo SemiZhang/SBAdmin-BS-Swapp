@@ -411,24 +411,25 @@ function init_data() {
     let lTibia=patient.ltibia;
 
     // Repere bassin
-    let MP_R0_Rbassin_org=MP_R0_Rassise_Construction;
     let Centre_loc=[lBassin,lBassin+3,0,1];
-    let Centre_glob=math.multiply(MP_R0_Rbassin_org,Centre_loc);
-    let MP_R0_Rbassin_construction=math.transpose(MP_R0_Rbassin_org);
+    let Centre_glob=math.multiply(MP_R0_Rassise_construction,Centre_loc);
+
+    let MP_R0_Rbassin_construction=math.transpose(MP_R0_Rassise_construction);
     MP_R0_Rbassin_construction[3] = Centre_glob;
     MP_R0_Rbassin_construction=math.transpose(MP_R0_Rbassin_construction);
     let MP_R0_Rbassin_visualisation=math.multiply(rotx_90,MP_R0_Rbassin_construction);
     repere_patient.bassin=MP_R0_Rbassin_visualisation;
 
     // Repere Tronc
-    let MP_R0_Rtronc_org=MP_R0_Rbassin_org;
+    let MP_R0_Rtronc_org = matSlice(MP_R0_Rassise_construction);
     let R1=matrice_Rotation('z',thetaD-90,3);
-    let MP_R0_Rtronc_construction = math.transpose(MP_R0_Rtronc_org);
-    MP_R0_Rtronc_construction[3] = Centre_glob;
-    MP_R0_Rtronc_construction = math.transpose(MP_R0_Rtronc_construction);
+
+    let MP_R0_Rtronc_construction = math.multiply(R1,MP_R0_Rtronc_org);
+    MP_R0_Rtronc_construction = matComb(MP_R0_Rtronc_construction,MP_R0_Rbassin_construction);
+
     let MP_R0_Rtronc_visualisation = math.multiply(rotx_90,MP_R0_Rtronc_construction);
-    console.log(MP_R0_Rtronc_visualisation);
     repere_patient.tronc=MP_R0_Rtronc_visualisation;
+    // console.log(MP_R0_Rtronc_visualisation)
 
 
 
@@ -521,6 +522,27 @@ function cercle(centre, rayon, side, MC_distance) {
     point = transpose(point);
     return point;
 }
+
+
+// Fonction special
+
+function matSlice(input,range) {
+    let output = input.slice(0,3);
+    output = math.transpose(output);
+    output = output.slice(0,3);
+    output = math.transpose(output);
+    return output;
+}
+
+function matComb(input1,input2) {
+    return [
+        [input1[0][0],input1[0][1],input1[0][2],input2[0][3]],
+        [input1[1][0],input1[1][1],input1[1][2],input2[1][3]],
+        [input1[2][0],input1[2][1],input1[2][2],input2[2][3]],
+        [input2[3][0],input2[3][1],input2[3][2],input2[3][3]],
+    ]
+}
+
 function matrice_Rotation(axe,angle_deg,dim) {
     let angle_rad = angle_deg * Math.PI / 180;
     let Matrice_Rotation=[];
