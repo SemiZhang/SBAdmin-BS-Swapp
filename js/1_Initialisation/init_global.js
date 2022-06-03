@@ -521,6 +521,255 @@ function init_data() {
         data.push(data_temp);
     }
 
+    // Mesh tête
+    mesh.tete = {};
+    for (let i in [0,1]) {
+        [mesh.tete.x,mesh.tete.y,mesh.tete.z] = ellipsoid(0,0,1.5*patient.Htronc+0.5*patient.Ltete,patient.ltete,patient.ltete,patient.Ltete,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.tete.y.flat(),
+            y: mesh.tete.x.flat(),
+            z: mesh.tete.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    // Mesh epaule
+    mesh.epaule = {};
+    for (let i in [0,1]) {
+        [mesh.epaule.x,mesh.epaule.y,mesh.epaule.z] = ellipsoid(0,0,1.5*patient.Htronc-5/8*patient.lbassin,patient.lbassin,patient.Lepaule,patient.lbassin,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.epaule.x.flat(),
+            y: mesh.epaule.y.flat(),
+            z: mesh.epaule.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    // Mesh bras
+    mesh.brasD = {};
+    for (let i in [0,1]) {
+        [mesh.brasD.x,mesh.brasD.y,mesh.brasD.z] = ellipsoid(0,-0.5*(patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin,patient.pbras,patient.Lbras,patient.lbras,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.brasD.x.flat(),
+            y: mesh.brasD.y.flat(),
+            z: mesh.brasD.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    mesh.brasG = {};
+    for (let i in [0,1]) {
+        [mesh.brasG.x,mesh.brasG.y,mesh.brasG.z] = ellipsoid(0,0.5*(patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin,patient.pbras,patient.Lbras,patient.lbras,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: 0.6,
+            x: mesh.brasG.x.flat(),
+            y: mesh.brasG.y.flat(),
+            z: mesh.brasG.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    // Mesh avtBras
+    mesh.avtBrasD = {};
+    for (let i in [0,1]) {
+        [mesh.avtBrasD.x,mesh.avtBrasD.y,mesh.avtBrasD.z] = ellipsoid(0,-(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.LavtBras,patient.pavtBras,patient.lavtBras,patient.LavtBras,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.avtBrasD.x.flat(),
+            y: mesh.avtBrasD.y.flat(),
+            z: mesh.avtBrasD.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    mesh.avtBrasG = {};
+    for (let i in [0,1]) {
+        [mesh.avtBrasG.x,mesh.avtBrasG.y,mesh.avtBrasG.z] = ellipsoid(0,(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.LavtBras,patient.pavtBras,patient.lavtBras,patient.LavtBras,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.avtBrasG.x.flat(),
+            y: mesh.avtBrasG.y.flat(),
+            z: mesh.avtBrasG.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    // Mesh main
+    mesh.mainD = {};
+    for (let i in [0,1]) {
+        [mesh.mainD.x,mesh.mainD.y,mesh.mainD.z] = ellipsoid(0,-(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.Lmain-patient.LavtBras,patient.pavtBras/2,patient.lavtBras/2,patient.Lmain,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.mainD.x.flat(),
+            y: mesh.mainD.y.flat(),
+            z: mesh.mainD.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    mesh.mainG = {};
+    for (let i in [0,1]) {
+        [mesh.mainG.x,mesh.mainG.y,mesh.mainG.z] = ellipsoid(0,(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.Lmain-patient.LavtBras,patient.pavtBras/2,patient.lavtBras/2,patient.Lmain,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.mainG.x.flat(),
+            y: mesh.mainG.y.flat(),
+            z: mesh.mainG.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    // Mesh bassin
+    mesh.bassin = {};
+    for (let i in [0,1]) {
+        [mesh.bassin.x,mesh.bassin.y,mesh.bassin.z] = ellipsoid(0,0,0.5*patient.Htronc,patient.lbassin,patient.Lbassin,patient.lbassin,mesh_accuracy,i);
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.bassin.x.flat(),
+            y: mesh.bassin.y.flat(),
+            z: mesh.bassin.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    // Mesh cuisse
+    mesh.cuisseD = {};
+    for (let i in [0,1]) {
+        [mesh.cuisseD.x,mesh.cuisseD.y,mesh.cuisseD.z] =
+            ellipsoid(
+            0.5*patient.Lcuisse,-(0.5*patient.Lbassin),0.5*patient.Htronc,
+            patient.Lcuisse,patient.lcuisse,patient.lcuisse,
+            mesh_accuracy,i
+        );
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.cuisseD.x.flat(),
+            y: mesh.cuisseD.y.flat(),
+            z: mesh.cuisseD.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    mesh.cuisseG = {};
+    for (let i in [0,1]) {
+        [mesh.cuisseG.x,mesh.cuisseG.y,mesh.cuisseG.z] =
+            ellipsoid(
+                0.5*patient.Lcuisse,(0.5*patient.Lbassin),0.5*patient.Htronc,
+                patient.Lcuisse,patient.lcuisse,patient.lcuisse,
+                mesh_accuracy,i
+            );
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.cuisseG.x.flat(),
+            y: mesh.cuisseG.y.flat(),
+            z: mesh.cuisseG.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+
+    // Mesh tibia
+    mesh.tibiaD = {};
+    for (let i in [0,1]) {
+        [mesh.tibiaD.x,mesh.tibiaD.y,mesh.tibiaD.z] =
+            ellipsoid(
+                patient.Lcuisse,-(0.5*patient.Lbassin),0.5*(patient.Htronc-patient.Ltibia),
+                patient.ltibia,patient.ltibia,patient.Ltibia,
+                mesh_accuracy,i
+            );
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.tibiaD.x.flat(),
+            y: mesh.tibiaD.y.flat(),
+            z: mesh.tibiaD.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    mesh.tibiaG = {};
+    for (let i in [0,1]) {
+        [mesh.tibiaG.x,mesh.tibiaG.y,mesh.tibiaG.z] =
+            ellipsoid(
+                patient.Lcuisse,(0.5*patient.Lbassin),0.5*(patient.Htronc-patient.Ltibia),
+                patient.ltibia,patient.ltibia,patient.Ltibia,
+                mesh_accuracy,i
+            );
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.tibiaG.x.flat(),
+            y: mesh.tibiaG.y.flat(),
+            z: mesh.tibiaG.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    // Mesh pied
+    mesh.piedD = {};
+    for (let i in [0,1]) {
+        [mesh.piedD.x,mesh.piedD.y,mesh.piedD.z] =
+            ellipsoid(
+                patient.Lcuisse+0.5*patient.Lpied,-(0.5*patient.Lbassin),0.5*(patient.Htronc)-patient.Ltibia,
+                patient.Lpied,patient.lpied,patient.lpied,
+                mesh_accuracy,i
+            );
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.piedD.x.flat(),
+            y: mesh.piedD.y.flat(),
+            z: mesh.piedD.z.flat(),
+        }
+        data.push(data_temp);
+    }
+
+    mesh.piedG = {};
+    for (let i in [0,1]) {
+        [mesh.piedG.x,mesh.piedG.y,mesh.piedG.z] =
+            ellipsoid(
+                patient.Lcuisse+0.5*patient.Lpied,(0.5*patient.Lbassin),0.5*(patient.Htronc)-patient.Ltibia,
+                patient.Lpied,patient.lpied,patient.lpied,
+                mesh_accuracy,i
+            );
+
+        data_temp = {
+            type: 'mesh3d',
+            opacity: mesh_opacity,
+            x: mesh.piedG.x.flat(),
+            y: mesh.piedG.y.flat(),
+            z: mesh.piedG.z.flat(),
+        }
+        data.push(data_temp);
+    }
     console.log(data)
     return data;
 }
