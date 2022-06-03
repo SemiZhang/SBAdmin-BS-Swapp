@@ -1,4 +1,10 @@
+data = Array();
+init_global();
 
+function init_global() {
+    let data = init_data();
+    let layout = init_layout();
+    Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
 }
 
 
@@ -172,10 +178,6 @@ function init_data() {
         }
     }
 
-
-
-
-    let data = Array();
     // Plotly Data
 
     let color = {
@@ -616,11 +618,6 @@ function init_layout() {
     return [layout, config];
 }
 
-function init_global() {
-    let data = init_data();
-    let layout = init_layout();
-    Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
-}
 
 // Animation Plotly
 
