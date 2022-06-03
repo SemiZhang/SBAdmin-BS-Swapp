@@ -68,6 +68,7 @@ function cercle(centre,rayon,side,MC_distance){
     point = transpose(point);
     return point;
 }
+// Fonction principale
 
 function init_data() {
 
@@ -241,6 +242,7 @@ function init_data() {
 
 
     let data = Array();
+    // Plotly Data
 
     let color = {
         siege: {
@@ -254,7 +256,7 @@ function init_data() {
     }
 
     let width = {
-        roue:{
+        roue: {
             avt: 10,
             arr: 14,
             mc: 8,
@@ -280,7 +282,7 @@ function init_data() {
             data.push(data_temp);
         }
     }
-// Barres des Roues
+    // Barres des Roues
     for (let a = 0; a < 4; a += 1) {
         for (let i = 0; i < (data[a].x.length - 1) / 2; i += 2) {
             let data_temp = {
@@ -301,7 +303,7 @@ function init_data() {
         }
     }
 
-// Assise
+    // Assise
     /*
     let data_temp = {
         type: 'mesh3d',
@@ -387,6 +389,7 @@ function init_data() {
         data.push(data_temp);
     }
 
+    // Potence
     let potence_connection = ['AvtGauche1', 'AvtDroit1'];
     for (let i in points_chair.siege.potence) {
         data_temp = {
@@ -591,7 +594,7 @@ function init_layout() {
         responsive: true,
     };
 
-    return [layout,config];
+    return [layout, config];
 }
 
 function init_global() {
