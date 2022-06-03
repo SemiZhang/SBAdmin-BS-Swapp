@@ -1,4 +1,3 @@
-data = Array();
 import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
 import {reglage_patient} from "/js/1_Initialisation/init_coord.js";
 import {patient} from "/js/1_Initialisation/init_coord.js";
@@ -9,9 +8,9 @@ export let repere_patient={};
 export let data = Array();
 init_global();
 
-function init_global() {
-    let data = init_data();
 export function init_global() {
+    data = Array();
+    init_data();
     let layout = init_layout();
     Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
 }
@@ -20,7 +19,16 @@ export function init_global() {
 // Fonction principale
 
 export function init_data() {
+    // Fauteuil
+    cal_repere_chair();
+    cal_points_chair();
+    cal_mesh_chair();
 
+    // Patient
+    cal_repere_patient();
+    cal_mesh_patient();
+}
+function cal_repere_chair() {
     repere_chair = {
         siege: {
             assise: cal_repere_assise(reglage_chair.roue.arr.deport, reglage_chair.siege.assise.hauteur, reglage_chair.siege.assise.profondeur, reglage_chair.siege.assise.angle),
@@ -44,8 +52,10 @@ export function init_data() {
     };
     repere_chair.siege.repose = math.multiply(math.multiply(repere_chair.siege.assise, repere_chair.siege.potence), repere_chair.siege.repose);
     repere_chair.siege.potence = math.multiply(repere_chair.siege.assise, repere_chair.siege.potence);
+}
 
 
+function cal_points_chair() {
     points_chair = {
         siege: {
             assise: {
@@ -186,9 +196,11 @@ export function init_data() {
             points_chair.siege.repose[i][i2] = math.multiply(repere_chair.siege.repose, points_chair.siege.repose[i][i2]);
         }
     }
+}
 
     // Plotly Data
 
+function cal_mesh_chair() {
     let color = {
         siege: {
             assise: 'red',
@@ -364,17 +376,19 @@ export function init_data() {
         }
         data.push(data_temp);
     }
+}
 
 
 
     // Patient
 
+function cal_repere_patient() {
     // Repere Patient
     let thetaD = reglage_chair.siege.dossier.angle;
     let thetaBras = reglage_patient.bras.angle;
     let thetaP = reglage_chair.siege.potence.angle;
 
-    repere_patient={};
+
 
     let MP_R0_Rassise_construction = repere_chair.siege.assise;
     let rotx_90 = matrice_Rotation('x',90,4);
@@ -477,13 +491,17 @@ export function init_data() {
     MP_R0_RtibiaG_visualisation[1][3] = -1 * MP_R0_RtibiaG_visualisation[1][3];
     repere_patient.tibiaG=MP_R0_RtibiaG_visualisation;
     //console.log(repere_patient.tibiaG);
+}
 
 
+function cal_mesh_patient() {
     // Mesh
-    mesh_accuracy = 25;
-    mesh_opacity = 0.6;
-    
-    mesh = {};
+    let mesh_accuracy = 8;
+    let mesh_opacity = 0.6;
+
+    let mesh = {};
+    let data_temp = {};
+
 
     // Mesh Tronc
     mesh.tronc = {};
