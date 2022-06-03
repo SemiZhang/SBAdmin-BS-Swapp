@@ -358,7 +358,7 @@ function init_data() {
 
 
 
-
+    // Patient
 
     // Repere Patient
     let thetaD = reglage_chair.siege.dossier.angle;
@@ -938,6 +938,8 @@ function matrice_Translation(x,y,z) {
     ]
 }
 
+// Config Plotly
+
 function init_layout() {
     var layout = {
         margin: {t: 0, l: 0, b: 0, r: 0},
@@ -1038,5 +1040,3 @@ function rotation() {
     }
 }
 // rotation();
-
-// require("/js/init_slider.js")
