@@ -150,11 +150,11 @@ export function init_data() {
 
     for (let i in points_chair.roue) {
         for (let i2 in points_chair.roue[i]) {
-            points_chair.roue[i][i2] = transpose(points_chair.roue[i][i2]);
+            points_chair.roue[i][i2] = matrice_transpose(points_chair.roue[i][i2]);
             for (let i3 in points_chair.roue[i][i2]) {
                 points_chair.roue[i][i2][i3] = math.multiply(repere_chair.roue[i][i2], points_chair.roue[i][i2][i3]);
             }
-            points_chair.roue[i][i2] = transpose(points_chair.roue[i][i2]);
+            points_chair.roue[i][i2] = matrice_transpose(points_chair.roue[i][i2]);
         }
     }
 
@@ -335,18 +335,18 @@ export function init_data() {
             line: {
                 width: 3,
             },
-            x: transpose(points_chair.siege.repose[i])[0],
-            y: math.multiply(transpose(points_chair.siege.repose[i])[2], -1),
-            z: transpose(points_chair.siege.repose[i])[1],
+            x: matrice_transpose(points_chair.siege.repose[i])[0],
+            y: math.multiply(matrice_transpose(points_chair.siege.repose[i])[2], -1),
+            z: matrice_transpose(points_chair.siege.repose[i])[1],
         }
         data.push(data_temp);
     }
 
     // Chassis
     let chassisConnection = Array();
-    chassisConnection.push(transpose([points_chair.roue_centre.arr.g, points_chair.roue_centre.arr.d]));
-    chassisConnection.push(transpose([points_chair.siege.assise.ArrGauche1, points_chair.roue_centre.arr.g, points_chair.siege.fourche.g, points_chair.siege.fourcheBas.g]));
-    chassisConnection.push(transpose([points_chair.siege.assise.ArrDroit1, points_chair.roue_centre.arr.d, points_chair.siege.fourche.d, points_chair.siege.fourcheBas.d]));
+    chassisConnection.push(matrice_transpose([points_chair.roue_centre.arr.g, points_chair.roue_centre.arr.d]));
+    chassisConnection.push(matrice_transpose([points_chair.siege.assise.ArrGauche1, points_chair.roue_centre.arr.g, points_chair.siege.fourche.g, points_chair.siege.fourcheBas.g]));
+    chassisConnection.push(matrice_transpose([points_chair.siege.assise.ArrDroit1, points_chair.roue_centre.arr.d, points_chair.siege.fourche.d, points_chair.siege.fourcheBas.d]));
     for (let i in chassisConnection) {
         data_temp = {
             type: 'scatter3d',
@@ -848,7 +848,7 @@ function cal_repere_repose(angleRepose) {
 
 // Fonction math
 
-function transpose(input) {
+function matrice_transpose(input) {
     return input[0].map(function (col, i) {
         return input.map(function (row) {
             return row[i];
@@ -877,7 +877,7 @@ function cercle(centre, rayon, side, MC_distance) {
         let z = centre[2] + (side * MC_distance);
         point.push([x, y, z]);
     }
-    point = transpose(point);
+    point = matrice_transpose(point);
     return point;
 }
 
@@ -930,9 +930,9 @@ function matrice_Rotation(axe,angle_deg,dim) {
 
     if (dim == 4){
         Matrice_Rotation.push([0,0,0]);
-        Matrice_Rotation=transpose(Matrice_Rotation);
+        Matrice_Rotation=matrice_transpose(Matrice_Rotation);
         Matrice_Rotation.push([0,0,0,1]);
-        Matrice_Rotation=transpose(Matrice_Rotation);
+        Matrice_Rotation=matrice_transpose(Matrice_Rotation);
     }
 
     return Matrice_Rotation;
