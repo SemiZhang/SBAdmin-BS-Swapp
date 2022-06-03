@@ -74,3 +74,35 @@ for (let i = 1; i < x_mesh.flat().length-2; i++) {
 }
 // console.log(x_flat);
 
+
+
+// Mesh Assise
+let data_temp = {
+    type: 'mesh3d',
+    color : color.siege.assise,
+    opacity: 1,
+    flatshading: true, // important
+    lighting: {
+        facenormalsepsilon: 0 // important
+    },
+    x: Array(),
+    y: Array(),
+    z: Array(),
+    i: [0, 2, 1, 3, 0, 1, 4, 5, 0, 0, 3, 2],
+    j: [2, 4, 3, 5, 1, 2, 6, 6, 4, 1, 6, 3],
+    k: [4, 6, 5, 7, 2, 3, 5, 7, 5, 5, 7, 6],
+}
+let data_temp = {
+    type: 'scatter3d',
+    surfaceaxis: 2,
+    // color : color.siege.assise,
+    // opacity: 1,
+    x: Array(),
+    y: Array(),
+    z: Array(),
+}
+for (let i in points.siege.assise) {
+    data_temp.x.push(points.siege.assise[i][0]);
+    data_temp.y.push(-points.siege.assise[i][2]);
+    data_temp.z.push(points.siege.assise[i][1]);
+}
