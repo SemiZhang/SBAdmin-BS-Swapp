@@ -1,73 +1,7 @@
-function transpose(input){
-    return input[0].map(function(col, i) {
-        return input.map(function(row) {
-            return row[i];
-        });
-    });
-};
 
-function cal_repere_roue(side,deportX,deportY,deportZ,theta) {
-    //repere_roue.m
-    theta = theta * Math.PI / 180;
-    let centre = [deportX, deportY, side * deportZ];
-    let vectX = [1, 0, 0];
-    let vectY = [0, Math.cos(-side * theta), Math.sin(-side * theta)];
-    let vectZ = [0, -Math.sin(-side * theta), Math.cos(-side * theta)];
-
-    let rep=transpose([vectX,vectY,vectZ,centre]);
-    rep.push([0,0,0,1]);
-    return rep;
 }
 
-function cal_repere_assise(deport,hauteurSiege,profondeurSiege,angleSiege){
-    let theta = angleSiege*Math.PI/180;
-    let centre = [deport,hauteurSiege-profondeurSiege*Math.sin(theta),0];
-    let vectX = [Math.cos( theta),Math.sin(theta),0];
-    let vectY = [-Math.sin( theta),Math.cos(theta),0];
-    let vectZ = [0,0,1];
 
-    let rep=transpose([vectX,vectY,vectZ,centre]);
-    rep.push([0,0,0,1]);
-    return rep;
-}
-
-function cal_repere_potence(profondeurSiege,longueurPotence,anglePotence){
-    let theta = (anglePotence-90)*Math.PI/180;
-    let centre = [profondeurSiege+longueurPotence*Math.sin(theta),-longueurPotence*Math.cos(theta),0];
-    let vectX = [Math.cos(theta),Math.sin(theta),0];
-    let vectY = [-Math.sin(theta),Math.cos(theta),0];
-    let vectZ = [0,0,1];
-
-    let rep=transpose([vectX,vectY,vectZ,centre]);
-    rep.push([0,0,0,1]);
-    return rep;
-}
-
-function cal_repere_repose(angleRepose){
-    let theta = (90-angleRepose)*Math.PI/180;
-    let centre = [0,0,0];
-    let vectX = [Math.cos(theta),Math.sin(theta),0];
-    let vectY = [-Math.sin(theta),Math.cos(theta),0];
-    let vectZ = [0,0,1];
-
-    let rep=transpose([vectX,vectY,vectZ,centre]);
-    rep.push([0,0,0,1]);
-    return rep;
-}
-
-function cercle(centre,rayon,side,MC_distance){
-    let point=Array()
-    for (let i=0;i<=360;i+=10) {
-        // console.log(i);
-        let theta = i * Math.PI / 180;
-        x = centre[0] + rayon * Math.cos(theta);
-        y = centre[1] + rayon * Math.sin(theta);
-        z = centre[2] + (side * MC_distance);
-        point.push([x,y,z]);
-    }
-    point = transpose(point);
-    return point;
-}
 // Fonction principale
 
 function init_data() {
@@ -500,6 +434,91 @@ function init_data() {
     return data;
 }
 
+// Calcul Repere
+
+function cal_repere_roue(side, deportX, deportY, deportZ, theta) {
+    //repere_roue.m
+    theta = theta * Math.PI / 180;
+    let centre = [deportX, deportY, side * deportZ];
+    let vectX = [1, 0, 0];
+    let vectY = [0, Math.cos(-side * theta), Math.sin(-side * theta)];
+    let vectZ = [0, -Math.sin(-side * theta), Math.cos(-side * theta)];
+
+    let rep = math.transpose([vectX, vectY, vectZ, centre]);
+    rep.push([0, 0, 0, 1]);
+    return rep;
+}
+
+function cal_repere_assise(deport, hauteurSiege, profondeurSiege, angleSiege) {
+    let theta = angleSiege * Math.PI / 180;
+    let centre = [deport, hauteurSiege - profondeurSiege * Math.sin(theta), 0];
+    let vectX = [Math.cos(theta), Math.sin(theta), 0];
+    let vectY = [-Math.sin(theta), Math.cos(theta), 0];
+    let vectZ = [0, 0, 1];
+
+    let rep = math.transpose([vectX, vectY, vectZ, centre]);
+    rep.push([0, 0, 0, 1]);
+    return rep;
+}
+
+function cal_repere_potence(profondeurSiege, longueurPotence, anglePotence) {
+    let theta = (anglePotence - 90) * Math.PI / 180;
+    let centre = [profondeurSiege + longueurPotence * Math.sin(theta), -longueurPotence * Math.cos(theta), 0];
+    let vectX = [Math.cos(theta), Math.sin(theta), 0];
+    let vectY = [-Math.sin(theta), Math.cos(theta), 0];
+    let vectZ = [0, 0, 1];
+
+    let rep = math.transpose([vectX, vectY, vectZ, centre]);
+    rep.push([0, 0, 0, 1]);
+    return rep;
+}
+
+function cal_repere_repose(angleRepose) {
+    let theta = (90 - angleRepose) * Math.PI / 180;
+    let centre = [0, 0, 0];
+    let vectX = [Math.cos(theta), Math.sin(theta), 0];
+    let vectY = [-Math.sin(theta), Math.cos(theta), 0];
+    let vectZ = [0, 0, 1];
+
+    let rep = math.transpose([vectX, vectY, vectZ, centre]);
+    rep.push([0, 0, 0, 1]);
+    return rep;
+}
+
+// Fonction math
+
+function transpose(input) {
+    return input[0].map(function (col, i) {
+        return input.map(function (row) {
+            return row[i];
+        });
+    });
+};
+
+function makeArr(startValue, stopValue, cardinality) {
+    var arr = [];
+    var step = (stopValue - startValue) / (cardinality - 1);
+    for (var i = 0; i < cardinality; i++) {
+        arr.push(startValue + (step * i));
+    }
+    return arr;
+}
+
+// Fonction Graph
+
+function cercle(centre, rayon, side, MC_distance) {
+    let point = Array()
+    for (let i = 0; i <= 360; i += 10) {
+        // console.log(i);
+        let theta = i * Math.PI / 180;
+        let x = centre[0] + rayon * Math.cos(theta);
+        let y = centre[1] + rayon * Math.sin(theta);
+        let z = centre[2] + (side * MC_distance);
+        point.push([x, y, z]);
+    }
+    point = transpose(point);
+    return point;
+}
 function matrice_Rotation(axe,angle_deg,dim) {
     let angle_rad = angle_deg * Math.PI / 180;
     let Matrice_Rotation=[];
