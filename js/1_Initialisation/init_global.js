@@ -510,7 +510,21 @@ function init_data() {
     // Mesh Tronc
     mesh.tronc = {};
     for (let i in [0,1]) {
-        [mesh.tronc.x,mesh.tronc.y,mesh.tronc.z] = ellipsoid(0,0,patient.Htronc,patient.ltronc,patient.ptronc,patient.Htronc,mesh_accuracy,i);
+        [mesh.tronc.x,mesh.tronc.y,mesh.tronc.z] = ellipsoid(0,0,0,patient.ptronc,patient.Htronc,patient.ltronc,mesh_accuracy,i);
+
+        for (let i1 in mesh.tronc.x){
+            for (let i2 in mesh.tronc.x[i1]) {
+                let vector_rotate = math.multiply(repere_patient.tronc,[mesh.tronc.x[i1][i2],mesh.tronc.y[i1][i2],mesh.tronc.z[i1][i2],1])
+                mesh.tronc.x[i1][i2] = vector_rotate[0];
+                mesh.tronc.y[i1][i2] = vector_rotate[1];
+                mesh.tronc.z[i1][i2] = vector_rotate[2];
+            }
+        }
+        for (let i1 in mesh.tronc.y) {
+            for (let i2 in mesh.tronc.y[i1]) {
+                mesh.tronc.z[i1][i2] += patient.Htronc/2;
+            }
+        }
         data_temp = {
             type: 'mesh3d',
             opacity: mesh_opacity,
