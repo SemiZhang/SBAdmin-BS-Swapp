@@ -20,10 +20,8 @@ function ValueChanged() {
 // import {init_data} from "/js/1_Initialisation/init_global.js";
 // import {init_layout} from "/js/1_Initialisation/init_global.js";
 // import {init_global} from "/js/1_Initialisation/init_global.js";
-
-//todo: use loop to bind
-import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
-import {init_global} from "/js/1_Initialisation/init_global.js";
+// import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
+// import {init_global} from "/js/1_Initialisation/init_global.js";
 
 let allSliders = Array();
 for (let i1 in reglage_chair) {

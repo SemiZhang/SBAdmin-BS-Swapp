@@ -1,4 +1,4 @@
-export let reglage_chair = {
+let reglage_chair = {
     siege: {
         assise:{
             largeur: 35,
@@ -40,7 +40,7 @@ export let reglage_chair = {
     },
 };
 
-export let reglage_patient = {
+let reglage_patient = {
     bras:{
         angle: 45,
     },
@@ -50,7 +50,7 @@ export let reglage_patient = {
 }
 
 let taille = 175;
-export let patient = {
+let patient = {
     taille: taille,
     Lpied: 0.146*taille,
     Ltibia: 0.246*taille,

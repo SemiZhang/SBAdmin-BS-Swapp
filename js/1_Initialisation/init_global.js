@@ -1,14 +1,14 @@
-import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
-import {reglage_patient} from "/js/1_Initialisation/init_coord.js";
-import {patient} from "/js/1_Initialisation/init_coord.js";
+// import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
+// import {reglage_patient} from "/js/1_Initialisation/init_coord.js";
+// import {patient} from "/js/1_Initialisation/init_coord.js";
 
-export let repere_chair = Array();
-export let points_chair = Array();
-export let repere_patient={};
-export let data = Array();
+let repere_chair = Array();
+let points_chair = Array();
+let repere_patient={};
+let data = Array();
 init_global();
 
-export function init_global() {
+function init_global() {
     data = Array();
     init_data();
     let layout = init_layout();
@@ -18,7 +18,7 @@ export function init_global() {
 
 // Fonction principale
 
-export function init_data() {
+function init_data() {
     // Fauteuil
     cal_repere_chair();
     cal_points_chair();
