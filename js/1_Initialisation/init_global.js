@@ -581,7 +581,7 @@ function cal_repere_patient() {
 
 function cal_mesh_patient() {
     // Mesh
-    let mesh_accuracy = 12;
+    let mesh_accuracy = 8;
     let mesh_opacity = 0.6;
     let mesh_lineWidth = 0;
 
