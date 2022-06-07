@@ -496,7 +496,7 @@ function cal_repere_patient() {
 
 function cal_mesh_patient() {
     // Mesh
-    let mesh_accuracy = 8;
+    let mesh_accuracy = 12;
     let mesh_opacity = 0.6;
     let mesh_lineWidth = 0;
 
@@ -536,13 +536,27 @@ function cal_mesh_patient() {
     // Mesh tête
     mesh.tete = {};
     for (let i in [0,1]) {
-        [mesh.tete.x,mesh.tete.y,mesh.tete.z] = ellipsoid(0,0,1.5*patient.Htronc+0.5*patient.Ltete,patient.ltete,patient.ltete,patient.Ltete,mesh_accuracy,i);
+        [mesh.tete.x,mesh.tete.y,mesh.tete.z] = ellipsoid(0,patient.Htronc+0.5*patient.Ltete,0,patient.ltete,patient.Ltete,patient.ltete,mesh_accuracy,i);
+
+        for (let i1 in mesh.tete.x){
+            for (let i2 in mesh.tete.x[i1]) {
+                let vector_rotate = math.multiply(repere_patient.tronc,[mesh.tete.x[i1][i2],mesh.tete.y[i1][i2],mesh.tete.z[i1][i2],1])
+                mesh.tete.x[i1][i2] = vector_rotate[0];
+                mesh.tete.y[i1][i2] = vector_rotate[1];
+                mesh.tete.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
-            x: mesh.tete.y.flat(),
-            y: mesh.tete.x.flat(),
+            x: mesh.tete.x.flat(),
+            y: mesh.tete.y.flat(),
             z: mesh.tete.z.flat(),
         }
         data.push(data_temp);
@@ -551,10 +565,24 @@ function cal_mesh_patient() {
     // Mesh epaule
     mesh.epaule = {};
     for (let i in [0,1]) {
-        [mesh.epaule.x,mesh.epaule.y,mesh.epaule.z] = ellipsoid(0,0,1.5*patient.Htronc-5/8*patient.lbassin,patient.lbassin,patient.Lepaule,patient.lbassin,mesh_accuracy,i);
+        [mesh.epaule.x,mesh.epaule.y,mesh.epaule.z] = ellipsoid(0,patient.Htronc-5/8*patient.lbassin,0,patient.lbassin,patient.lbassin,patient.Lepaule,mesh_accuracy,i);
+
+        for (let i1 in mesh.epaule.x){
+            for (let i2 in mesh.epaule.x[i1]) {
+                let vector_rotate = math.multiply(repere_patient.tronc,[mesh.epaule.x[i1][i2],mesh.epaule.y[i1][i2],mesh.epaule.z[i1][i2],1])
+                mesh.epaule.x[i1][i2] = vector_rotate[0];
+                mesh.epaule.y[i1][i2] = vector_rotate[1];
+                mesh.epaule.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.epaule.x.flat(),
             y: mesh.epaule.y.flat(),
@@ -566,10 +594,24 @@ function cal_mesh_patient() {
     // Mesh bras
     mesh.brasD = {};
     for (let i in [0,1]) {
-        [mesh.brasD.x,mesh.brasD.y,mesh.brasD.z] = ellipsoid(0,-0.5*(patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin,patient.pbras,patient.Lbras,patient.lbras,mesh_accuracy,i);
+        [mesh.brasD.x,mesh.brasD.y,mesh.brasD.z] = ellipsoid(0,-0.5*patient.Lbras,0,patient.lbras,patient.Lbras,patient.pbras,mesh_accuracy,i);
+
+        for (let i1 in mesh.brasD.x){
+            for (let i2 in mesh.brasD.x[i1]) {
+                let vector_rotate = math.multiply(repere_patient.brasD,[mesh.brasD.x[i1][i2],mesh.brasD.y[i1][i2],mesh.brasD.z[i1][i2],1])
+                mesh.brasD.x[i1][i2] = vector_rotate[0];
+                mesh.brasD.y[i1][i2] = vector_rotate[1];
+                mesh.brasD.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.brasD.x.flat(),
             y: mesh.brasD.y.flat(),
@@ -580,11 +622,25 @@ function cal_mesh_patient() {
 
     mesh.brasG = {};
     for (let i in [0,1]) {
-        [mesh.brasG.x,mesh.brasG.y,mesh.brasG.z] = ellipsoid(0,0.5*(patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin,patient.pbras,patient.Lbras,patient.lbras,mesh_accuracy,i);
+        [mesh.brasG.x,mesh.brasG.y,mesh.brasG.z] = ellipsoid(0,-0.5*patient.Lbras,0,patient.lbras,patient.Lbras,patient.pbras,mesh_accuracy,i);
+
+        for (let i1 in mesh.brasG.x){
+            for (let i2 in mesh.brasG.x[i1]) {
+                let vector_rotate = math.multiply(repere_patient.brasG,[mesh.brasG.x[i1][i2],mesh.brasG.y[i1][i2],mesh.brasG.z[i1][i2],1])
+                mesh.brasG.x[i1][i2] = vector_rotate[0];
+                mesh.brasG.y[i1][i2] = vector_rotate[1];
+                mesh.brasG.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
-            opacity: 0.6,
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
+            opacity: mesh_opacity,
             x: mesh.brasG.x.flat(),
             y: mesh.brasG.y.flat(),
             z: mesh.brasG.z.flat(),
@@ -595,10 +651,24 @@ function cal_mesh_patient() {
     // Mesh avtBras
     mesh.avtBrasD = {};
     for (let i in [0,1]) {
-        [mesh.avtBrasD.x,mesh.avtBrasD.y,mesh.avtBrasD.z] = ellipsoid(0,-(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.LavtBras,patient.pavtBras,patient.lavtBras,patient.LavtBras,mesh_accuracy,i);
+        [mesh.avtBrasD.x,mesh.avtBrasD.y,mesh.avtBrasD.z] = ellipsoid(0,-0.5*(patient.LavtBras+patient.Lmain),0,patient.lavtBras,patient.LavtBras,patient.pavtBras,mesh_accuracy,i);
+
+        for (let i1 in mesh.avtBrasD.x){
+            for (let i2 in mesh.avtBrasD.x[i1]) {
+                let vector_rotate = math.multiply(repere_patient.avtBrasD,[mesh.avtBrasD.x[i1][i2],mesh.avtBrasD.y[i1][i2],mesh.avtBrasD.z[i1][i2],1])
+                mesh.avtBrasD.x[i1][i2] = vector_rotate[0];
+                mesh.avtBrasD.y[i1][i2] = vector_rotate[1];
+                mesh.avtBrasD.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.avtBrasD.x.flat(),
             y: mesh.avtBrasD.y.flat(),
@@ -609,10 +679,25 @@ function cal_mesh_patient() {
 
     mesh.avtBrasG = {};
     for (let i in [0,1]) {
-        [mesh.avtBrasG.x,mesh.avtBrasG.y,mesh.avtBrasG.z] = ellipsoid(0,(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.LavtBras,patient.pavtBras,patient.lavtBras,patient.LavtBras,mesh_accuracy,i);
+        [mesh.avtBrasG.x,mesh.avtBrasG.y,mesh.avtBrasG.z] = ellipsoid(0,-0.5*(patient.LavtBras+patient.Lmain),0,patient.lavtBras,patient.LavtBras,patient.pavtBras,mesh_accuracy,i);
+
+        for (let i1 in mesh.avtBrasG.x){
+            for (let i2 in mesh.avtBrasG.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.avtBrasG,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.avtBrasG,[mesh.avtBrasG.x[i1][i2],mesh.avtBrasG.y[i1][i2],mesh.avtBrasG.z[i1][i2],1])
+                mesh.avtBrasG.x[i1][i2] = vector_rotate[0];
+                mesh.avtBrasG.y[i1][i2] = vector_rotate[1];
+                mesh.avtBrasG.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.avtBrasG.x.flat(),
             y: mesh.avtBrasG.y.flat(),
@@ -624,10 +709,25 @@ function cal_mesh_patient() {
     // Mesh main
     mesh.mainD = {};
     for (let i in [0,1]) {
-        [mesh.mainD.x,mesh.mainD.y,mesh.mainD.z] = ellipsoid(0,-(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.Lmain-patient.LavtBras,patient.pavtBras/2,patient.lavtBras/2,patient.Lmain,mesh_accuracy,i);
+        [mesh.mainD.x,mesh.mainD.y,mesh.mainD.z] = ellipsoid(0,-(patient.LavtBras+patient.Lmain),0,0.5*patient.lavtBras,patient.Lmain,0.5*patient.pavtBras,mesh_accuracy,i);
+
+        for (let i1 in mesh.mainD.x){
+            for (let i2 in mesh.mainD.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.mainD,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.avtBrasD,[mesh.mainD.x[i1][i2],mesh.mainD.y[i1][i2],mesh.mainD.z[i1][i2],1])
+                mesh.mainD.x[i1][i2] = vector_rotate[0];
+                mesh.mainD.y[i1][i2] = vector_rotate[1];
+                mesh.mainD.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.mainD.x.flat(),
             y: mesh.mainD.y.flat(),
@@ -638,10 +738,25 @@ function cal_mesh_patient() {
 
     mesh.mainG = {};
     for (let i in [0,1]) {
-        [mesh.mainG.x,mesh.mainG.y,mesh.mainG.z] = ellipsoid(0,(0.5*patient.Lepaule+patient.Lbras),1.5*patient.Htronc-5/8*patient.lbassin-1/2*patient.Lmain-patient.LavtBras,patient.pavtBras/2,patient.lavtBras/2,patient.Lmain,mesh_accuracy,i);
+        [mesh.mainG.x,mesh.mainG.y,mesh.mainG.z] = ellipsoid(0,-(patient.LavtBras+patient.Lmain),0,0.5*patient.lavtBras,patient.Lmain,0.5*patient.pavtBras,mesh_accuracy,i);
+
+        for (let i1 in mesh.mainG.x){
+            for (let i2 in mesh.mainG.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.mainG,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.avtBrasG,[mesh.mainG.x[i1][i2],mesh.mainG.y[i1][i2],mesh.mainG.z[i1][i2],1])
+                mesh.mainG.x[i1][i2] = vector_rotate[0];
+                mesh.mainG.y[i1][i2] = vector_rotate[1];
+                mesh.mainG.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.mainG.x.flat(),
             y: mesh.mainG.y.flat(),
@@ -653,10 +768,25 @@ function cal_mesh_patient() {
     // Mesh bassin
     mesh.bassin = {};
     for (let i in [0,1]) {
-        [mesh.bassin.x,mesh.bassin.y,mesh.bassin.z] = ellipsoid(0,0,0.5*patient.Htronc,patient.lbassin,patient.Lbassin,patient.lbassin,mesh_accuracy,i);
+        [mesh.bassin.x,mesh.bassin.y,mesh.bassin.z] = ellipsoid(0,0,0,patient.lbassin,patient.lbassin,patient.Lbassin,mesh_accuracy,i);
+
+        for (let i1 in mesh.bassin.x){
+            for (let i2 in mesh.bassin.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.bassin,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.bassin,[mesh.bassin.x[i1][i2],mesh.bassin.y[i1][i2],mesh.bassin.z[i1][i2],1])
+                mesh.bassin.x[i1][i2] = vector_rotate[0];
+                mesh.bassin.y[i1][i2] = vector_rotate[1];
+                mesh.bassin.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.bassin.x.flat(),
             y: mesh.bassin.y.flat(),
@@ -670,13 +800,28 @@ function cal_mesh_patient() {
     for (let i in [0,1]) {
         [mesh.cuisseD.x,mesh.cuisseD.y,mesh.cuisseD.z] =
             ellipsoid(
-            0.5*patient.Lcuisse,-(0.5*patient.Lbassin),0.5*patient.Htronc,
-            patient.Lcuisse,patient.lcuisse,patient.lcuisse,
-            mesh_accuracy,i
-        );
+                -0.5*patient.Lcuisse,0,0,
+                patient.Lcuisse,patient.lcuisse,patient.lcuisse,
+                mesh_accuracy,i
+            );
+
+        for (let i1 in mesh.cuisseD.x){
+            for (let i2 in mesh.cuisseD.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.cuisseD,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.cuisseD,[mesh.cuisseD.x[i1][i2],mesh.cuisseD.y[i1][i2],mesh.cuisseD.z[i1][i2],1])
+                mesh.cuisseD.x[i1][i2] = vector_rotate[0];
+                mesh.cuisseD.y[i1][i2] = vector_rotate[1];
+                mesh.cuisseD.z[i1][i2] = vector_rotate[2];
+            }
+        }
 
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.cuisseD.x.flat(),
             y: mesh.cuisseD.y.flat(),
@@ -689,13 +834,28 @@ function cal_mesh_patient() {
     for (let i in [0,1]) {
         [mesh.cuisseG.x,mesh.cuisseG.y,mesh.cuisseG.z] =
             ellipsoid(
-                0.5*patient.Lcuisse,(0.5*patient.Lbassin),0.5*patient.Htronc,
+                -0.5*patient.Lcuisse,0,0,
                 patient.Lcuisse,patient.lcuisse,patient.lcuisse,
                 mesh_accuracy,i
             );
 
+        for (let i1 in mesh.cuisseG.x){
+            for (let i2 in mesh.cuisseG.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.cuisseG,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.cuisseG,[mesh.cuisseG.x[i1][i2],mesh.cuisseG.y[i1][i2],mesh.cuisseG.z[i1][i2],1])
+                mesh.cuisseG.x[i1][i2] = vector_rotate[0];
+                mesh.cuisseG.y[i1][i2] = vector_rotate[1];
+                mesh.cuisseG.z[i1][i2] = vector_rotate[2];
+            }
+        }
+
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.cuisseG.x.flat(),
             y: mesh.cuisseG.y.flat(),
@@ -710,13 +870,28 @@ function cal_mesh_patient() {
     for (let i in [0,1]) {
         [mesh.tibiaD.x,mesh.tibiaD.y,mesh.tibiaD.z] =
             ellipsoid(
-                patient.Lcuisse,-(0.5*patient.Lbassin),0.5*(patient.Htronc-patient.Ltibia),
-                patient.ltibia,patient.ltibia,patient.Ltibia,
+                0,-0.5*patient.Ltibia,0,
+                patient.ltibia,patient.Ltibia,patient.ltibia,
                 mesh_accuracy,i
             );
 
+        for (let i1 in mesh.tibiaD.x){
+            for (let i2 in mesh.tibiaD.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.tibiaD,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.tibiaD,[mesh.tibiaD.x[i1][i2],mesh.tibiaD.y[i1][i2],mesh.tibiaD.z[i1][i2],1])
+                mesh.tibiaD.x[i1][i2] = vector_rotate[0];
+                mesh.tibiaD.y[i1][i2] = vector_rotate[1];
+                mesh.tibiaD.z[i1][i2] = vector_rotate[2];
+            }
+        }
+
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.tibiaD.x.flat(),
             y: mesh.tibiaD.y.flat(),
@@ -729,13 +904,28 @@ function cal_mesh_patient() {
     for (let i in [0,1]) {
         [mesh.tibiaG.x,mesh.tibiaG.y,mesh.tibiaG.z] =
             ellipsoid(
-                patient.Lcuisse,(0.5*patient.Lbassin),0.5*(patient.Htronc-patient.Ltibia),
-                patient.ltibia,patient.ltibia,patient.Ltibia,
+                0,-0.5*patient.Ltibia,0,
+                patient.ltibia,patient.Ltibia,patient.ltibia,
                 mesh_accuracy,i
             );
 
+        for (let i1 in mesh.tibiaG.x){
+            for (let i2 in mesh.tibiaG.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.tibiaG,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.tibiaG,[mesh.tibiaG.x[i1][i2],mesh.tibiaG.y[i1][i2],mesh.tibiaG.z[i1][i2],1])
+                mesh.tibiaG.x[i1][i2] = vector_rotate[0];
+                mesh.tibiaG.y[i1][i2] = vector_rotate[1];
+                mesh.tibiaG.z[i1][i2] = vector_rotate[2];
+            }
+        }
+
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.tibiaG.x.flat(),
             y: mesh.tibiaG.y.flat(),
@@ -749,13 +939,28 @@ function cal_mesh_patient() {
     for (let i in [0,1]) {
         [mesh.piedD.x,mesh.piedD.y,mesh.piedD.z] =
             ellipsoid(
-                patient.Lcuisse+0.5*patient.Lpied,-(0.5*patient.Lbassin),0.5*(patient.Htronc)-patient.Ltibia,
+                0.25*patient.Lpied,-patient.Ltibia-0.25*patient.lpied,0,
                 patient.Lpied,patient.lpied,patient.lpied,
                 mesh_accuracy,i
             );
 
+        for (let i1 in mesh.piedD.x){
+            for (let i2 in mesh.piedD.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.piedD,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.tibiaD,[mesh.piedD.x[i1][i2],mesh.piedD.y[i1][i2],mesh.piedD.z[i1][i2],1])
+                mesh.piedD.x[i1][i2] = vector_rotate[0];
+                mesh.piedD.y[i1][i2] = vector_rotate[1];
+                mesh.piedD.z[i1][i2] = vector_rotate[2];
+            }
+        }
+
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.piedD.x.flat(),
             y: mesh.piedD.y.flat(),
@@ -768,13 +973,28 @@ function cal_mesh_patient() {
     for (let i in [0,1]) {
         [mesh.piedG.x,mesh.piedG.y,mesh.piedG.z] =
             ellipsoid(
-                patient.Lcuisse+0.5*patient.Lpied,(0.5*patient.Lbassin),0.5*(patient.Htronc)-patient.Ltibia,
+                0.25*patient.Lpied,-patient.Ltibia-0.25*patient.lpied,0,
                 patient.Lpied,patient.lpied,patient.lpied,
                 mesh_accuracy,i
             );
 
+        for (let i1 in mesh.piedG.x){
+            for (let i2 in mesh.piedG.x[i1]) {
+                // let repere_tronc = math.multiply(repere_patient.piedG,matrice_Translation(0,patient.Htronc/2,0));
+                let vector_rotate = math.multiply(repere_patient.tibiaG,[mesh.piedG.x[i1][i2],mesh.piedG.y[i1][i2],mesh.piedG.z[i1][i2],1])
+                mesh.piedG.x[i1][i2] = vector_rotate[0];
+                mesh.piedG.y[i1][i2] = vector_rotate[1];
+                mesh.piedG.z[i1][i2] = vector_rotate[2];
+            }
+        }
+
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: mesh_lineWidth,
+            },
             opacity: mesh_opacity,
             x: mesh.piedG.x.flat(),
             y: mesh.piedG.y.flat(),
