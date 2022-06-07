@@ -2,6 +2,88 @@
 // import {reglage_patient} from "/js/1_Initialisation/init_coord.js";
 // import {patient} from "/js/1_Initialisation/init_coord.js";
 
+let reglage_chair = {
+    siege: {
+        assise:{
+            largeur: 35,
+            profondeur: 40,
+            hauteur: 45,
+            angle: 10,
+            distanceFourche: 0,
+        },
+        dossier:{
+            largeur: 40,
+            hauteur: 20,
+            angle: 90,
+        },
+        potence:{
+            longueur: 35,
+            angle: 90,
+        },
+        repose:{
+            longueur: 15,
+            largeur: 5,
+            angle: 90,
+        }
+    },
+    roue: {
+        avt: {
+            deport: 50,
+            voie: 18,
+            rayon: 5,
+            carrosage: 0,
+        },
+        arr: {
+            deport: 0,
+            voie: 20,
+            rayon: 30,
+            carrosage: 0,
+            MC_distance: 3.5,
+            MC_rayon: 28,
+        },
+    },
+};
+
+let reglage_patient = {
+    bras:{
+        angle: 45,
+    },
+    main:{
+        angle: 0,
+    }
+}
+
+let taille = 175;
+let patient = {
+    taille: taille,
+    Lpied: 0.146*taille,
+    Ltibia: 0.246*taille,
+    Lcuisse: 0.245*taille,
+    Lbassin: 0.174*taille,
+    Htronc: 0.34*taille,
+    Lepaule: 0.259*taille,
+    Ltete:0.130*taille,
+    Lbras:0.136*taille,
+    LavtBras:0.146*taille,
+    Lmain:1/3*0.108*taille,
+
+    lbassin: 0.1*taille,
+    ltronc: 0.15*taille,
+}
+patient.ltete = 3/4*patient.Ltete;
+patient.lpied = 1/2*patient.ltete;
+
+patient.lcuisse = 0.3*patient.Lcuisse;
+patient.ltibia = 0.3*patient.Ltibia;
+patient.lbras = 0.4*patient.Lbras;
+patient.lavtBras = 0.4*patient.LavtBras;
+
+patient.ptronc = 1/3*patient.Htronc;
+patient.pbras = patient.lbras;
+patient.pavtBras = patient.lavtBras;
+
+patient.pointure = Math.ceil((patient.Lpied+1)*3/2);
+
 let repere_chair = Array();
 let points_chair = Array();
 let repere_patient={};
@@ -27,7 +109,15 @@ function init_data() {
     // Patient
     cal_repere_patient();
     cal_mesh_patient();
+
+    // let mesha = ndmesh([-1, 1, 0.2], [0, 10, 1]);
+    // console.log(mesha)
+
+    // console.log(repere_patient)
+    // console.log(data)
+    // return data;
 }
+
 function cal_repere_chair() {
     repere_chair = {
         siege: {
@@ -53,7 +143,6 @@ function cal_repere_chair() {
     repere_chair.siege.repose = math.multiply(math.multiply(repere_chair.siege.assise, repere_chair.siege.potence), repere_chair.siege.repose);
     repere_chair.siege.potence = math.multiply(repere_chair.siege.assise, repere_chair.siege.potence);
 }
-
 
 function cal_points_chair() {
     points_chair = {
@@ -197,8 +286,6 @@ function cal_points_chair() {
         }
     }
 }
-
-    // Plotly Data
 
 function cal_mesh_chair() {
     let color = {
@@ -378,10 +465,6 @@ function cal_mesh_chair() {
     }
 }
 
-
-
-    // Patient
-
 function cal_repere_patient() {
     // Repere Patient
     let thetaD = reglage_chair.siege.dossier.angle;
@@ -409,6 +492,7 @@ function cal_repere_patient() {
     let MP_R0_Rbassin_construction=math.transpose(MP_R0_Rassise_construction);
     MP_R0_Rbassin_construction[3] = Centre_glob;
     MP_R0_Rbassin_construction=math.transpose(MP_R0_Rbassin_construction);
+
     let MP_R0_Rbassin_visualisation=math.multiply(rotx_90,MP_R0_Rbassin_construction);
     repere_patient.bassin=MP_R0_Rbassin_visualisation;
 
@@ -427,6 +511,7 @@ function cal_repere_patient() {
     let Centre_loc_D = [0,hTronc-5/4*lBassin,LEpaule,1];
     let Centre_glob_D = math.multiply(MP_R0_Rtronc_construction,Centre_loc_D);
     let R1_D=matrice_Rotation('x',-thetaBras,3);
+    // console.log(R1_D)
 
     let MP_R0_RbrasD_org = matSlice(MP_R0_Rtronc_construction);
     MP_R0_RbrasD_org = math.multiply(R1_D,MP_R0_RbrasD_org);
@@ -435,6 +520,7 @@ function cal_repere_patient() {
     MP_R0_RbrasD_construction = math.transpose(MP_R0_RbrasD_construction);
     MP_R0_RbrasD_construction[3] = Centre_glob_D;
     MP_R0_RbrasD_construction = math.transpose(MP_R0_RbrasD_construction);
+    // console.log(MP_R0_RbrasD_construction)
 
     let MP_R0_RbrasD_visualisation = math.multiply(rotx_90,MP_R0_RbrasD_construction);
     repere_patient.brasD=MP_R0_RbrasD_visualisation;
@@ -493,7 +579,6 @@ function cal_repere_patient() {
     //console.log(repere_patient.tibiaG);
 }
 
-
 function cal_mesh_patient() {
     // Mesh
     let mesh_accuracy = 12;
@@ -504,7 +589,16 @@ function cal_mesh_patient() {
     let data_temp = {};
 
 
+    // repere_patient.tete = repere_patient.tronc;
+    // repere_patient.epaule = repere_patient.tronc;
+    //
+    // repere_patient.piedD = repere_patient.tibiaD;
+    // repere_patient.piedG = repere_patient.tibiaG;
+
     point_coude();
+    // repere_patient.mainD = repere_patient.avtBrasD;
+    // repere_patient.mainG = repere_patient.avtBrasG;
+
     // Mesh Tronc
     mesh.tronc = {};
     for (let i in [0,1]) {
@@ -519,6 +613,7 @@ function cal_mesh_patient() {
                 mesh.tronc.z[i1][i2] = vector_rotate[2];
             }
         }
+
         data_temp = {
             type: 'scatter3d',
             mode: 'lines',
@@ -1003,8 +1098,6 @@ function cal_mesh_patient() {
         }
         data.push(data_temp);
     }
-    console.log(data)
-    return data;
 }
 
 function ellipsoid(cx,cy,cz,x,y,z,accuracy,side) {
@@ -1037,6 +1130,11 @@ function ellipsoid(cx,cy,cz,x,y,z,accuracy,side) {
                 z_mesh[i1][i2] = Math.sin(theta_mesh[i1][i2]) * z/2 + cz;
             }
         }
+        // x_mesh_out.push(x_mesh);
+        // y_mesh_out.push(y_mesh);
+        // z_mesh_out.push(z_mesh);
+    // }
+
     return [x_mesh,y_mesh,z_mesh];
 }
 
@@ -1413,8 +1511,8 @@ function init_layout() {
                 showgrid: false,
                 // showline: false,
                 // zeroline: false,
-                showticklabels: false,
-                title: {text: ""},
+                // showticklabels: false,
+                // title: {text: ""},
                 // type: "linear"
             },
             yaxis: {
@@ -1502,3 +1600,32 @@ function rotation() {
     }
 }
 // rotation();
+
+function init_slider() {
+    let allSliders = Array();
+    for (let i1 in reglage_chair) {
+        for (let i2 in reglage_chair[i1]){
+            for (let i3 in reglage_chair [i1][i2]){
+                let slider = document.getElementById('RangeInput_'+i1+'_'+i2+'_'+i3);
+                let output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
+                try{
+                    slider.value = reglage_chair[i1][i2][i3];
+                    output.innerHTML = slider.value;
+                    slider.addEventListener("input",ValueChanged);
+                    function ValueChanged() {
+                        output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
+                        output.innerHTML = this.value;
+                        reglage_chair[i1][i2][i3] = this.value;
+                        init_global();
+                        // let data = init_data();
+                        // let layout = init_layout();
+                        // Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
+                    }
+                } catch(error) {
+                    console.log(error)
+                }
+            }
+        }
+    }
+}
+init_slider()
