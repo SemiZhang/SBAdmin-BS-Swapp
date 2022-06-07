@@ -504,6 +504,7 @@ function cal_mesh_patient() {
     let data_temp = {};
 
 
+    point_coude();
     // Mesh Tronc
     mesh.tronc = {};
     for (let i in [0,1]) {
@@ -1039,6 +1040,206 @@ function ellipsoid(cx,cy,cz,x,y,z,accuracy,side) {
     return [x_mesh,y_mesh,z_mesh];
 }
 
+function point_coude() {
+    let thetaMain = reglage_patient.main.angle;
+    let Lbras = patient.Lbras;
+    let LavtBras = patient.LavtBras;
+    let Lmain = patient.Lmain;
+
+    let rayonMC = reglage_chair.roue.arr.MC_rayon;
+    let d = reglage_chair.roue.arr.MC_distance;
+
+    let MP_R0_Rroue = repere_chair.roue.arr.d;
+    let MP_R0_Rbras_visualisation = repere_patient.brasD;
+    // console.log(MP_R0_Rbras_visualisation)
+
+    let R = matrice_Rotation('x',-90,4);
+    let MP_R0_Rbras_construction = math.multiply(R,MP_R0_Rbras_visualisation)
+
+    let thetaM = (90-thetaMain)*Math.PI/180;
+    // console.log(thetaM)
+
+    let x = rayonMC * Math.cos(thetaM);
+    let y = rayonMC * Math.sin(thetaM);
+    let z = d;
+
+    let main_Rroue = [x,y,z,1];
+    let mainD_R0 = math.multiply(MP_R0_Rroue,main_Rroue);
+    // console.log(MP_R0_Rroue)
+    // console.log(main_Rroue)
+    // console.log(mainD_R0)
+    // console.log(MP_R0_Rbras_construction)
+
+    let main_Rbras = math.lusolve(MP_R0_Rbras_construction,mainD_R0);
+    // let main_Rbras = math.divide(MP_R0_Rbras_construction,math.transpose(mainD_R0));
+    main_Rbras = math.transpose(main_Rbras);
+    // console.log(main_Rbras)
+
+    // Calcul des coordonnées du coudeD par calcul d'intersection cercle-spehere
+    // cercle de plan normal n, centre c_s et rayon Lbras
+    // sphere de centre c_s et de rayon LAvtBras
+
+    let n = [MP_R0_Rbras_construction[0][2],MP_R0_Rbras_construction[1][2],MP_R0_Rbras_construction[2][2]];
+    let c_c = [MP_R0_Rbras_construction[0][3],MP_R0_Rbras_construction[1][3],MP_R0_Rbras_construction[2][3]];
+    let c_s = [mainD_R0[0],mainD_R0[1],mainD_R0[2]];
+    let coudeD = circle_sphere_intersection(c_c,Lbras,c_s,LavtBras+Lmain,n)
+    // console.log(coudeD)
+    let coudeD_R0;
+    // console.log(coudeD.length)
+    if (coudeD.length==2) {
+        let coude1_R0 = coudeD[0];
+        coude1_R0.push(1);
+        let coude2_R0 = coudeD[1]
+        coude2_R0.push(1);
+        if (coude1_R0[0] < coude2_R0[0]) {
+            // console.log("coude1_R0[0] < coude2_R0[0]")
+            coudeD_R0 = coude1_R0;
+        }else{
+            // console.log("coude1_R0[0] > coude2_R0[0]")
+            coudeD_R0 = coude2_R0;
+        }
+    }else{
+        coudeD_R0 = coudeD;
+        coudeD_R0.push(1);
+    }
+    // console.log(coudeD);
+    // console.log(coudeD_R0);
+
+    if (coudeD == 0) {
+        let coudeD_Rbras = [0,0,Lbras,1];
+        coudeD_R0 = math.multiply(MP_R0_Rbras_construction,coudeD_Rbras);
+
+        let theta_coude = 60 * Math.PI / 180;
+        let mainD_Rbras = [0,(LavtBras+Lmain)*Math.sin(theta_coude),Lbras+(LavtBras+Lmain)*Math.cos(theta_coude),1];
+        let mainD_R0 = math.multiply(MP_R0_Rbras_construction,mainD_Rbras);
+    }
+
+    let coudeG_R0 = [coudeD_R0[0],coudeD_R0[1],-coudeD_R0[2],coudeD_R0[3]];
+    let mainG_R0 = [mainD_R0[0],mainD_R0[1],-mainD_R0[2],mainD_R0[3]];
+
+    // Repere avtBras
+    let rotx_90 = matrice_Rotation('x',90,4);
+    // console.log(rotx_90);
+    let epauleD_R0 = math.transpose(MP_R0_Rbras_construction)[3];
+    // console.log(epauleD_R0)
+    let MP_R0_RbrasD_construction = cal_repere_membre_sup(epauleD_R0,coudeD_R0,0);
+    // console.log(MP_R0_RbrasD_construction)
+    repere_patient.brasD = math.multiply(rotx_90,MP_R0_RbrasD_construction);
+
+    let epauleG_R0 = [epauleD_R0[0],epauleD_R0[1],-epauleD_R0[2],epauleD_R0[3]];
+    let MP_R0_RbrasG_construction = cal_repere_membre_sup(epauleG_R0,coudeG_R0,0);
+    // console.log(MP_R0_RbrasG_construction)
+    repere_patient.brasG = math.multiply(rotx_90,MP_R0_RbrasG_construction);
+
+    let coudeD_Rbras = math.lusolve(MP_R0_RbrasD_construction,coudeD_R0).flat();
+    let mainD_Rbras = math.lusolve(MP_R0_RbrasD_construction,mainD_R0).flat();
+    // console.log(coudeD_Rbras);
+    // console.log(mainD_Rbras);
+
+    let MP_RbrasD_RavtBrasD_construction = cal_repere_membre_sup(coudeD_Rbras,mainD_Rbras,MP_R0_RbrasD_construction);
+    // console.log(MP_RbrasD_RavtBrasD_construction)
+    let MP_R0_RavtBrasD_construction = math.multiply(MP_R0_RbrasD_construction,MP_RbrasD_RavtBrasD_construction);
+    // console.log(MP_R0_RavtBrasD_construction)
+    repere_patient.avtBrasD = math.multiply(rotx_90,MP_R0_RavtBrasD_construction);
+    // console.log(repere_patient.avtBrasD)
+
+    let coudeG_Rbras = math.lusolve(MP_R0_RbrasG_construction,coudeG_R0).flat();
+    let mainG_Rbras = math.lusolve(MP_R0_RbrasG_construction,mainG_R0).flat();
+    // console.log(coudeD_Rbras);
+    // console.log(mainD_Rbras);
+
+    let MP_RbrasG_RavtBrasG_construction = cal_repere_membre_sup(coudeG_Rbras,mainG_Rbras,MP_R0_RbrasG_construction);
+    // console.log(MP_RbrasD_RavtBrasD_construction)
+    let MP_R0_RavtBrasG_construction = math.multiply(MP_R0_RbrasG_construction,MP_RbrasG_RavtBrasG_construction);
+    // console.log(MP_R0_RavtBrasD_construction)
+    repere_patient.avtBrasG = math.multiply(rotx_90,MP_R0_RavtBrasG_construction);
+    // console.log(repere_patient.avtBrasD)
+
+}
+
+// import {matrice_normalize} from "/js/1_Initialisation/Functions/matrice_normalize.js";
+// import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+
+function circle_sphere_intersection(c_c,r_c,c_s,r_s,n) {
+    // console.log(c_c,r_c,c_s,r_s,n)
+    let points;
+    let d=math.dot(n, math.add(c_c,math.multiply(c_s,-1)));
+    // console.log(d)
+    if (Math.abs(d)>r_s) {
+        // aucune solution : le plan n ne coupe pas la sphere
+        let points = 0;
+    }else{
+        let c_p = math.add(c_s,math.multiply(d,n));
+        // console.log(c_p)
+        // si la distance entre le centre de la sphere et le plan n est égale au rayon de la sphere
+        if (d == r_s) {
+            let d2 = math.norm(math.add(c_p,math.multiply(c_c,-1)));
+            let r_p = Math.sqrt(Math.pow(r_s,2)-Math.pow(d,2));
+            if (d2 == r_c+r_p){
+                points=c_p;
+            }else{
+                points=0;
+            }
+        }else{
+            let r_p = Math.sqrt(Math.pow(r_s,2)-Math.pow(d,2));
+            // console.log(r_p)
+            let t = vecteur_normalize((math.cross(math.add(c_p,math.multiply(c_c,-1)),n)));
+            // console.log(t)
+            let d2 = math.norm(math.add(c_p,math.multiply(c_c,-1)));
+            if (d2 > r_c+r_p){
+                let points=0;
+            }else{
+                if (d2 == r_c+r_p){
+                    // points=c_c+(c_p-c_c)*r_c/d2;
+                    points = math.mul(math.multiply(math.add(c_c,math.add(c_p,math.multiply(c_c,-1))),r_c),1/d2);
+                }else{
+                    let h = 1/2+(Math.pow(r_c,2)-Math.pow(r_p,2))/(2*Math.pow(d2,2));
+                    // console.log(h)
+                    // let c_i = c_c+h*(c_p-c_c);
+                    let c_i = math.add(c_c,math.multiply(h,math.add(c_p,math.multiply(c_c,-1))));
+                    // console.log(c_i)
+                    let r_i = Math.sqrt(Math.pow(r_c,2)-Math.pow(h,2)*Math.pow(d2,2));
+                    // console.log(r_i)
+
+                    let p_0 = math.add(c_i,math.multiply(math.multiply(t,r_i),-1));
+                    // console.log(p_0)
+                    let p_1 = math.add(c_i,math.multiply(t,r_i));
+                    // console.log(p_1)
+
+                    points = [p_0,p_1];
+                }
+            }
+        }
+    }
+    return points;
+}
+
+function cal_repere_membre_sup(p1,p2,MP_R0_Rloc) {
+    if (MP_R0_Rloc == 0) {
+        MP_R0_Rloc = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    }
+    p1 = p1.slice(0,3);
+    // console.log(p1);
+    p2 = p2.slice(0,3);
+    // console.log(p2);
+    let vectY = math.multiply((math.add(p1,math.multiply(p2,-1))),1/math.norm((math.add(p1,math.multiply(p2,-1)))))
+    // console.log(vectY)
+    let vect = math.lusolve(MP_R0_Rloc,[0,0,1,1]);
+    vect = vect.slice(0,3);
+    let vectX = math.cross(vectY,vect)[0];
+    vectX = math.multiply(vectX,1/math.norm(vectX));
+
+    let vectZ = math.cross(vectX,vectY);
+    vectZ = math.multiply(vectZ,1/math.norm(vectZ));
+    // console.log(vectZ)
+
+    let MP_Rloc_Rmembre_construction = [vectX,vectY,vectZ,p1];
+    MP_Rloc_Rmembre_construction = math.transpose(MP_Rloc_Rmembre_construction);
+    MP_Rloc_Rmembre_construction.push([0,0,0,1]);
+    // console.log(MP_Rloc_Rmembre_construction)
+    return MP_Rloc_Rmembre_construction;
+}
+
 // Calcul Repere
 
 function cal_repere_roue(side, deportX, deportY, deportZ, theta) {
@@ -1107,6 +1308,14 @@ function makeArr(startValue, stopValue, cardinality) {
         arr.push(startValue + (step * i));
     }
     return arr;
+}
+
+function vecteur_normalize(input) {
+    let output = [];
+    for (let i in input){
+        output[i] = (input[i] - math.mean(input)) / (math.std(input))
+    }
+    return output;
 }
 
 // Fonction Graph

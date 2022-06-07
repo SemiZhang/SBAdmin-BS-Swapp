@@ -44,7 +44,10 @@ export let reglage_patient = {
     bras:{
         angle: 45,
     },
-},
+    main:{
+        angle: 0,
+    }
+}
 
 let taille = 175;
 export let patient = {
