@@ -1500,6 +1500,7 @@ function matrice_Translation(x,y,z) {
 
 function init_layout() {
     plotly_layout = {
+        hovermode: false,
         margin: {t: 0, l: 0, b: 0, r: 0},
         autosize: true, // set autosize to rescale
         automargin: true,
@@ -1509,8 +1510,8 @@ function init_layout() {
                 showgrid: false,
                 // showline: false,
                 // zeroline: false,
-                // showticklabels: false,
-                // title: {text: ""},
+                showticklabels: false,
+                title: {text: ""},
                 // type: "linear"
             },
             yaxis: {
