@@ -518,7 +518,12 @@ function cal_mesh_patient() {
             }
         }
         data_temp = {
-            type: 'mesh3d',
+            type: 'scatter3d',
+            mode: 'lines',
+            surfaceaxis: 1,
+            line:{
+                width: 0,
+            },
             opacity: mesh_opacity,
             x: mesh.tronc.x.flat(),
             y: mesh.tronc.y.flat(),
