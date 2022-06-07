@@ -498,6 +498,7 @@ function cal_mesh_patient() {
     // Mesh
     let mesh_accuracy = 8;
     let mesh_opacity = 0.6;
+    let mesh_lineWidth = 0;
 
     let mesh = {};
     let data_temp = {};
@@ -522,7 +523,7 @@ function cal_mesh_patient() {
             mode: 'lines',
             surfaceaxis: 1,
             line:{
-                width: 0,
+                width: mesh_lineWidth,
             },
             opacity: mesh_opacity,
             x: mesh.tronc.x.flat(),
