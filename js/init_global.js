@@ -2,12 +2,14 @@
 // import {reglage_patient} from "/js/1_Initialisation/init_coord.js";
 // import {patient} from "/js/1_Initialisation/init_coord.js";
 
-init_coord();
+let taille = 175;
+init_coord_chair();
+init_coord_patient()
 init_layout();
 init_global();
 init_slider();
 
-function init_coord(){
+function init_coord_chair() {
     reglage_chair = {
         siege: {
             assise:{
@@ -57,8 +59,9 @@ function init_coord(){
             angle: 0,
         }
     }
+}
 
-    let taille = 175;
+function init_coord_patient(){
     patient = {
         taille: taille,
         Lpied: 0.146*taille,
@@ -1601,7 +1604,7 @@ function rotation() {
 // rotation();
 
 function init_slider() {
-    let allSliders = Array();
+    // Reglage Fauteuil
     for (let i1 in reglage_chair) {
         for (let i2 in reglage_chair[i1]){
             for (let i3 in reglage_chair [i1][i2]){
@@ -1624,6 +1627,36 @@ function init_slider() {
                     console.log(error)
                 }
             }
+        }
+    }
+
+    // Reglage Patient
+    for (let i1 in patient) {
+        let slider = document.getElementById('RangeInputPatient_'+i1);
+        let output = document.getElementById('RangeOutputPatient_'+i1);
+        try{
+            slider.value = patient[i1];
+            output.innerHTML = slider.value;
+            if (i1 == "taille") {
+                slider.addEventListener("input",ValueChanged);
+                function ValueChanged() {
+                    output = document.getElementById('RangeOutputPatient_'+i1);
+                    output.innerHTML = this.value;
+                    taille = this.value;
+                    init_coord_patient();
+                    init_global();
+                }
+            }else{
+                slider.addEventListener("input",ValueChanged);
+                function ValueChanged() {
+                    output = document.getElementById('RangeOutputPatient_'+i1);
+                    output.innerHTML = this.value;
+                    patient[i1] = this.value;
+                    init_global();
+                }
+            }
+        } catch(error) {
+            console.log(error)
         }
     }
 }
