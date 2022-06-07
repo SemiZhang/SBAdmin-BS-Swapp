@@ -1,4 +1,4 @@
-let reglage_chair = {
+reglage_chair = {
     siege: {
         assise:{
             largeur: 35,
@@ -40,7 +40,7 @@ let reglage_chair = {
     },
 };
 
-let reglage_patient = {
+reglage_patient = {
     bras:{
         angle: 45,
     },
@@ -50,7 +50,7 @@ let reglage_patient = {
 }
 
 let taille = 175;
-let patient = {
+patient = {
     taille: taille,
     Lpied: 0.146*taille,
     Ltibia: 0.246*taille,
