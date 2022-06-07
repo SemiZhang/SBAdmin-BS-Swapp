@@ -79,3 +79,6 @@ patient.pbras = patient.lbras;
 patient.pavtBras = patient.lavtBras;
 
 patient.pointure = Math.ceil((patient.Lpied+1)*3/2);
+
+// module.exports = reglage;
+// module.exports=patient;
