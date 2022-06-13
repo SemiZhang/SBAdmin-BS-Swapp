@@ -6,7 +6,7 @@ let taille = 175;
 init_coord_chair();
 init_coord_patient()
 init_layout();
-init_global();
+page_Fauteuil();
 init_slider();
 
 function init_coord_chair() {
@@ -93,7 +93,7 @@ function init_coord_patient(){
     patient.pointure = Math.ceil((patient.Lpied+1)*3/2);
 }
 
-function init_global() {
+function page_Fauteuil() {
     data = Array();
     init_data()
     // let layout = init_layout();
@@ -1618,7 +1618,7 @@ function init_slider() {
                         output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
                         output.innerHTML = this.value;
                         reglage_chair[i1][i2][i3] = this.value;
-                        init_global();
+                        page_Fauteuil();
                         // let data = init_data();
                         // let layout = init_layout();
                         // Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
@@ -1644,7 +1644,7 @@ function init_slider() {
                     output.innerHTML = this.value;
                     taille = this.value;
                     init_coord_patient();
-                    init_global();
+                    page_Fauteuil();
                 }
             }else{
                 slider.addEventListener("input",ValueChanged);
@@ -1652,7 +1652,7 @@ function init_slider() {
                     output = document.getElementById('RangeOutputPatient_'+i1);
                     output.innerHTML = this.value;
                     patient[i1] = this.value;
-                    init_global();
+                    page_Fauteuil();
                 }
             }
         } catch(error) {

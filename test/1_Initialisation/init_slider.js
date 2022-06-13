@@ -14,14 +14,14 @@ function ValueChanged() {
 }*/
 
 // reglage = require("/js/Calculation_Maquette/1_Initialisation/init_coord.js");
-// require("/js/Calculation_Maquette/1_Initialisation/init_global.js")
+// require("/js/Calculation_Maquette/1_Initialisation/Page_Fauteuil.js")
 
 
-// import {init_data} from "/js/1_Initialisation/init_global.js";
-// import {init_layout} from "/js/1_Initialisation/init_global.js";
-// import {init_global} from "/js/1_Initialisation/init_global.js";
+// import {init_data} from "/js/1_Initialisation/page_Fauteuil.js";
+// import {init_layout} from "/js/1_Initialisation/page_Fauteuil.js";
+// import {page_Fauteuil} from "/js/1_Initialisation/page_Fauteuil.js";
 // import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
-// import {init_global} from "/js/1_Initialisation/init_global.js";
+// import {page_Fauteuil} from "/js/1_Initialisation/Page_Fauteuil.js";
 
 let allSliders = Array();
 for (let i1 in reglage_chair) {
@@ -37,7 +37,7 @@ for (let i1 in reglage_chair) {
                     output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
                     output.innerHTML = this.value;
                     reglage_chair[i1][i2][i3] = this.value;
-                    init_global();
+                    page_Fauteuil();
                     // let data = init_data();
                     // let layout = init_layout();
                     // Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
