@@ -1,10 +1,10 @@
 /*!
- * jasny Bootstrap v3.2.0 (http://jasny.github.io/bootstrap)
+ * Jasny Bootstrap v4.0.0 (http://jasny.github.io/bootstrap)
  * Copyright 2012-2019 Arnold Daniels
  * Licensed under  ()
  */
 
-if (typeof jQuery === 'undefined') { throw new Error('jasny Bootstrap\'s JavaScript requires jQuery') }
+if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScript requires jQuery') }
 
 /* ========================================================================
  * Bootstrap: transition.js v4.0.0

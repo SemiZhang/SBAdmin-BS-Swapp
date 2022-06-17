@@ -82,7 +82,10 @@ function modules() {
       .pipe(gulp.dest('./vendor/plotly'));
   var mathjs = gulp.src('./node_modules/mathjs/lib/browser/math.*')
       .pipe(gulp.dest('./vendor/mathjs'));
-  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing, plotly, mathjs);
+  // jasny-bootstrap
+  var jasny = gulp.src('./node_modules/jasny-bootstrap/dist/*/*')
+      .pipe(gulp.dest('./vendor/jasny'));
+  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing, plotly, mathjs, jasny);
 }
 
 // CSS task
