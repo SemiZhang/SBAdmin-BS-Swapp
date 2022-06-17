@@ -393,6 +393,10 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Téléchargement</h6>
                                 </div>
                                 <div class="card-body">
+                                    <div class="test-container" id="test-container">
+                                        <img src="test/Lotus_Lembeke.jpg" onclick="handleClick(event)"
+                                             style="max-width: 300x; max-height: 200px;">
+                                    </div>
 
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                         <div class="fileinput-new img-thumbnail" style="width: 300px; height: 200px;">
@@ -530,6 +534,31 @@
 <!--    <script src="js/demo/chart-pie-demo.js"></script>-->
 <!--    <script src="js/demo/chart-bar-demo.js"></script>-->
 
+
 </body>
+
+<script>
+    dotn=1
+    // 取图片鼠标点击位置
+    function handleClick(e) {
+        var src = 'test/black-circle.png';
+        x = e.layerX;
+        y = e.layerY;
+        console.log(x,y)
+        console.log((e.layerX-e.srcElement.parentElement.offsetLeft)/e.srcElement.offsetWidth*e.srcElement.naturalWidth,(e.layerY-e.srcElement.parentElement.offsetTop)/e.srcElement.offsetHeight*e.srcElement.naturalHeight)
+        nimg = document.createElement('img')
+        nimg.src = src;
+        nimg.style.cssText = 'top: ' + y + 'px; left: ' + x + 'px; position: absolute; cursor: pointer;'
+        nimg.draggable = true
+        nimg.id = "dot"+dotn
+        nimg.ondragover = dragdot;
+        document.getElementById(e.srcElement.parentElement.id).appendChild(nimg);
+        dotn++
+    }
+    function dragdot(e) {
+        console.log("drag")
+        console.log(e)
+    }
+</script>
 
 </html>
