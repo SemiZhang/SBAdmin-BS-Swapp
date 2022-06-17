@@ -85,7 +85,10 @@ function modules() {
   // jasny-bootstrap
   var jasny = gulp.src('./node_modules/jasny-bootstrap/dist/*/*')
       .pipe(gulp.dest('./vendor/jasny'));
-  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing, plotly, mathjs, jasny);
+  // holderjs
+  var holderjs = gulp.src('./node_modules/holderjs/holder.*')
+      .pipe(gulp.dest('./vendor/holderjs'));
+  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing, plotly, mathjs, jasny, holderjs);
 }
 
 // CSS task
