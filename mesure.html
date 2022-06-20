@@ -547,7 +547,7 @@
         x = e.layerX;
         y = e.layerY;
         console.log(x,y)
-        console.log((e.layerX-e.srcElement.parentElement.offsetLeft)/e.srcElement.offsetWidth*e.srcElement.naturalWidth,(e.layerY-e.srcElement.parentElement.offsetTop)/e.srcElement.offsetHeight*e.srcElement.naturalHeight)
+        console.log((e.layerX-e.target.parentElement.offsetLeft)/e.target.offsetWidth*e.target.naturalWidth,(e.layerY-e.target.parentElement.offsetTop)/e.target.offsetHeight*e.target.naturalHeight)
         circle = document.createElement('div')
         circle.className = "circle"
         circle.style.cssText = 'top: ' + (y-5) + 'px; left: ' + (x-5) + 'px; position: absolute; cursor: pointer;'
@@ -556,7 +556,7 @@
         circle.ondragend = dragdotend;
         circle.ondrag = dragdot;
         circle.id = "dot"+dotn
-        document.getElementById(e.srcElement.parentElement.id).appendChild(circle);
+        document.getElementById(e.target.parentElement.id).appendChild(circle);
         dotn++
     }
     function dragdot(e) {
@@ -567,7 +567,7 @@
             dx = cx - deltaLeft
             dy = cy - deltaTop
         }
-        dot = document.getElementById(e.srcElement.id)
+        dot = document.getElementById(e.target.id)
         dot.setAttribute('style', `top: ${dy}px; left: ${dx}px; position: absolute; cursor: pointer;`)
     function dragdotstart(e) {
         deltaLeft = e.clientX-e.target.offsetLeft;
