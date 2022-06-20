@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="css/mesure.css">
 
     <!-- Jasny-Bootstrap-->
     <link rel="stylesheet" href="vendor/jasny/css/jasny-bootstrap.min.css">
@@ -394,7 +395,8 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="test-container" id="test-container">
-                                        <img src="test/Lotus_Lembeke.jpg" onclick="handleClick(event)"
+                                        <img src="test/Lotus_Lembeke.jpg"
+                                             onclick="handleClick(event)" draggable="false"
                                              style="max-width: 300x; max-height: 200px;">
                                     </div>
 
@@ -546,18 +548,34 @@
         y = e.layerY;
         console.log(x,y)
         console.log((e.layerX-e.srcElement.parentElement.offsetLeft)/e.srcElement.offsetWidth*e.srcElement.naturalWidth,(e.layerY-e.srcElement.parentElement.offsetTop)/e.srcElement.offsetHeight*e.srcElement.naturalHeight)
-        nimg = document.createElement('img')
-        nimg.src = src;
-        nimg.style.cssText = 'top: ' + y + 'px; left: ' + x + 'px; position: absolute; cursor: pointer;'
-        nimg.draggable = true
-        nimg.id = "dot"+dotn
-        nimg.ondragover = dragdot;
-        document.getElementById(e.srcElement.parentElement.id).appendChild(nimg);
+        circle = document.createElement('div')
+        circle.className = "circle"
+        circle.style.cssText = 'top: ' + (y-5) + 'px; left: ' + (x-5) + 'px; position: absolute; cursor: pointer;'
+        circle.draggable = true
+        circle.ondragstart = dragdotstart;
+        circle.ondragend = dragdotend;
+        circle.ondrag = dragdot;
+        circle.id = "dot"+dotn
+        document.getElementById(e.srcElement.parentElement.id).appendChild(circle);
         dotn++
     }
     function dragdot(e) {
-        console.log("drag")
-        console.log(e)
+        const cx = e.clientX;
+        const cy = e.clientY;
+        /** 相减即可得到相对于父元素移动的位置 */
+        if (cx != 0 && cy != 0){
+            dx = cx - deltaLeft
+            dy = cy - deltaTop
+        }
+        dot = document.getElementById(e.srcElement.id)
+        dot.setAttribute('style', `top: ${dy}px; left: ${dx}px; position: absolute; cursor: pointer;`)
+    function dragdotstart(e) {
+        deltaLeft = e.clientX-e.target.offsetLeft;
+        deltaTop = e.clientY-e.target.offsetTop;
+    }
+    function dragdotend(e) {
+        console.log("dragEnd")
+    }
     }
 </script>
 

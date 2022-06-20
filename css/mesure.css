@@ -1,0 +1,13 @@
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    opacity: 0.4;
+}
+
+.circle:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
