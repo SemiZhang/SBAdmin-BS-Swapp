@@ -555,10 +555,21 @@
         circle.ondragstart = dragdotstart;
         circle.ondragend = dragdotend;
         circle.ondrag = dragdot;
+        circle.onmouseup = clickdot;
+        circle.oncontextmenu = function(e) {e.preventDefault();e.stopPropagation();};
         circle.id = "dot"+dotn
         document.getElementById(e.target.parentElement.id).appendChild(circle);
         dotn++
     }
+
+    function clickdot(e){
+        console.log("onclick")
+        console.log(e)
+        if (e.button == 2){
+            document.getElementById(e.target.id).remove();
+        }
+    }
+
     function dragdot(e) {
         const cx = e.clientX;
         const cy = e.clientY;
