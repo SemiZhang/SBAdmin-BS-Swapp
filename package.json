@@ -35,24 +35,14 @@
     "bootstrap": "4.6.0",
     "chart.js": "2.9.4",
     "datatables.net-bs4": "1.10.24",
-    "echarts": "^5.3.0",
-    "echarts-gl": "^2.0.8",
-    "firebase": "^9.6.7",
     "holderjs": "^2.9.9",
     "jasny-bootstrap": "^4.0.0",
     "jquery": "3.6.0",
     "jquery.easing": "^1.4.1",
-    "jumpy": "^1.0.5",
     "mathjs": "^10.1.1",
-    "ndarray": "^1.0.19",
-    "ndarray-meshgrid": "^1.0.1",
-    "numjs": "^0.16.1",
     "path": "^0.12.7",
     "plotly.js-dist": "^2.9.0",
-    "plotly.js-dist-min": "^2.9.0",
-    "stream": "^0.0.2",
-    "three": "^0.138.3",
-    "vis-graph3d": "^6.0.2"
+    "plotly.js-dist-min": "^2.9.0"
   },
   "devDependencies": {
     "browser-sync": "2.26.14",
@@ -66,10 +56,6 @@
     "gulp-rename": "2.0.0",
     "gulp-sass": "4.1.0",
     "gulp-uglify": "3.0.2",
-    "jest": "^27.5.1",
-    "merge-stream": "2.0.0",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
   },
   "main": "gulpfile.js"
 }
