@@ -37,7 +37,7 @@ for (let i1 in reglage_chair) {
                     output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
                     output.innerHTML = this.value;
                     reglage_chair[i1][i2][i3] = this.value;
-                    page_Fauteuil();
+                    cal_model_fauteuil();
                     // let data = init_data();
                     // let layout = init_layout();
                     // Plotly.react('myPloty3DChart', data, layout[0], layout[1]);

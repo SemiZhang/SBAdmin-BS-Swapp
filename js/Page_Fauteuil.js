@@ -6,7 +6,7 @@ let taille = 175;
 init_coord_chair();
 init_coord_patient()
 init_layout();
-page_Fauteuil();
+cal_model_fauteuil();
 init_slider();
 
 function init_coord_chair() {
@@ -93,16 +93,74 @@ function init_coord_patient(){
     patient.pointure = Math.ceil((patient.Lpied+1)*3/2);
 }
 
-function page_Fauteuil() {
+function init_slider() {
+    // Reglage Fauteuil
+    for (let i1 in reglage_chair) {
+        for (let i2 in reglage_chair[i1]){
+            for (let i3 in reglage_chair [i1][i2]){
+                let slider = document.getElementById('RangeInput_'+i1+'_'+i2+'_'+i3);
+                let output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
+                try{
+                    slider.value = reglage_chair[i1][i2][i3];
+                    output.innerHTML = slider.value;
+                    slider.addEventListener("input",ValueChanged);
+                    function ValueChanged() {
+                        output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
+                        output.innerHTML = this.value;
+                        reglage_chair[i1][i2][i3] = parseFloat(this.value);
+                        cal_model_fauteuil();
+                        // let data = init_data();
+                        // let layout = init_layout();
+                        // Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
+                    }
+                } catch(error) {
+                    console.log(error)
+                }
+            }
+        }
+    }
+
+    // Reglage Patient
+    for (let i1 in patient) {
+        let slider = document.getElementById('RangeInputPatient_'+i1);
+        let output = document.getElementById('RangeOutputPatient_'+i1);
+        try{
+            slider.value = patient[i1];
+            output.innerHTML = slider.value;
+            if (i1 == "taille") {
+                slider.addEventListener("input",ValueChanged);
+                function ValueChanged() {
+                    output = document.getElementById('RangeOutputPatient_'+i1);
+                    output.innerHTML = this.value;
+                    taille = parseFloat(this.value);
+                    init_coord_patient();
+                    cal_model_fauteuil();
+                }
+            }else{
+                slider.addEventListener("input",ValueChanged);
+                function ValueChanged() {
+                    output = document.getElementById('RangeOutputPatient_'+i1);
+                    output.innerHTML = this.value;
+                    patient[i1] = parseFloat(this.value);
+                    cal_model_fauteuil();
+                }
+            }
+        } catch(error) {
+            console.log(error)
+        }
+    }
+}
+
+function cal_model_fauteuil() {
     data = Array();
-    init_data()
+    cal_data_plotly()
     // let layout = init_layout();
     Plotly.react('myPloty3DChart', data, plotly_layout, plotly_config);
 }
 
 // Fonction principale
 
-function init_data() {
+function cal_data_plotly() {
     // Fauteuil
     cal_repere_chair();
     cal_points_chair();
@@ -1565,7 +1623,7 @@ function init_layout() {
 
 // Animation Plotly
 
-function rotation() {
+function rotation_model() {
     var gd = document.getElementById('myPloty3DChart');
 
     function run() {
@@ -1601,63 +1659,8 @@ function rotation() {
         };
     }
 }
-// rotation();
+// rotation_model();
 
-function init_slider() {
-    // Reglage Fauteuil
-    for (let i1 in reglage_chair) {
-        for (let i2 in reglage_chair[i1]){
-            for (let i3 in reglage_chair [i1][i2]){
-                let slider = document.getElementById('RangeInput_'+i1+'_'+i2+'_'+i3);
-                let output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
-                try{
-                    slider.value = reglage_chair[i1][i2][i3];
-                    output.innerHTML = slider.value;
-                    slider.addEventListener("input",ValueChanged);
-                    function ValueChanged() {
-                        output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
-                        output.innerHTML = this.value;
-                        reglage_chair[i1][i2][i3] = this.value;
-                        page_Fauteuil();
-                        // let data = init_data();
-                        // let layout = init_layout();
-                        // Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
-                    }
-                } catch(error) {
-                    console.log(error)
-                }
-            }
-        }
-    }
 
-    // Reglage Patient
-    for (let i1 in patient) {
-        let slider = document.getElementById('RangeInputPatient_'+i1);
-        let output = document.getElementById('RangeOutputPatient_'+i1);
-        try{
-            slider.value = patient[i1];
-            output.innerHTML = slider.value;
-            if (i1 == "taille") {
-                slider.addEventListener("input",ValueChanged);
-                function ValueChanged() {
-                    output = document.getElementById('RangeOutputPatient_'+i1);
-                    output.innerHTML = this.value;
-                    taille = this.value;
-                    init_coord_patient();
-                    page_Fauteuil();
-                }
-            }else{
-                slider.addEventListener("input",ValueChanged);
-                function ValueChanged() {
-                    output = document.getElementById('RangeOutputPatient_'+i1);
-                    output.innerHTML = this.value;
-                    patient[i1] = this.value;
-                    page_Fauteuil();
-                }
-            }
-        } catch(error) {
-            console.log(error)
-        }
-    }
-}
+
 
