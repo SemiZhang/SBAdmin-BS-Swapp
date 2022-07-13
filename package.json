@@ -1,11 +1,11 @@
 {
-  "title": "SB Admin 2",
-  "name": "startbootstrap-sb-admin-2",
-  "version": "4.1.4",
+  "title": "SWApp",
+  "name": "SWApp",
+  "version": "2.0.0",
   "scripts": {
     "start": "gulp watch"
   },
-  "description": "An open source Bootstrap 4 admin theme.",
+  "description": "Web Based SWApp",
   "keywords": [
     "css",
     "sass",
@@ -16,15 +16,15 @@
     "admin",
     "app"
   ],
-  "homepage": "https://startbootstrap.com/theme/sb-admin-2",
+  "homepage": "",
   "bugs": {
-    "url": "https://github.com/StartBootstrap/startbootstrap-sb-admin-2/issues",
-    "email": "feedback@startbootstrap.com"
+    "url": "",
+    "email": ""
   },
   "license": "UNLICENSED",
-  "author": "Start Bootstrap",
+  "author": "CERAH",
   "contributors": [
-    "David Miller (https://davidmiller.io/)"
+    "Shunyang ZHANG"
   ],
   "repository": {
     "type": "git",
