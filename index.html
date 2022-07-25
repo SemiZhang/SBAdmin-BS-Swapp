@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
 </head>
 
@@ -729,7 +730,7 @@
                         </div>
                     </div>
 
-                    <!-- Patient -->
+                    <!-- Comportement Patient -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Comportement Patient</h6>
@@ -790,6 +791,15 @@
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Fauteuil</h6>
+
+                            <!-- Rounded switch -->
+                            <div class="button r" id="button-1" style="float: right;">
+                                <input type="checkbox" class="checkbox" id="modeleMode"/>
+                                <div class="knobs"></div>
+                                <div class="layer"></div>
+                            </div>
+                            <span>Simplifié</span>
+
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

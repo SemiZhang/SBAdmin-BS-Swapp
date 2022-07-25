@@ -6,6 +6,7 @@ let taille = 175;
 init_coord_chair();
 init_coord_patient()
 init_layout();
+init_option();
 cal_model_fauteuil();
 init_slider();
 
@@ -149,6 +150,19 @@ function init_slider() {
             console.log(error)
         }
     }
+}
+
+function init_option() {
+    modeleMode = 1;
+    document.getElementById('modeleMode').addEventListener('change',(event) =>{
+        if (event.currentTarget.checked) {
+            modeleMode = 0;
+            cal_model_fauteuil();
+        } else {
+            modeleMode = 1;
+            cal_model_fauteuil();
+        }
+    })
 }
 
 function cal_model_fauteuil() {
@@ -805,34 +819,68 @@ function cal_mesh_patient() {
         }
     }
     
-    for (element in meshlist) {
+    for (let element in meshlist) {
         mesh[element] = {};
-        for (let i in [0,1]) {
-            [mesh[element].x,mesh[element].y,mesh[element].z] = ellipsoid(meshlist[element].cx,meshlist[element].cy,meshlist[element].cz,meshlist[element].x,meshlist[element].y,meshlist[element].z,mesh_accuracy,i);
 
-            for (let i1 in mesh[element].x){
-                for (let i2 in mesh[element].x[i1]) {
-                    // let repere_tronc = math.multiply(repere_patient.tronc,matrice_Translation(0,patient.Htronc/2,0));
-                    let vector_rotate = math.multiply(repere_patient[meshlist[element].repere],[mesh[element].x[i1][i2],mesh[element].y[i1][i2],mesh[element].z[i1][i2],1])
-                    mesh[element].x[i1][i2] = vector_rotate[0];
-                    mesh[element].y[i1][i2] = vector_rotate[1];
-                    mesh[element].z[i1][i2] = vector_rotate[2];
+        switch (modeleMode){
+            case 0:
+                for (let i in [0,1]) {
+                    [mesh[element].x,mesh[element].y,mesh[element].z]=ellipsoid(meshlist[element].cx,meshlist[element].cy,meshlist[element].cz,meshlist[element].x,meshlist[element].y,meshlist[element].z,mesh_accuracy,i);
+
+                    for (let i1 in mesh[element].x){
+                        for (let i2 in mesh[element].x[i1]) {
+                            // let repere_tronc = math.multiply(repere_patient.tronc,matrice_Translation(0,patient.Htronc/2,0));
+                            let vector_rotate = math.multiply(repere_patient[meshlist[element].repere],[mesh[element].x[i1][i2],mesh[element].y[i1][i2],mesh[element].z[i1][i2],1])
+                            mesh[element].x[i1][i2] = vector_rotate[0];
+                            mesh[element].y[i1][i2] = vector_rotate[1];
+                            mesh[element].z[i1][i2] = vector_rotate[2];
+                        }
+                    }
+
+                    data_temp = {
+                        type: 'scatter3d',
+                        mode: 'lines',
+                        surfaceaxis: 1,
+                        line:{
+                            width: mesh_lineWidth,
+                        },
+                        opacity: mesh_opacity,
+                        x: [mesh[element].x].flat().flat(),
+                        y: [mesh[element].y].flat().flat(),
+                        z: [mesh[element].z].flat().flat(),
+                    }
+                    data.push(data_temp);
                 }
-            }
+                break;
+            case 1:
+                for (let i in [0,1,2]) {
+                    [mesh[element].x,mesh[element].y,mesh[element].z] = barre(meshlist[element].cx,meshlist[element].cy,meshlist[element].cz,meshlist[element].x,meshlist[element].y,meshlist[element].z,meshlist[element].repere,i);
 
-            data_temp = {
-                type: 'scatter3d',
-                mode: 'lines',
-                surfaceaxis: 1,
-                line:{
-                    width: mesh_lineWidth,
-                },
-                opacity: mesh_opacity,
-                x: [mesh[element].x].flat().flat(),
-                y: [mesh[element].y].flat().flat(),
-                z: [mesh[element].z].flat().flat(),
-            }
-            data.push(data_temp);
+                    // for (let i1 in mesh[element].x){
+                    //     for (let i2 in mesh[element].x[i1]) {
+                    //         // let repere_tronc = math.multiply(repere_patient.tronc,matrice_Translation(0,patient.Htronc/2,0));
+                    //         let vector_rotate = math.multiply(repere_patient[meshlist[element].repere],[mesh[element].x[i1][i2],mesh[element].y[i1][i2],mesh[element].z[i1][i2],1])
+                    //         mesh[element].x[i1][i2] = vector_rotate[0];
+                    //         mesh[element].y[i1][i2] = vector_rotate[1];
+                    //         mesh[element].z[i1][i2] = vector_rotate[2];
+                    //     }
+                    // }
+
+                    data_temp = {
+                        type: 'scatter3d',
+                        mode: 'lines',
+                        // surfaceaxis: 1,
+                        line: {
+                            width: 20,
+                        },
+                        // opacity: mesh_opacity,
+                        x: [mesh[element].x].flat().flat(),
+                        y: [mesh[element].y].flat().flat(),
+                        z: [mesh[element].z].flat().flat(),
+                    }
+                    data.push(data_temp);
+                }
+                break;
         }
     }
 }
@@ -867,10 +915,38 @@ function ellipsoid(cx,cy,cz,x,y,z,accuracy,side) {
                 z_mesh[i1][i2] = Math.sin(theta_mesh[i1][i2]) * z/2 + cz;
             }
         }
-        // x_mesh_out.push(x_mesh);
-        // y_mesh_out.push(y_mesh);
-        // z_mesh_out.push(z_mesh);
+    return [x_mesh,y_mesh,z_mesh];
+}
+
+function barre(cx,cy,cz,x,y,z,repere,i) {
+    // y_mesh.push(cy+y/2);
+    // y_mesh.push(cy-y/2);
+    // for (let i=0;i<2;i++) {
+    //     x_mesh.push(cx)
+    //     z_mesh.push(cz)
     // }
+
+    let x_mesh = [cx];
+    let y_mesh = [cy];
+    let z_mesh = [cz];
+
+    let meshes=[x_mesh,y_mesh,z_mesh];
+    let centers=[cx,cy,cz];
+    let coord=[x,y,z];
+
+    meshes[i].push(centers[i]+coord[i]/2);
+    meshes[i].push(centers[i]-coord[i]/2);
+    for (let i2=0;i2<2;i2++) {
+        meshes[(i+1)%3].push(centers[(i+1)%3])
+        meshes[(i+2)%3].push(centers[(i+2)%3])
+    }
+
+    for (let i1 in x_mesh){
+        let vector_rotate = math.multiply(repere_patient[repere],[x_mesh[i1],y_mesh[i1],z_mesh[i1],1])
+        x_mesh[i1] = vector_rotate[0];
+        y_mesh[i1] = vector_rotate[1];
+        z_mesh[i1] = vector_rotate[2];
+    }
 
     return [x_mesh,y_mesh,z_mesh];
 }
