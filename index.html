@@ -676,28 +676,7 @@
                                         </div>
                                     </div>
 
-                                    <!--
-                                    <div class="tab-pane" id="panel-patient">
-                                        <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2 ">
-                                            <p><span class="label">Taille</span>
-                                                <span class="fa-pull-right">
-                                                    <span id="RangeOutputPatient_taille"
-                                                          style="font-weight:bold;color:red">
-                                                        0
-                                                    </span>
-                                                    <span>
-                                                        cm
-                                                    </span>
-                                                </span>
-                                            </p>
-                                            <div class="slidecontainer">
-                                                <input id="RangeInputPatient_taille"
-                                                       min="120" max="190"
-                                                       class="form-range" type="range" style="width: 100%"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    -->
+
                                 </div>
 <!--                            </div>-->
                         </div>
@@ -710,7 +689,7 @@
                         </div>
                         <div class="card-body row">
                             <div class="shadow-sm col-sm-6">
-                                <p><span class="label">Taille</span>
+                                <p><span class="label"><b>Taille</b></span>
                                     <span class="fa-pull-right">
                                                     <span id="RangeOutputPatient_taille"
                                                           style="font-weight:bold;color:red">
@@ -724,9 +703,181 @@
                                 <div class="slidecontainer">
                                     <input id="RangeInputPatient_taille"
                                            min="120" max="190"
+                                           class="form-range slider" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6">
+                                <p><span class="label"><b>Tronc</b> - Hauteur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_Htronc"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_Htronc"
+                                           min="45" max="62" step="0.5"
                                            class="form-range" type="range" style="width: 100%"/>
                                 </div>
                             </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Tronc</b> - Largeur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_ltronc"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_ltronc"
+                                           min="14" max="45" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Tronc</b> - Profondeur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_ptronc"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_ptronc"
+                                           min="10" max="30" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Epaule</b> - Largeur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_Lepaule"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_Lepaule"
+                                           min="35" max="52" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Tête</b> - Longueur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_Ltete"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_Ltete"
+                                           min="15" max="30" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Tête</b> - Largeur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_ltete"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_ltete"
+                                           min="12" max="25" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Bras</b> - Longueur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_Lbras"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_Lbras"
+                                           min="16" max="35" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Bras</b> - Largeur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_lbras"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_lbras"
+                                           min="5" max="15" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
+                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                <p><span class="label"><b>Bras</b> - Profondeur</span>
+                                    <span class="fa-pull-right">
+                                        <span id="RangeOutputPatient_pbras"
+                                              style="font-weight:bold;color:red">
+                                            0
+                                        </span>
+                                        <span>
+                                            cm
+                                        </span>
+                                    </span>
+                                </p>
+                                <div class="slidecontainer">
+                                    <input id="RangeInputPatient_pbras"
+                                           min="5" max="15" step="0.5"
+                                           class="form-range" type="range" style="width: 100%"/>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
