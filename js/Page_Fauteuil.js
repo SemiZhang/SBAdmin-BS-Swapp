@@ -153,13 +153,13 @@ function init_slider() {
 }
 
 function init_option() {
-    modeleMode = 1;
+    modelMode = 1;
     document.getElementById('modeleMode').addEventListener('change',(event) =>{
         if (event.currentTarget.checked) {
-            modeleMode = 0;
+            modelMode = 0;
             cal_model_fauteuil();
         } else {
-            modeleMode = 1;
+            modelMode = 1;
             cal_model_fauteuil();
         }
     })
@@ -822,7 +822,7 @@ function cal_mesh_patient() {
     for (let element in meshlist) {
         mesh[element] = {};
 
-        switch (modeleMode){
+        switch (modelMode){
             case 0:
                 for (let i in [0,1]) {
                     [mesh[element].x,mesh[element].y,mesh[element].z]=ellipsoid(meshlist[element].cx,meshlist[element].cy,meshlist[element].cz,meshlist[element].x,meshlist[element].y,meshlist[element].z,mesh_accuracy,i);
