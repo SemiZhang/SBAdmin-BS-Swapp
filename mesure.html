@@ -620,17 +620,29 @@
     pointRadius=5;
     var scaleBy = 1.05;
 
-    var width = window.innerWidth;
-    var height = window.innerHeight;
+    // todo: source and target
+    function resizeKonva() {
+        var getStyle = function(dom, attr){
+            return dom.currentStyle ? dom.currentStyle[attr] : getComputedStyle(dom, false)[attr];
+        }
+        let div = document.getElementById('konva-container');
+        var clientWidth = div.clientWidth;
+        var paddingLeft = Number(getStyle(div,"paddingLeft").replace(/\s+|px/gi,""));
+        var paddingRight = Number(getStyle(div,"paddingRight").replace(/\s+|px/gi,""));
+        var width = clientWidth - paddingLeft - paddingRight;
 
-    // var width = document.getElementById('container').innerWidth;
-    // var height = document.getElementById('container').innerHeight;
+        stage.width(width);
+    }
+
+    // Resize image frame while window resize
+    window.onresize = function() {
+        resizeKonva();
+    }
 
     var stage = new Konva.Stage({
-        width: width,
-        height: height,
         container: 'konva-container',
     });
+    resizeKonva();
 
     var layer = new Konva.Layer();
     stage.add(layer);
@@ -648,7 +660,20 @@
         draggable: false,
         id: 'ki',
     });
-    image.onload = function() {
+    image.onload = function(e) {
+        console.log(e);
+        let naturalWidth = e.path[0].naturalWidth;
+        let naturalHeight = e.path[0].naturalHeight;
+        KonvaImage.width(naturalWidth);
+        KonvaImage.height(naturalHeight);
+        if (naturalWidth > naturalHeight){
+            groupImage.scale({x: stage.width()/naturalWidth, y: stage.width()/naturalWidth});
+            stage.height(stage.width() / naturalWidth * naturalHeight);
+        }else{
+            stage.height(stage.width() / naturalWidth * naturalHeight);
+            groupImage.scale({x: stage.height()/naturalHeight, y: stage.height()/naturalHeight});
+        }
+
         KonvaImage.cache();
         KonvaImage.filters([Konva.Filters.Brighten]);
     }
@@ -664,6 +689,10 @@
 
     layer.add(groupImage)
 
+    document.getElementById('file_fauteuil_face').addEventListener("input", function(e){
+        image.src = URL.createObjectURL(e.target.files[0]);
+
+    })
 
 
     const aspectRatio = stage.width() / stage.height();
