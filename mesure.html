@@ -382,31 +382,7 @@
                     <p class="mb-4">Mesurer les paramètres du fauteuil par deux photos, pour plus de détail, veuillez consulter notre <a
                             target="_blank" href="https://www.chartjs.org/docs/latest/">Mode d'emploi</a>.</p>
 
-                    <div class="card shadow mb-4" id="container-parent">
-                        <div class="card-header py-3">
-                            <div class="row">
-                                <h6 class="m-0 font-weight-bold text-primary col-4">Konva</h6>
-                                <div class="slidecontainer col-4" align="right">
-                                    <span align="right">Brightness</span>
-                                    <input id="input_brightness"
-                                           value="0" step="0.02" min="-0.8" max="0.8"
-                                           class="form-range" type="range"
-                                           style="width: 80%" />
-                                </div>
-                                <div class="slidecontainer col-4" align="right">
-                                    <span align="right">Point Size</span>
-                                    <input id="input_pointSize"
-                                           value="5" step="0.5" min="3" max="7"
-                                           class="form-range" type="range"
-                                           style="width: 80%" />
-                                </div>
-                            </div>
 
-                        </div>
-                        <div class="card-body" id="container">
-
-                        </div>
-                    </div>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -450,6 +426,34 @@
                                             <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
                                         </div>
                                     </div>
+
+                                </div>
+                            </div>
+
+
+                            <!--Konva-->
+                            <div class="card shadow mb-4" id="card-konva">
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <h6 class="m-0 font-weight-bold text-primary col-4">Konva</h6>
+                                        <div class="slidecontainer col-4" align="right">
+                                            <span align="right">Brightness</span>
+                                            <input id="input_brightness"
+                                                   value="0" step="0.02" min="-0.8" max="0.8"
+                                                   class="form-range" type="range"
+                                                   style="width: 80%" />
+                                        </div>
+                                        <div class="slidecontainer col-4" align="right">
+                                            <span align="right">Point Size</span>
+                                            <input id="input_pointSize"
+                                                   value="5" step="0.5" min="3" max="7"
+                                                   class="form-range" type="range"
+                                                   style="width: 80%" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body" id="konva-container">
 
                                 </div>
                             </div>
@@ -623,9 +627,9 @@
     // var height = document.getElementById('container').innerHeight;
 
     var stage = new Konva.Stage({
-        container: 'container',
         width: width,
         height: height,
+        container: 'konva-container',
     });
 
     var layer = new Konva.Layer();
