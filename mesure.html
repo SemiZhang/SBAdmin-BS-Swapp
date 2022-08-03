@@ -582,7 +582,9 @@
 </body>
 
 <script>
+    // Status of selected point in list table
     pointIndex = 0;
+    // Data of all points
     pointData={};
 
 
@@ -591,23 +593,30 @@
     //     console.log(this)
     // }))
 
+    // Event listener for list table
     document.getElementById('table_fauteuil_face').addEventListener('mouseup',function(e){
-        console.log(e)
         console.log(e.path)
         // console.log(e.path[2].rowIndex)
-        pointIndex=e.path[1].rowIndex;
-        console.log(pointIndex)
+        pointIndex=e.path[1].rowIndex; // path[1] only work for 'mouseup' event, path[2] for 'mousedown'
         refreshTable(this)
     })
 
+    // List of point should be refreshed after every change
+    // Apply color to 'unsaved', 'active', 'saved' rows
+    // Update point coordinate data
     function refreshTable(targetTable) {
+        // Reinitialize the list table
         Array.from(targetTable.rows).forEach(e=>e.setAttribute('class',''));
+        // 'Saved' point
         for (let i in pointData) {
-            document.getElementById(i).setAttribute('class','table-success');
+            document.getElementById(i).setAttribute('class','table-success'); // Style included in Bootstrap template
+            // Show saved data
             document.getElementById(i).children[1].innerHTML='x:'+parseInt(pointData[i].x)+'&emsp;y:'+parseInt(pointData[i].y);
+            // Show saved status
             document.getElementById(i).children[2].innerHTML='Enregistré';
 
         }
+        // 'Active' point
         if (pointIndex>0 && pointIndex < targetTable.rows.length){
             targetTable.rows[pointIndex].setAttribute('class','table-info');
         }
@@ -616,8 +625,11 @@
     }
 
 
+    // Status of mouse click on image (Used in mouseup event listener of all circles)
     moved=0;
+    // Circle default parameter
     pointRadius=5;
+    // Scale step
     var scaleBy = 1.05;
 
     // todo: source and target
