@@ -775,43 +775,6 @@
     })
 
 
-
-    var tooltipLayer = new Konva.Layer();
-
-    var tooltip = new Konva.Label({
-        opacity: 0.75,
-        visible: false,
-        listening: false,
-    });
-
-    tooltip.add(
-        new Konva.Tag({
-            fill: 'black',
-            pointerDirection: 'down',
-            pointerWidth: 10,
-            pointerHeight: 10,
-            lineJoin: 'round',
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOffsetX: 10,
-            shadowOffsetY: 10,
-            shadowOpacity: 0.2,
-        })
-    );
-
-    tooltip.add(
-        new Konva.Text({
-            text: '',
-            fontFamily: 'Calibri',
-            fontSize: 18,
-            padding: 5,
-            fill: 'white',
-        })
-    );
-
-    tooltipLayer.add(tooltip);
-
-
     KonvaImage.on('mouseup', function(e){
         // Only active on left click and no dragging movement
         if (e.evt.button==0 && moved==0){
@@ -980,12 +943,49 @@
         }
     });
 
+
+    var tooltipLayer = new Konva.Layer();
+
+    var tooltip = new Konva.Label({
+        opacity: 0.75,
+        visible: false,
+        listening: false,
+    });
+
+    tooltip.add(
+        new Konva.Tag({
+            fill: 'black',
+            pointerDirection: 'down',
+            pointerWidth: 10,
+            pointerHeight: 10,
+            lineJoin: 'round',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffsetX: 10,
+            shadowOffsetY: 10,
+            shadowOpacity: 0.2,
+        })
+    );
+
+    tooltip.add(
+        new Konva.Text({
+            text: '',
+            fontFamily: 'Calibri',
+            fontSize: 18,
+            padding: 5,
+            fill: 'white',
+        })
+    );
+
+    tooltipLayer.add(tooltip);
+    stage.add(tooltipLayer);
+
     stage.on('mouseover mousemove dragmove', function (evt) {
         moved = 1;
 
         var node = evt.target;
-        // console.log(node)
-        if (node) {
+        // console.log(node.className)
+        if (node.className == 'Circle') {
 
             // update tooltip
             var mousePos = node.getStage().getPointerPosition();
@@ -995,7 +995,7 @@
             });
             tooltip
                 .getText()
-                .text('node: ');
+                .text(document.getElementById(node.id()).children[0].innerHTML);
             tooltip.show();
         }
     });
