@@ -385,6 +385,32 @@
                     <p class="mb-4">Mesurer les paramètres du fauteuil par deux photos, pour plus de détail, veuillez consulter notre <a
                             target="_blank" href="https://www.chartjs.org/docs/latest/">Mode d'emploi</a>.</p>
 
+                    <div class="card shadow mb-4" id="container-parent">
+                        <div class="card-header py-3">
+                            <div class="row">
+                                <h6 class="m-0 font-weight-bold text-primary col-4">Konva</h6>
+                                <div class="slidecontainer col-4" align="right">
+                                    <span align="right">Brightness</span>
+                                    <input id="input_brightness"
+                                           value="0" step="0.02" min="-0.8" max="0.8"
+                                           class="form-range" type="range"
+                                           style="width: 80%" />
+                                </div>
+                                <div class="slidecontainer col-4" align="right">
+                                    <span align="right">Point Size</span>
+                                    <input id="input_pointSize"
+                                           value="5" step="0.5" min="3" max="7"
+                                           class="form-range" type="range"
+                                           style="width: 80%" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body" id="container">
+
+                        </div>
+                    </div>
+
                     <!-- Content Row -->
                     <div class="row">
 
@@ -518,14 +544,25 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <table class="table table-striped table-bordered table-hover">
+                                    <table class="table table-striped table-bordered table-hover" id="table_fauteuil_face">
                                         <thead>
-                                        <tr><th>Name</th><th>Description</th><th>Actions</th></tr>
+                                        <tr><th>Point</th><th>Déscription</th><th>état</th></tr>
                                         </thead>
                                         <tbody data-link="row" class="rowlink">
-                                        <tr><td><a href="#fileinput">Haut de Dossier</a></td><td>Le sommet du dossier</td><td class="rowlink-skip"><a href="#">Action</a></td></tr>
-                                        <tr><td><a href="http://www.jasny.net/" target="_blank">Fauteuil ACTION3</a></td><td>Enregistré le 13 mars 2022</td><td class="rowlink-skip"><a href="#">Action</a></td></tr>
-                                        <tr><td><a href="#rowlinkModal" data-toggle="modal">Launch modal</a></td><td>Toggle a modal via JavaScript by clicking this row.</td><td class="rowlink-skip"><a href="#">Action</a></td></tr>
+                                            <tr id="tff_c1b" class="table-active"><td>Calibration1_Bas</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_c1h" class="table-warning"><td>Calibration1_Haut</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_c2b" class="table-danger"><td>Calibration2_Bas</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_c2h" class="table-success"><td>Calibration2_Haut</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_ravtc" class="table-info"><td>Roue Avant_Centre</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_ravte" class="table-primary"><td>Roue Avant_Extrémité</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_fh" class="table-secondary"><td>Fourche_Haut Milieu</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_pp"><td>Potence_Palette</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_savt"><td>Siège_Avant</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_rarre"><td>Roue Arrière_Extrémité</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_mce"><td>Main Courant_Extrémité</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_rarrc"><td>Roue Arrière_Centre</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_sarr"><td>Siège_Arrière</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
+                                            <tr id="tff_dh"><td>Dossier_Haut</a></td><td></td><td class="rowlink-skip"><a href="#">à renseigner</a></td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -642,6 +679,7 @@
     <script src="vendor/magnificent/js/mag.js"></script>
     <script src="vendor/magnificent/js/mag-jquery.js"></script>
 
+    <script src="https://unpkg.com/konva@8.3.5/konva.min.js"></script>
 
 
     <!-- Page level custom scripts -->
@@ -705,6 +743,30 @@
 
         addCircle(layer,x,y);
     }
+    pointIndex = 0;
+    pointData={};
+
+
+
+    // document.querySelector("#table_fauteuil_face tbody").addEventListener('click', function(e){
+    //     console.log(this)
+    // }))
+
+    document.getElementById('table_fauteuil_face').addEventListener('mouseup',function(e){
+        console.log(e)
+        console.log(e.path)
+        // console.log(e.path[2].rowIndex)
+        pointIndex=e.path[1].rowIndex;
+        console.log(pointIndex)
+        refreshTable(this)
+    })
+
+    function refreshTable(targetTable) {
+        Array.from(targetTable.rows).forEach(e=>e.setAttribute('class',''));
+        for (let i in pointData) {
+            document.getElementById(i).setAttribute('class','table-success');
+            document.getElementById(i).children[1].innerHTML='x:'+parseInt(pointData[i].x)+'&emsp;y:'+parseInt(pointData[i].y);
+            document.getElementById(i).children[2].innerHTML='Enregistré';
 
     function deleteCircleDiv(e){
         // console.log("onclick")
@@ -714,6 +776,11 @@
             this.remove();
             return false;
         }
+        if (pointIndex>0 && pointIndex < targetTable.rows.length){
+            targetTable.rows[pointIndex].setAttribute('class','table-info');
+        }
+        // document.querySelectorAll("#"+targetTable+" tr").forEach(e=>e.setAttribute('class',''))
+        // document.querySelectorAll("#"+targetTable+" tr")[pointIndex].setAttribute('class','table-info')
     }
 
     function dragCircleDiv(e) {
@@ -730,18 +797,49 @@
             // console.log(dx,dy)
         }
 
+    moved=0;
+    pointRadius=5;
+    var scaleBy = 1.05;
 
         // /** 防止超出父元素范围 */
         // if (dx < 0) dx = 0
         // if (dy < 0) dy = 0
         // if (dx > 500) dx = 500
         // if (dy > 300) dy = 300
+    var width = window.innerWidth;
+    var height = window.innerHeight;
 
         dot = document.getElementById(e.target.id)
         // dot.style.cssText = 'top: ' + dy + 'px; left: ' + dx + 'px; position: absolute; cursor: pointer;'
         dot.setAttribute('style', `top: ${dy}px; left: ${dx}px; position: absolute; cursor: pointer;`)
+    // var width = document.getElementById('container').innerWidth;
+    // var height = document.getElementById('container').innerHeight;
 
+    var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height,
+    });
 
+    var layer = new Konva.Layer();
+    stage.add(layer);
+
+    // Konva.Image.fromURL('/test/face.jpg', function(image){
+    //     // image is Konva.Image instance
+    //     layer.add(image);
+    //     // layer.draw();
+    // });
+
+    var image = new Image();
+    image.src='/test/face.jpg';
+    var KonvaImage = new Konva.Image({
+        image: image,
+        draggable: false,
+        id: 'ki',
+    });
+    image.onload = function() {
+        KonvaImage.cache();
+        KonvaImage.filters([Konva.Filters.Brighten]);
     }
 
     function dragCircleDivStart(e) {
@@ -752,6 +850,15 @@
 
         // deltaLeft = e.clientX-e.target.offsetLeft;
         // deltaTop = e.clientY-e.target.offsetTop;
+    var groupImage = new Konva.Group({
+        draggable: true,
+    })
+    groupImage.add(KonvaImage);
+
+    var groupPoint = new Konva.Group();
+    groupImage.add(groupPoint);
+
+    layer.add(groupImage)
 
         // console.log(deltaLeft,deltaTop)
 
@@ -789,7 +896,72 @@
         // // console.log(event)
         // console.log(e)
         // // document.getElementById(id).visible=false
+    const aspectRatio = stage.width() / stage.height();
+    const imageRatio = KonvaImage.width() / KonvaImage.height();
+    if (aspectRatio <= imageRatio) {
+        newWidth = stage.width();
+        newHeight = stage.width() / imageRatio;
+    } else {
+        newWidth = stage.height() * imageRatio;
+        newHeight = stage.height();
     }
+    KonvaImage.size({
+        width: newWidth,
+        height: newHeight
+    })
+
+
+    document.getElementById('input_brightness').addEventListener('input', function(){
+        // groupImage.children[0].style.filter="brightness(1.5)"
+        // console.log(stage.find('#ki')[0].attrs.image.style.filter)
+        let value = this.value;
+        console.log(parseFloat(value));
+        KonvaImage.brightness(parseFloat(this.value));
+    })
+
+    document.getElementById('input_pointSize').addEventListener('input', function(){
+        pointRadius=this.value;
+        groupPoint.children.forEach((e)=>{
+            e.radius(this.value);
+        })
+    })
+
+
+
+    // var group = new Konva.Group();
+    // layer.add(group);
+
+    var text = new Konva.Text({
+        text: 'Click on the canvas to draw a circle',
+        fontSize: 20,
+        draggable: false,
+        y:45,
+    });
+    layer.add(text);
+
+    var text2 = new Konva.Text({
+        text: 'Pointer Position',
+        fontSize: 20,
+        y:0,
+    })
+    layer.add(text2);
+
+    var text3 = new Konva.Text({
+        text: 'groupImage Position',
+        fontSize: 20,
+        y:20,
+    })
+    layer.add(text3);
+
+    stage.on('mouseover mousemove dragmove', ()=>{
+        mousePos = stage.getRelativePointerPosition();
+        text2.text('Pointer Position:'+mousePos.x+','+mousePos.y)
+        text3.text('groupImage Position:'+groupImage.x()+','+groupImage.y())
+    })
+
+    stage.on('mouseout', ()=>{
+        text2.text('Pointer Position:-1,-1')
+    })
 
     // 找到元素的屏幕位置
     function locationLeft(element) {
@@ -798,9 +970,165 @@
         if (element.tagName != "BODY") {
             if (element.offsetParent != null)
                 return offsetTotal + scrollTotal + locationLeft(element.offsetParent);
+
+
+    var tooltipLayer = new Konva.Layer();
+
+    var tooltip = new Konva.Label({
+        opacity: 0.75,
+        visible: false,
+        listening: false,
+    });
+
+    tooltip.add(
+        new Konva.Tag({
+            fill: 'black',
+            pointerDirection: 'down',
+            pointerWidth: 10,
+            pointerHeight: 10,
+            lineJoin: 'round',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffsetX: 10,
+            shadowOffsetY: 10,
+            shadowOpacity: 0.2,
+        })
+    );
+
+    tooltip.add(
+        new Konva.Text({
+            text: '',
+            fontFamily: 'Calibri',
+            fontSize: 18,
+            padding: 5,
+            fill: 'white',
+        })
+    );
+
+    tooltipLayer.add(tooltip);
+
+
+    KonvaImage.on('mouseup', function(e){
+        // Only active on left click and no dragging movement
+        if (e.evt.button==0 && moved==0){
+            // Get event List Table
+            // todo: variable target table
+            let table = document.getElementById('table_fauteuil_face')
+
+            if (pointIndex == 0) {
+                window.alert("Choisir d'abord un point parmi la liste")
+            }else if (pointIndex < table.rows.length) {
+                // Get cursor position
+                var pos = KonvaImage.getRelativePointerPosition();
+                // Get target point's ID
+                let pointID = table.rows[pointIndex].id;
+
+                // Check if circle exist
+                let existingCircle = stage.find('#'+pointID)[0];
+
+                if (existingCircle) {
+                    // Moving existing circle to new position
+                    tween = new Konva.Tween({
+                        node: existingCircle,
+                        duration: 0.3,
+                        x: pos.x,
+                        y: pos.y,
+                        easing: Konva.Easings.EaseInOut,
+                    }).play();
+                }else{
+                    // Creat circle
+                    var circle = new Konva.Circle({
+                        x: pos.x,
+                        y: pos.y,
+                        fill: 'red',
+                        stroke: 'blue',
+                        strokeWidth: 0,
+                        radius: pointRadius,
+                        opacity: 0.5,
+                        draggable: true,
+                        scale: {x:1/groupImage.scaleX(),y:1/groupImage.scaleY()},
+                        id: pointID,
+                    });
+                    // Add circle
+                    groupPoint.add(circle);
+                    // Add drag listener to circle
+                    circle.on('dragmove', (e) => {
+                        const absPos = circle.getAbsolutePosition();
+                        const relPos = groupImage.getRelativePointerPosition();
+                        const image = groupImage.children[0];
+
+                        // Limit point in image border
+                        let newAbsPos = { ...absPos };
+                        let newRelPos = { ...relPos };
+                        if (relPos.x < 0) {
+                            newAbsPos.x = groupImage.x();
+                            newRelPos.x = 0;
+                        }
+                        if (relPos.y < 0) {
+                            newAbsPos.y = groupImage.y();
+                            newRelPos.y = 0;
+                        }
+                        if (relPos.x > image.width()) {
+                            newAbsPos.x = image.width()*groupImage.scaleX() + groupImage.x();
+                            newRelPos.x = image.width();
+                        }
+                        if (relPos.y > image.height()) {
+                            newAbsPos.y = image.height()*groupImage.scaleY() + groupImage.y();
+                            newRelPos.y = image.height();
+                        }
+                        circle.setAbsolutePosition(newAbsPos);
+
+                        // Save new position to Data
+                        pointData[circle.id()] = newRelPos;
+
+                        // Test function : Show coordinate on image frame
+                        text.text('absPos:\t'+newAbsPos.x+','+newAbsPos.y+'\nrelPos:\t'+relPos.x+','+relPos.y)
+
+                        refreshTable(document.getElementById('table_fauteuil_face'))
+
+                    });
+
+                    // Show a stroke on hover
+                    circle.on('mouseover', () => {
+                        circle.strokeWidth(2);
+                    })
+                    circle.on('mouseout', function () {
+                        circle.strokeWidth(0);
+                    });
+
+                    // Delete circle with right click
+                    circle.on('contextmenu', (e) => {
+                        e.evt.preventDefault();
+                        circle.destroy();
+                    });
+                };
+
+                // Save coordinate
+                pointData[table.rows[pointIndex].id]={x:pos.x,y:pos.y};
+
+                // Update pointIndex
+                pointIndex++;
+                // Refresh List Table
+                refreshTable(table);
+
+                if (pointIndex == table.rows.length){
+                    pointIndex = 0;
+                }
+            }
         }
         return offsetTotal + scrollTotal;
     }
+    })
+
+    // Reset dragging checker
+    KonvaImage.on('mousedown', function (e) {
+        moved = 0;
+    });
+
+    // Zoom by wheel
+    groupImage.on('wheel', (e) => {
+        // stop default scrolling
+        e.evt.preventDefault();
 
     // 找到元素的屏幕位置
     function locationTop(element) {
@@ -809,6 +1137,21 @@
         if (element.tagName != "BODY") {
             if (element.offsetParent != null)
                 return offsetTotal + scrollTotal + locationTop(element.offsetParent);
+        var oldScale = groupImage.scaleX();
+        var pointer = stage.getPointerPosition();
+
+        var mousePointTo = {
+            x: (pointer.x - groupImage.x()) / oldScale,
+            y: (pointer.y - groupImage.y()) / oldScale,
+        };
+
+        // how to scale? Zoom in? Or zoom out?
+        let direction = e.evt.deltaY < 0 ? 1 : -1;
+
+        // when we zoom on trackpad, e.evt.ctrlKey is true
+        // in that case lets revert direction
+        if (e.evt.ctrlKey) {
+            direction = -direction;
         }
         return offsetTotal + scrollTotal;
     }
@@ -818,14 +1161,19 @@
         var x = hotspot.x - 12;
         var y = hotspot.y - 12;
         var src = 'test/black-circle.png';
+        var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
 
-        imgEle = '<img ' + ' src="' + src + '"  style="top: '
-            + y + 'px; left: ' + x + 'px; position: absolute; cursor: pointer;"'
             + ')" />';
         $('.container').append(imgEle);
     }
+        groupImage.scale({ x: newScale, y: newScale });
 
     // var instance = panzoom(document.getElementById('test-container'));
+        var newPos = {
+            x: pointer.x - mousePointTo.x * newScale,
+            y: pointer.y - mousePointTo.y * newScale,
+        };
+        groupImage.position(newPos);
 
     // instance.on('panstart', function(e) {
     //     console.log('Fired when pan is just started ', e);
@@ -835,36 +1183,139 @@
     // instance.on('pan', function(e) {
     //     console.log('Fired when the scene is being panned', e);
     // });
+        // Keep circle size while zooming
+        groupPoint.children.forEach((child)=>{
+            child.scale({x: 1/newScale, y: 1/newScale})
+        })
+    });
+
+    stage.on('contextmenu', function (evt) {
+        console.log('stage contextmenu')
+        // prevent default behavior
+        evt.evt.preventDefault();
+        if (evt.target === stage) {
+            // if we are on empty place of the stage we will do nothing
+            return;
+        }
+    });
+
+    stage.on('mouseover mousemove dragmove', function (evt) {
+        moved = 1;
+
+        var node = evt.target;
+        // console.log(node)
+        if (node) {
+
+            // update tooltip
+            var mousePos = node.getStage().getPointerPosition();
+            tooltip.position({
+                x: mousePos.x,
+                y: mousePos.y - 5,
+            });
+            tooltip
+                .getText()
+                .text('node: ');
+            tooltip.show();
+        }
+    });
+
+    stage.on('mouseout', function (evt) {
+        tooltip.hide();
+    });
+
+    var sceneWidth = 1920;
+    var sceneHeight = 1080;
+
+    // function fitStageIntoParentContainer() {
+    //     var container = document.getElementById('container-parent');
     //
     // instance.on('panend', function(e) {
     //     console.log('Fired when pan ended', e);
-    // });
+    //     // now we need to fit stage into parent container
+    //     var containerWidth = container.offsetWidth;
     //
     // instance.on('zoom', function(e) {
     //     console.log('Fired when scene is zoomed', e);
     // });
+    //     // but we also make the full scene visible
+    //     // so we need to scale all objects on canvas
+    //     var scale = containerWidth / sceneWidth;
     //
     // instance.on('transform', function(e) {
     //     // This event will be called along with events above.
     //     console.log('Fired when any transformation has happened', e);
     // });
+    //     stage.width(sceneWidth * scale);
+    //     stage.height(sceneHeight * scale);
+    //     stage.scale({ x: scale, y: scale });
+    // }
+    // fitStageIntoParentContainer();
+    // // adapt the stage on any window resize
+    // window.addEventListener('resize', fitStageIntoParentContainer);
 
 
     let $host = $('[mag-thumb="inner"]');
     $host.mag();
+    function getCorner(pivotX, pivotY, diffX, diffY, angle) {
+        const distance = Math.sqrt(diffX * diffX + diffY * diffY);
 
     let $host2 = $('[mag-thumb="inner-inline"]');
     $host2.mag();
+        /// find angle from pivot to corner
+        angle += Math.atan2(diffY, diffX);
 
     let $host3 = $('[mag-thumb="outer"]');
     $host3.mag({
         mode: 'outer',
         ratio: 1 / 1.6
     });
+        /// get new x and y and round it off to integer
+        const x = pivotX + distance * Math.cos(angle);
+        const y = pivotY + distance * Math.sin(angle);
+
+        return { x: x, y: y };
     }
     function dragdotend(e) {
         console.log("dragEnd")
+    function getClientRect(rotatedBox) {
+        const { x, y, width, height } = rotatedBox;
+        const rad = rotatedBox.rotation;
+
+        const p1 = getCorner(x, y, 0, 0, rad);
+        const p2 = getCorner(x, y, width, 0, rad);
+        const p3 = getCorner(x, y, width, height, rad);
+        const p4 = getCorner(x, y, 0, height, rad);
+
+        const minX = Math.min(p1.x, p2.x, p3.x, p4.x);
+        const minY = Math.min(p1.y, p2.y, p3.y, p4.y);
+        const maxX = Math.max(p1.x, p2.x, p3.x, p4.x);
+        const maxY = Math.max(p1.y, p2.y, p3.y, p4.y);
+
+        return {
+            x: minX,
+            y: minY,
+            width: maxX - minX,
+            height: maxY - minY,
+        };
     }
+    function getTotalBox(boxes) {
+        let minX = Infinity;
+        let minY = Infinity;
+        let maxX = -Infinity;
+        let maxY = -Infinity;
+
+        boxes.forEach((box) => {
+            minX = Math.min(minX, box.x);
+            minY = Math.min(minY, box.y);
+            maxX = Math.max(maxX, box.x + box.width);
+            maxY = Math.max(maxY, box.y + box.height);
+        });
+        return {
+            x: minX,
+            y: minY,
+            width: maxX - minX,
+            height: maxY - minY,
+        };
     }
 </script>
 
