@@ -856,11 +856,28 @@
                     });
 
                     // Show a stroke on hover
-                    circle.on('mouseover', () => {
+                    circle.on('mouseover mousemove dragmove', () => {
+                        // Show border
                         circle.strokeWidth(2);
+
+                        // Update tooltip
+                        const absPos = circle.getAbsolutePosition();
+                        // var mousePos = node.getStage().getPointerPosition();
+                        tooltip.position({
+                            x: absPos.x,
+                            y: absPos.y - 5,
+                        });
+                        tooltip
+                            .getText()
+                            .text(document.getElementById(circle.id()).children[0].innerHTML);
+                        tooltip.show();
                     })
+
                     circle.on('mouseout', function () {
+                        // Hide border
                         circle.strokeWidth(0);
+                        // Hide tooltip
+                        tooltip.hide();
                     });
 
                     // Delete circle with right click
@@ -982,26 +999,6 @@
 
     stage.on('mouseover mousemove dragmove', function (evt) {
         moved = 1;
-
-        var node = evt.target;
-        // console.log(node.className)
-        if (node.className == 'Circle') {
-
-            // update tooltip
-            var mousePos = node.getStage().getPointerPosition();
-            tooltip.position({
-                x: mousePos.x,
-                y: mousePos.y - 5,
-            });
-            tooltip
-                .getText()
-                .text(document.getElementById(node.id()).children[0].innerHTML);
-            tooltip.show();
-        }
-    });
-
-    stage.on('mouseout', function (evt) {
-        tooltip.hide();
     });
 
     var sceneWidth = 1920;
