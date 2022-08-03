@@ -869,7 +869,6 @@ function cal_mesh_patient() {
                     data_temp = {
                         type: 'scatter3d',
                         mode: 'lines',
-                        // surfaceaxis: 1,
                         line: {
                             width: 20,
                         },
