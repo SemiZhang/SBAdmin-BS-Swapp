@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="css/sb-admin-2.min.css">
     <link rel="stylesheet" href="css/mesure.css">
 
+    <link rel="stylesheet" href="vendor/magnificent/css/mag.css">
+    <link rel="stylesheet" href="vendor/magnificent/theme/default.css">
+    <link rel="stylesheet" href="css/magnificent-index.css">
     <!-- Jasny-Bootstrap-->
     <link rel="stylesheet" href="vendor/jasny/css/jasny-bootstrap.min.css">
 
@@ -442,6 +445,67 @@
                                 </div>
                             </div>
 
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Inner</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div mag-thumb="inner" mag-flow="inline">
+                                        <img src="test/face.jpg"/>
+                                    </div>
+                                    <div mag-zoom="inner">
+                                        <img src="test/face.jpg"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Inner-Inline</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div mag-thumb="inner-inline" mag-flow="inline">
+                                        <img src="test/face.jpg"/>
+                                    </div>
+                                    <div mag-zoom="inner-inline">
+                                        <img src="test/face.jpg"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Outer</h6>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="row mag-eg-row">
+                                        <div class="col">
+                                            <div class="mag-eg-el-wrap img-thumbnail">
+                                                <div class="proportion">
+                                                    <div mag-thumb="outer" class="mag-eg-el">
+                                                        <img src="test/face.jpg" />
+                                                    </div>
+                                                    <div class="filler"></div>
+                                                </div>
+                                            </div>
+                                            <div class="mag-eg-el-wrap img-thumbnail" style="height:auto;width:auto">
+                                                <div style="height:350px;width:350px">
+                                                    <div mag-zoom="outer" class="mag-eg-el" style="float: right;position:relative;overflow:hidden;">
+                                                        <img src="test/face.jpg" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                         </div>
 
                         <!-- Donut Chart -->
@@ -467,6 +531,49 @@
                             </div>
                         </div>
                     </div>
+                    <!--row-->
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Inner-Inline</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="card shadow mb-4 col-6">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Inner</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div mag-thumb="inner" mag-flow="inline">
+                                            <img src="test/face.jpg"/>
+                                        </div>
+                                        <div mag-zoom="inner">
+                                            <img src="test/face.jpg"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card shadow mb-4 col-6">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Inner-Inline</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div mag-thumb="inner-inline" mag-flow="inline">
+                                            <img src="test/face.jpg"/>
+                                        </div>
+                                        <div mag-zoom="inner-inline">
+                                            <img src="test/face.jpg"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -528,6 +635,13 @@
 
     <!-- Page level plugins -->
 <!--    <script src="vendor/chart.js/Chart.min.js"></script>-->
+<!--    <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>-->
+    <script src="vendor/jquery-bridget/jquery.bridget.js"></script>
+    <script src="vendor/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="vendor/magnificent/js/mag.js"></script>
+    <script src="vendor/magnificent/js/mag-jquery.js"></script>
+
+
 
     <!-- Page level custom scripts -->
 <!--    <script src="js/demo/chart-area-demo.js"></script>-->
@@ -579,6 +693,17 @@
     function dragdotstart(e) {
         deltaLeft = e.clientX-e.target.offsetLeft;
         deltaTop = e.clientY-e.target.offsetTop;
+    let $host = $('[mag-thumb="inner"]');
+    $host.mag();
+
+    let $host2 = $('[mag-thumb="inner-inline"]');
+    $host2.mag();
+
+    let $host3 = $('[mag-thumb="outer"]');
+    $host3.mag({
+        mode: 'outer',
+        ratio: 1 / 1.6
+    });
     }
     function dragdotend(e) {
         console.log("dragEnd")
