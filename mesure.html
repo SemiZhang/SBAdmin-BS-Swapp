@@ -899,7 +899,12 @@
                 pointData[table.rows[pointIndex].id]={x:pos.x,y:pos.y};
 
                 // Update pointIndex
-                pointIndex++;
+                if (!pointData[table.rows[pointIndex+1].id]){
+                    pointIndex++;
+                }else{
+                    pointIndex = 0;
+                }
+
                 // Refresh List Table
                 refreshTable(table);
 
