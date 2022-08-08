@@ -505,6 +505,7 @@
             stage.height(stage.width() / naturalWidth * naturalHeight);
             groupImage.scale({x: stage.height()/naturalHeight, y: stage.height()/naturalHeight});
         }
+        scaleMin = 0.9 * stage.width()/naturalWidth;
 
         KonvaImage.cache();
         KonvaImage.filters([Konva.Filters.Brighten]);
@@ -757,6 +758,9 @@
 
         var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
 
+        if (newScale < scaleMin) {
+            newScale = scaleMin;
+        }
         groupImage.scale({ x: newScale, y: newScale });
 
         var newPos = {
