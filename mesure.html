@@ -685,13 +685,14 @@
                         // Update tooltip
                         const absPos = circle.getAbsolutePosition();
                         // var mousePos = node.getStage().getPointerPosition();
-                        tooltip.position({
-                            x: absPos.x,
-                            y: absPos.y - 5,
-                        });
                         tooltip
                             .getText()
                             .text(document.getElementById(circle.id()).children[0].innerHTML);
+                        tooltip.position({
+                            x: absPos.x,
+                            y: absPos.y - pointRadius,
+                        });
+
                         tooltip.show();
                     })
 
