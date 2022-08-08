@@ -29,13 +29,6 @@
 
 <body id="page-top">
 
-<div id="menu">
-    <div>
-        <button id="pulse-button">Pulse</button
-        ><button id="delete-button">Delete</button>
-    </div>
-</div>
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -437,12 +430,6 @@
     // Data of all points
     pointData={};
 
-
-
-    // document.querySelector("#table_fauteuil_face tbody").addEventListener('click', function(e){
-    //     console.log(this)
-    // }))
-
     // Event listener for list table
     document.getElementById('table_fauteuil_face').addEventListener('mouseup',function(e){
         console.log(e.path)
@@ -464,16 +451,12 @@
             document.getElementById(i).children[1].innerHTML='x:'+parseInt(pointData[i].x)+'&emsp;y:'+parseInt(pointData[i].y);
             // Show saved status
             document.getElementById(i).children[2].innerHTML='Enregistré';
-
         }
         // 'Active' point
         if (pointIndex>0 && pointIndex < targetTable.rows.length){
             targetTable.rows[pointIndex].setAttribute('class','table-info');
         }
-        // document.querySelectorAll("#"+targetTable+" tr").forEach(e=>e.setAttribute('class',''))
-        // document.querySelectorAll("#"+targetTable+" tr")[pointIndex].setAttribute('class','table-info')
     }
-
 
     // Status of mouse click on image (Used in mouseup event listener of all circles)
     moved=0;
@@ -522,9 +505,11 @@
         resizeKonva();
     }
 
+    //
     var stage = new Konva.Stage({
         container: 'konva-container',
     });
+
 
     var layer = new Konva.Layer();
     stage.add(layer);
@@ -601,9 +586,6 @@
 
     resizeKonva();
 
-
-    // var group = new Konva.Group();
-    // layer.add(group);
 
     var text = new Konva.Text({
         text: 'Click on the canvas to draw a circle',
@@ -726,6 +708,7 @@
                         // Update tooltip
                         const absPos = circle.getAbsolutePosition();
                         // var mousePos = node.getStage().getPointerPosition();
+
                         tooltip
                             .getText()
                             .text(document.getElementById(circle.id()).children[0].innerHTML);
@@ -839,6 +822,7 @@
         }
         groupImage.scale({ x: newScale, y: newScale });
 
+
         var newPos = {
             x: pointer.x - mousePointTo.x * newScale,
             y: pointer.y - mousePointTo.y * newScale,
@@ -900,6 +884,8 @@
     stage.on('mouseover mousemove dragmove', function (evt) {
         moved = 1;
     });
+
+
 
     var sceneWidth = 1920;
     var sceneHeight = 1080;
