@@ -507,6 +507,12 @@
         }
         scaleMin = 0.9 * stage.width()/naturalWidth;
 
+        // Keep circle size
+        // Changing image will resize and rescale the Konva stage (as above)
+        groupPoint.children.forEach((child)=>{
+            child.scale({x: 1/(stage.width()/naturalWidth), y: 1/(stage.width()/naturalWidth)})
+        })
+
         KonvaImage.cache();
         KonvaImage.filters([Konva.Filters.Brighten]);
     }
