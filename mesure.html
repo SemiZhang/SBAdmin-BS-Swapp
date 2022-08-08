@@ -735,6 +735,8 @@
                         tooltip.hide();
                     });
 
+                    stage.on('mouseout', ()=>{tooltip.hide();});
+
                     // Delete circle with right click
                     circle.on('contextmenu', (e) => {
                         e.evt.preventDefault();
