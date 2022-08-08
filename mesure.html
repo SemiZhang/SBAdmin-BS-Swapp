@@ -461,8 +461,10 @@
         var paddingLeft = Number(getStyle(div,"paddingLeft").replace(/\s+|px/gi,""));
         var paddingRight = Number(getStyle(div,"paddingRight").replace(/\s+|px/gi,""));
         var width = clientWidth - paddingLeft - paddingRight;
+        var height = width * 3 / 4;
 
         stage.width(width);
+        stage.height(height);
     }
 
     // Resize image frame while window resize
@@ -473,7 +475,6 @@
     var stage = new Konva.Stage({
         container: 'konva-container',
     });
-    resizeKonva();
 
     var layer = new Konva.Layer();
     stage.add(layer);
@@ -556,6 +557,7 @@
         })
     })
 
+    resizeKonva();
 
 
     // var group = new Konva.Group();
