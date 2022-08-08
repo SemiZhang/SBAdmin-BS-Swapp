@@ -496,6 +496,25 @@
 
         stage.width(width);
         stage.height(height);
+
+        let naturalWidth = image.naturalWidth;
+        let naturalHeight = image.naturalHeight;
+        KonvaImage.width(naturalWidth);
+        KonvaImage.height(naturalHeight);
+        if (naturalWidth > naturalHeight){
+            groupImage.scale({x: stage.width()/naturalWidth, y: stage.width()/naturalWidth});
+            stage.height(stage.width() / naturalWidth * naturalHeight);
+        }else{
+            stage.height(stage.width() / naturalWidth * naturalHeight);
+            groupImage.scale({x: stage.height()/naturalHeight, y: stage.height()/naturalHeight});
+        }
+        scaleMin = 0.9 * stage.width()/naturalWidth;
+
+        // Keep circle size
+        // Changing image will resize and rescale the Konva stage (as above)
+        groupPoint.children.forEach((child)=>{
+            child.scale({x: 1/(stage.width()/naturalWidth), y: 1/(stage.width()/naturalWidth)})
+        })
     }
 
     // Resize image frame while window resize
@@ -524,26 +543,6 @@
         id: 'ki',
     });
     image.onload = function(e) {
-        console.log(e);
-        let naturalWidth = e.path[0].naturalWidth;
-        let naturalHeight = e.path[0].naturalHeight;
-        KonvaImage.width(naturalWidth);
-        KonvaImage.height(naturalHeight);
-        if (naturalWidth > naturalHeight){
-            groupImage.scale({x: stage.width()/naturalWidth, y: stage.width()/naturalWidth});
-            stage.height(stage.width() / naturalWidth * naturalHeight);
-        }else{
-            stage.height(stage.width() / naturalWidth * naturalHeight);
-            groupImage.scale({x: stage.height()/naturalHeight, y: stage.height()/naturalHeight});
-        }
-        scaleMin = 0.9 * stage.width()/naturalWidth;
-
-        // Keep circle size
-        // Changing image will resize and rescale the Konva stage (as above)
-        groupPoint.children.forEach((child)=>{
-            child.scale({x: 1/(stage.width()/naturalWidth), y: 1/(stage.width()/naturalWidth)})
-        })
-
         KonvaImage.cache();
         KonvaImage.filters([Konva.Filters.Brighten]);
     }
@@ -976,6 +975,13 @@
             height: maxY - minY,
         };
     }
+
+
+    $('a[data-toggle="pill"]').on('shown.bs.tab',()=>{
+        resizeKonva()
+    })
+
+
 </script>
 
 </html>
