@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
 
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Smart WheelChair Application">
-    <meta name="author" content="">
+    <meta name="author" content="CERAH">
 
     <title>SWApp - Mesure</title>
 
@@ -17,12 +17,13 @@
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="css/sb-admin-2.min.css">
+
+
+    <!-- Page level styles -->
     <link rel="stylesheet" href="css/mesure.css">
-
-    <!-- Jasny-Bootstrap-->
+    <!-- Jasny-Bootstrap -->
     <link rel="stylesheet" href="vendor/jasny/css/jasny-bootstrap.min.css">
-
-    <!-- Holder.js-->
+    <!-- Holder.js -->
     <script src="vendor/holderjs/holder.min.js"></script>
 
 </head>
@@ -153,13 +154,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0 my-4" id="sidebarToggle"></button>
             </div>
-
-            <!-- Sidebar Message -->
-            <!--<div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>-->
 
         </ul>
         <!-- End of Sidebar -->
@@ -442,60 +436,42 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/jasny/js/jasny-bootstrap.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-<!--    <script src="vendor/chart.js/Chart.min.js"></script>-->
-<!--    <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>-->
-
+    <script src="vendor/jasny/js/jasny-bootstrap.min.js"></script>
     <script src="https://unpkg.com/konva@8/konva.min.js"></script>
-
-
-
-    <!-- Page level custom scripts -->
-<!--    <script src="js/demo/chart-area-demo.js"></script>-->
-<!--    <script src="js/demo/chart-pie-demo.js"></script>-->
-<!--    <script src="js/demo/chart-bar-demo.js"></script>-->
 
 
 </body>
 
 <script>
+    // ----- Configs ------
+    // Circle default parameter
+    pointRadius=5;
+    // Scale step
+    var scaleBy = 1.05;
+
+    // ----- Functionality variables -----
+    // This variable should contain id of navTab for photos
     names = ["fauteuil_face", "fauteuil_profil"];
 
-    // Status of selected point in list table
-    pointIndex = {};
+
+    // ----- Do not change ------
     // Data of all points
     pointData={};
+    // Status of selected point in list table
+    pointIndex = {};
+    // Status of mouse click on image (Used in mouseup event listener of all circles)
+    moved=0;
 
 
     // List of point should be refreshed after every change
@@ -518,12 +494,7 @@
         }
     }
 
-    // Status of mouse click on image (Used in mouseup event listener of all circles)
-    moved=0;
-    // Circle default parameter
-    pointRadius=5;
-    // Scale step
-    var scaleBy = 1.05;
+
 
     // todo: source and target
     function resizeKonva(targetName) {
