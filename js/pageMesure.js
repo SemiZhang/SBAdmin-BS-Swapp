@@ -285,11 +285,14 @@ for (let index in names) {
 
                     // Delete circle with right click
                     circle.on('contextmenu', (e) => {
+                        let activeTab = $('#navTab_mesure >> .nav-link.active')[0];
+
                         e.evt.preventDefault();
                         circle.destroy();
+                        tooltip[activeTab.id.replace(/-tab/,"")].hide();
+
                         delete pointData[circle.id()];
                         document.getElementById(circle.id()).children[1].innerHTML='';
-                        let activeTab = $('#navTab_mesure >> .nav-link.active')[0];
                         refreshTable(document.getElementById('table_'+activeTab.id.replace(/-tab/,"")));
                     });
                 };
