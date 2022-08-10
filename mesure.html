@@ -921,14 +921,17 @@
 
     // Refresh konva image frame size while changing navTab
     $('a[data-toggle="pill"]').on('shown.bs.tab',(e)=>{
-        if (e.target.role == "tab") {
+        if (e.target.role == 'tab') {
             resizeKonva(e.target.id.replace(/-tab/,""))
         }
     })
 
     // Resize konva image frame while window resize
     window.onresize = function() {
-        resizeKonva($('#navTab_mesure >> .nav-link.active')[0].id.replace(/-tab/,""));
+        let activeTab = $('#navTab_mesure >> .nav-link.active')[0];
+        if (activeTab.role == 'tab'){
+            resizeKonva(activeTab.id.replace(/-tab/,""));
+        }
     }
 </script>
 
