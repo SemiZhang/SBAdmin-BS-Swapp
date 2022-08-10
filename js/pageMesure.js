@@ -287,6 +287,10 @@ for (let index in names) {
                     circle.on('contextmenu', (e) => {
                         e.evt.preventDefault();
                         circle.destroy();
+                        delete pointData[circle.id()];
+                        document.getElementById(circle.id()).children[1].innerHTML='';
+                        let activeTab = $('#navTab_mesure >> .nav-link.active')[0];
+                        refreshTable(document.getElementById('table_'+activeTab.id.replace(/-tab/,"")));
                     });
                 };
 
