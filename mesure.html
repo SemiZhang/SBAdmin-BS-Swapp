@@ -488,9 +488,11 @@
             // Show saved status
             // document.getElementById(i).children[2].innerHTML='Enregistré';
         }
+
+        let targetName = targetTable.id.replace(/table_/,"")
         // 'Active' point
-        if (pointIndex>0 && pointIndex < targetTable.rows.length){
-            targetTable.rows[pointIndex].setAttribute('class','table-info');
+        if (pointIndex[targetName]>0 && pointIndex[targetName] < targetTable.rows.length){
+            targetTable.rows[pointIndex[targetName]].setAttribute('class','table-info');
         }
     }
 
