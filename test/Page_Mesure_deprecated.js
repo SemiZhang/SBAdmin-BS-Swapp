@@ -1,6 +1,6 @@
 // HTML
 // <div className="test-container" id="test-container">
-//     <img src="test/face.jpg"
+//     <img src="test/fauteul_face.jpg"
 //          onClick="addCircleDiv(event)"
 //          draggable="false"
 //          style="max-width: 300x; max-height: 200px;">

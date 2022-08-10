@@ -1,7 +1,3 @@
-// import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
-// import {reglage_patient} from "/js/1_Initialisation/init_coord.js";
-// import {patient} from "/js/1_Initialisation/init_coord.js";
-
 let taille = 175;
 init_coord_chair();
 init_coord_patient()
@@ -158,11 +154,15 @@ function init_option() {
         if (event.currentTarget.checked) {
             modelMode = 0;
             cal_model_fauteuil();
+
         } else {
             modelMode = 1;
             cal_model_fauteuil();
         }
     })
+
+    showFauteuil = 1;
+    showPatient = 1;
 }
 
 function cal_model_fauteuil() {
@@ -881,6 +881,10 @@ function cal_mesh_patient() {
                 }
                 break;
         }
+
+
+
+
     }
 }
 
@@ -1309,6 +1313,7 @@ function matrice_Translation(x,y,z) {
         [0,0,0,1]
     ]
 }
+
 
 // Config Plotly
 

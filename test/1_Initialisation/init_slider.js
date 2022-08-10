@@ -14,14 +14,14 @@ function ValueChanged() {
 }*/
 
 // reglage = require("/js/Calculation_Maquette/1_Initialisation/init_coord.js");
-// require("/js/Calculation_Maquette/1_Initialisation/Page_Fauteuil.js")
+// require("/js/Calculation_Maquette/1_Initialisation/pageFauteuil.js")
 
 
 // import {init_data} from "/js/1_Initialisation/page_Fauteuil.js";
 // import {init_layout} from "/js/1_Initialisation/page_Fauteuil.js";
 // import {page_Fauteuil} from "/js/1_Initialisation/page_Fauteuil.js";
 // import {reglage_chair} from "/js/1_Initialisation/init_coord.js";
-// import {page_Fauteuil} from "/js/1_Initialisation/Page_Fauteuil.js";
+// import {page_Fauteuil} from "/js/1_Initialisation/pageFauteuil.js";
 
 let allSliders = Array();
 for (let i1 in reglage_chair) {
