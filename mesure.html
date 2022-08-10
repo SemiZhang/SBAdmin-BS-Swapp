@@ -755,42 +755,35 @@
                                 .getText()
                                 .text(document.getElementById(circle.id()).children[0].innerHTML);
 
-                            // Tried to prevent tooltip from getting out of frame
-                            // Limited by Konva, tag position related to pointerDirection only on creation of element
+                            // Prevent tooltip from getting out of frame
+                            if (absPos.y < tooltip[targetName].height()) {
+                                tag[targetName].pointerDirection('up')
+                                tooltip[targetName].position({
+                                    x: absPos.x,
+                                    y: absPos.y + pointRadius,
+                                });
+                            }else{
+                                tag[targetName].pointerDirection('down')
+                                tooltip[targetName].position({
+                                    x: absPos.x,
+                                    y: absPos.y - pointRadius,
+                                });
+                            }
 
-                            // if (absPos.y < tooltip.height()) {
-                            //     tag.pointerDirection('up')
-                            //     tooltip.position({
-                            //         x: absPos.x,
-                            //         y: absPos.y + tooltip.height() + tag.pointerHeight() + pointRadius,
-                            //     });
-                            // }else{
-                            //     tag.pointerDirection('down')
-                            //     tooltip.position({
-                            //         x: absPos.x,
-                            //         y: absPos.y - pointRadius,
-                            //     });
-                            // }
-                            //
-                            // if (absPos.x < tooltip.width()/2) {
-                            //     tag.pointerDirection('left')
-                            //     tooltip.position({
-                            //         x: absPos.x + pointRadius,
-                            //         y: absPos.y,
-                            //     });
-                            // }else if (absPos.x > stage.width() - tooltip.width()/2) {
-                            //     tag.pointerDirection('right')
-                            //     tooltip.position({
-                            //         x: absPos.x - pointRadius,
-                            //         y: absPos.y,
-                            //     });
-                            // }
-
-                            tooltip[targetName].position({
-                                x: absPos.x,
-                                y: absPos.y - pointRadius,
-                            });
-
+                            if (absPos.x < tooltip[targetName].width()/2) {
+                                tag[targetName].pointerDirection('left')
+                                tooltip[targetName].position({
+                                    x: absPos.x + pointRadius,
+                                    y: absPos.y,
+                                });
+                            }else if (absPos.x > stage[targetName].width() - tooltip[targetName].width()/2) {
+                                tag[targetName].pointerDirection('right')
+                                tooltip[targetName].position({
+                                    x: absPos.x - pointRadius,
+                                    y: absPos.y,
+                                });
+                            }
+                            
                             tooltip[targetName].show();
                         })
 
