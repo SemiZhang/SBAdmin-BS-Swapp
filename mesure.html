@@ -513,8 +513,7 @@
 
         let naturalWidth = image[targetName].naturalWidth;
         let naturalHeight = image[targetName].naturalHeight;
-        KonvaImage[targetName].width(naturalWidth);
-        KonvaImage[targetName].height(naturalHeight);
+
         if (naturalWidth > naturalHeight){
             groupImage[targetName].scale({x: stage[targetName].width()/naturalWidth, y: stage[targetName].width()/naturalWidth});
             stage[targetName].height(stage[targetName].width() / naturalWidth * naturalHeight);
@@ -575,7 +574,11 @@
             draggable: false,
             id: "konvaImage_"+targetName,
         });
-        image[targetName].onload = function(e) {
+
+        // Cache image in Konva when loading finished
+        image[targetName].onload = function() {
+            KonvaImage[targetName].width(this.naturalWidth);
+            KonvaImage[targetName].height(this.naturalHeight);
             KonvaImage[targetName].cache();
             KonvaImage[targetName].filters([Konva.Filters.Brighten]);
         }
