@@ -52,7 +52,7 @@ for (let index in names) {
 
     // Image object
     image[targetName] = new Image();
-    image[targetName].src='/test/'+[targetName]+'.jpg'; // Predefined image for testing use
+    image[targetName].src='test/'+[targetName]+'.jpg'; // Predefined image for testing use
     KonvaImage[targetName] = new Konva.Image({
         image: image[targetName],
         draggable: false,
