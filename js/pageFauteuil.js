@@ -60,7 +60,6 @@ function init_coord_chair() {
 
 function init_coord_patient(){
     patient = {
-        taille: taille,
         Lpied: 0.146*taille,
         Ltibia: 0.246*taille,
         Lcuisse: 0.245*taille,
@@ -93,16 +92,17 @@ function init_coord_patient(){
 function init_slider() {
     // Reglage Fauteuil
     for (let i1 in reglage_chair) {
-        for (let i2 in reglage_chair[i1]){
-            for (let i3 in reglage_chair [i1][i2]){
-                let slider = document.getElementById('RangeInput_'+i1+'_'+i2+'_'+i3);
-                let output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
-                try{
+        for (let i2 in reglage_chair[i1]) {
+            for (let i3 in reglage_chair [i1][i2]) {
+                let slider = document.getElementById('RangeInput_' + i1 + '_' + i2 + '_' + i3);
+                let output = document.getElementById('RangeOutput_' + i1 + '_' + i2 + '_' + i3);
+                try {
                     slider.value = reglage_chair[i1][i2][i3];
                     output.innerHTML = slider.value;
-                    slider.addEventListener("input",ValueChanged);
+                    slider.addEventListener("input", ValueChanged);
+
                     function ValueChanged() {
-                        output = document.getElementById('RangeOutput_'+i1+'_'+i2+'_'+i3);
+                        output = document.getElementById('RangeOutput_' + i1 + '_' + i2 + '_' + i3);
                         output.innerHTML = this.value;
                         reglage_chair[i1][i2][i3] = parseFloat(this.value);
                         cal_model_fauteuil();
@@ -110,40 +110,43 @@ function init_slider() {
                         // let layout = init_layout();
                         // Plotly.react('myPloty3DChart', data, layout[0], layout[1]);
                     }
-                } catch(error) {
-                    console.log(error)
+                } catch (error) {
+                    // console.log(error)
                 }
             }
         }
     }
 
+    refreshSliderPatient();
+
+    document.getElementById('RangeInputPatient_taille').value = taille;
+    document.getElementById('RangeOutputPatient_taille').innerHTML = taille;
+    document.getElementById('RangeInputPatient_taille').addEventListener("input", function () {
+        output = document.getElementById('RangeOutputPatient_taille');
+        output.innerHTML = this.value;
+        taille = parseFloat(this.value);
+        init_coord_patient();
+        cal_model_fauteuil();
+        refreshSliderPatient();
+    });
+}
+
+function refreshSliderPatient(){
     // Reglage Patient
     for (let i1 in patient) {
-        let slider = document.getElementById('RangeInputPatient_'+i1);
-        let output = document.getElementById('RangeOutputPatient_'+i1);
-        try{
+        let slider = document.getElementById('RangeInputPatient_' + i1);
+        let output = document.getElementById('RangeOutputPatient_' + i1);
+        try {
             slider.value = patient[i1];
             output.innerHTML = slider.value;
-            if (i1 == "taille") {
-                slider.addEventListener("input",ValueChanged);
-                function ValueChanged() {
-                    output = document.getElementById('RangeOutputPatient_'+i1);
-                    output.innerHTML = this.value;
-                    taille = parseFloat(this.value);
-                    init_coord_patient();
-                    cal_model_fauteuil();
-                }
-            }else{
-                slider.addEventListener("input",ValueChanged);
-                function ValueChanged() {
-                    output = document.getElementById('RangeOutputPatient_'+i1);
-                    output.innerHTML = this.value;
-                    patient[i1] = parseFloat(this.value);
-                    cal_model_fauteuil();
-                }
-            }
-        } catch(error) {
-            console.log(error)
+            slider.addEventListener("input", function(){
+                output = document.getElementById('RangeOutputPatient_' + i1);
+                output.innerHTML = this.value;
+                patient[i1] = parseFloat(this.value);
+                cal_model_fauteuil();
+            });
+        } catch (error) {
+            // console.log(error)
         }
     }
 }
