@@ -185,6 +185,7 @@
 
                     <!-- Page Heading -->
                     <!--<h1 class="h3 mb-2 text-gray-800">Mesure Photo</h1>-->
+                    <button id="calcul" onclick="calcul()">Calcul</button>
 
                     <!-- Navigation Tabs -->
                     <ul class="nav nav-pills mb-3" id="navTab_mesure" role="tablist">
@@ -261,6 +262,32 @@
                                             <p>Prenez les photos à 4 mètres</p>
                                             <p class="mb-4">Mesurer les paramètres du fauteuil par deux photos, pour plus de détail, veuillez consulter notre <a
                                                     target="_blank" href="https://www.chartjs.org/docs/latest/">Mode d'emploi</a>.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Calibration -->
+                                <div class="col-lg-5">
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Configuration de calibration</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>
+                                                <label for="calib1">Hauteur Calibration:</label>
+                                                <input type="number" step="0.1" value="25.5"
+                                                       id="calib1" name="calib1" required
+                                                       size="auto">
+                                                <span>cm</span>
+                                            </p>
+                                            <p>
+                                                <label for="calibSol">Distance Sol:</label>
+                                                <input type="number" step="0.1" value="1.5"
+                                                       id="calibSol" name="calib1" required
+                                                       size="auto">
+                                                <span>cm</span>
+                                            </p>
+
                                         </div>
                                     </div>
                                 </div>

@@ -523,6 +523,7 @@ function resizeKonva(targetName) {
     groupPoint[targetName].children.forEach((child)=>{
         child.scale({x: 1/(stage[targetName].width()/naturalWidth), y: 1/(stage[targetName].width()/naturalWidth)});
     });
+}
 
 function save(){
     // Save data in localStorage
@@ -530,3 +531,59 @@ function save(){
 }
 
 
+// Calculation
+let calibHauteur = document.getElementById('calib1').value;
+let calibSol = document.getElementById('calibSol').value;
+
+document.getElementById('calib1').addEventListener('input', (e) => {
+    if (e.target.value == ''){
+        e.target.value = 0;
+    };
+    e.target.value = e.target.valueAsNumber;
+    calibHauteur = e.target.valueAsNumber;
+})
+
+document.getElementById('calibSol').addEventListener('input', (e) => {
+    if (e.target.value == ''){
+        e.target.value = 0;
+    };
+    e.target.value = e.target.valueAsNumber;
+    calibSol = e.target.valueAsNumber;
+})
+
+function distance(data,d,dReal){
+    let distances = [Math.abs(data[1].x-data[0].x),Math.abs(data[1].y-data[0].y)];
+    let result_photo = Math.sqrt((Math.pow(distances[0],2) + Math.pow(distances[1],2)));
+    return result_photo * dReal / d;
+}
+
+let resultCalcul = {};
+
+function calcul(){
+    // Profil
+    let d_photo=distance([pointData["fauteuil_profil"].tfp_c1b,pointData["fauteuil_profil"].tfp_c1h],1,1);
+    console.log(d_photo)
+
+    let echelle1Profil = calibHauteur;
+    let echelle2Profil = calibHauteur;
+
+    let O1=pointData["fauteuil_profil"].tfp_c1b;
+    let x1=pointData["fauteuil_profil"].tfp_c1h;
+    let O2=pointData["fauteuil_profil"].tfp_c2b;
+    let x2=pointData["fauteuil_profil"].tfp_c2h;
+    let CRAvt=pointData["fauteuil_profil"].tfp_ravtc;
+    let RAvt=pointData["fauteuil_profil"].tfp_ravte;
+    let Fourche=pointData["fauteuil_profil"].tfp_fh;
+    let Potence=pointData["fauteuil_profil"].tfp_pp;
+    let SAvt=pointData["fauteuil_profil"].tfp_savt;
+    let RArr=pointData["fauteuil_profil"].tfp_rarre;
+    let MC=pointData["fauteuil_profil"].tfp_mce;
+    let CRArr=pointData["fauteuil_profil"].tfp_rarrc;
+    let SArr=pointData["fauteuil_profil"].tfp_sarr;
+    let Dossier=pointData["fauteuil_profil"].tfp_dh;
+
+    resultCalcul.diametreRoueArr=2*distance([CRArr,RArr],d_photo,echelle1Profil);
+    resultCalcul.diametreMainCourante=2*distance([CRArr,MC],d_photo,echelle1Profil);
+    resultCalcul.diametreRoueAvt=2*distance([CRAvt,RAvt],d_photo,echelle1Profil);
+
+}
