@@ -40,6 +40,9 @@ for (let index in names) {
 
     // Initialization of variables
     pointIndex[targetName] = 0;
+    if (!pointData[targetName]){
+        pointData[targetName] = {};
+    }
 
     // Main Konva frame
     stage[targetName] = new Konva.Stage({
@@ -178,132 +181,15 @@ for (let index in names) {
                         easing: Konva.Easings.EaseInOut,
                     }).play();
                 }else{
-                    // Creat circle
-                    var circle = new Konva.Circle({
-                        x: pos.x,
-                        y: pos.y,
-                        fill: 'red',
-                        stroke: 'blue',
-                        strokeWidth: 0,
-                        radius: pointRadius,
-                        opacity: 0.5,
-                        draggable: true,
-                        scale: {x:1/groupImage[targetName].scaleX(),y:1/groupImage[targetName].scaleY()},
-                        id: pointID,
-                    });
-                    // Add circle
-                    groupPoint[targetName].add(circle);
-                    // Add drag movement to circle
-                    circle.on('dragmove', (e) => {
-                        const absPos = circle.getAbsolutePosition();
-                        const relPos = groupImage[targetName].getRelativePointerPosition();
-                        const image = groupImage[targetName].children[0];
-
-                        // Limit point in image border
-                        let newAbsPos = { ...absPos };
-                        let newRelPos = { ...relPos };
-                        if (relPos.x < 0) {
-                            newAbsPos.x = groupImage[targetName].x();
-                            newRelPos.x = 0;
-                        }
-                        if (relPos.y < 0) {
-                            newAbsPos.y = groupImage[targetName].y();
-                            newRelPos.y = 0;
-                        }
-                        if (relPos.x > image.width()) {
-                            newAbsPos.x = image.width()*groupImage[targetName].scaleX() + groupImage[targetName].x();
-                            newRelPos.x = image.width();
-                        }
-                        if (relPos.y > image.height()) {
-                            newAbsPos.y = image.height()*groupImage[targetName].scaleY() + groupImage[targetName].y();
-                            newRelPos.y = image.height();
-                        }
-                        circle.setAbsolutePosition(newAbsPos);
-
-                        // Save new position to Data
-                        pointData[circle.id()] = newRelPos;
-
-                        // Test function : Show coordinate on image frame
-                        text[targetName].text('absPos:\t'+newAbsPos.x+','+newAbsPos.y+'\nrelPos:\t'+relPos.x+','+relPos.y)
-
-                        refreshTable(table);
-
-                    });
-
-                    // Show a stroke and label on hover
-                    circle.on('mouseover mousemove dragmove', () => {
-                        // Show border
-                        circle.strokeWidth(2);
-
-                        // Update tooltip
-                        const absPos = circle.getAbsolutePosition();
-                        // var mousePos = node.getStage().getPointerPosition();
-
-                        tooltip[targetName]
-                            .getText()
-                            .text(document.getElementById(circle.id()).children[0].innerHTML);
-
-                        // Prevent tooltip from getting out of frame
-                        if (absPos.y < tooltip[targetName].height()) {
-                            tag[targetName].pointerDirection('up')
-                            tooltip[targetName].position({
-                                x: absPos.x,
-                                y: absPos.y + pointRadius,
-                            });
-                        }else{
-                            tag[targetName].pointerDirection('down')
-                            tooltip[targetName].position({
-                                x: absPos.x,
-                                y: absPos.y - pointRadius,
-                            });
-                        }
-
-                        if (absPos.x < tooltip[targetName].width()/2) {
-                            tag[targetName].pointerDirection('left')
-                            tooltip[targetName].position({
-                                x: absPos.x + pointRadius,
-                                y: absPos.y,
-                            });
-                        }else if (absPos.x > stage[targetName].width() - tooltip[targetName].width()/2) {
-                            tag[targetName].pointerDirection('right')
-                            tooltip[targetName].position({
-                                x: absPos.x - pointRadius,
-                                y: absPos.y,
-                            });
-                        }
-
-                        tooltip[targetName].show();
-                    });
-
-                    // Hide stoke and tooltip
-                    circle.on('mouseout', function () {
-                        // Hide border
-                        circle.strokeWidth(0);
-                        // Hide tooltip
-                        tooltip[targetName].hide();
-                    });
-                    stage[targetName].on('mouseout', ()=>{tooltip[targetName].hide();});
-
-                    // Delete circle with right click
-                    circle.on('contextmenu', (e) => {
-                        let activeTab = $('#navTab_mesure >> .nav-link.active')[0];
-
-                        e.evt.preventDefault();
-                        circle.destroy();
-                        tooltip[activeTab.id.replace(/-tab/,"")].hide();
-
-                        delete pointData[circle.id()];
-                        document.getElementById(circle.id()).children[1].innerHTML='';
-                        refreshTable(document.getElementById('table_'+activeTab.id.replace(/-tab/,"")));
-                    });
+                    addCircle(targetName,pos,pointID);
                 };
 
                 // Save coordinate
-                pointData[table.rows[pointIndex[targetName]].id]={x:pos.x,y:pos.y};
+                pointData[targetName][table.rows[pointIndex[targetName]].id]={x:pos.x,y:pos.y};
 
                 // Update pointIndex
                 try {
-                    if (!pointData[table.rows[pointIndex[targetName]+1].id]){
+                    if (!pointData[targetName][table.rows[pointIndex[targetName]+1].id]){
                         pointIndex[targetName]++;
                     }else{
                         pointIndex[targetName] = 0;
@@ -426,6 +312,127 @@ for (let index in names) {
     });
 }
 
+function addCircle(targetName,pos,pointID){
+    // Creat circle
+    var circle = new Konva.Circle({
+        x: pos.x,
+        y: pos.y,
+        fill: 'red',
+        stroke: 'blue',
+        strokeWidth: 0,
+        radius: pointRadius,
+        opacity: 0.5,
+        draggable: true,
+        scale: {x:1/groupImage[targetName].scaleX(),y:1/groupImage[targetName].scaleY()},
+        id: pointID,
+    });
+    // Add circle
+    groupPoint[targetName].add(circle);
+    // Add drag movement to circle
+    circle.on('dragmove', (e) => {
+        const absPos = circle.getAbsolutePosition();
+        const relPos = groupImage[targetName].getRelativePointerPosition();
+        const image = groupImage[targetName].children[0];
+
+        // Limit point in image border
+        let newAbsPos = { ...absPos };
+        let newRelPos = { ...relPos };
+        if (relPos.x < 0) {
+            newAbsPos.x = groupImage[targetName].x();
+            newRelPos.x = 0;
+        }
+        if (relPos.y < 0) {
+            newAbsPos.y = groupImage[targetName].y();
+            newRelPos.y = 0;
+        }
+        if (relPos.x > image.width()) {
+            newAbsPos.x = image.width()*groupImage[targetName].scaleX() + groupImage[targetName].x();
+            newRelPos.x = image.width();
+        }
+        if (relPos.y > image.height()) {
+            newAbsPos.y = image.height()*groupImage[targetName].scaleY() + groupImage[targetName].y();
+            newRelPos.y = image.height();
+        }
+        circle.setAbsolutePosition(newAbsPos);
+
+        // Save new position to Data
+        pointData[targetName][circle.id()] = newRelPos;
+
+        // Test function : Show coordinate on image frame
+        text[targetName].text('absPos:\t'+newAbsPos.x+','+newAbsPos.y+'\nrelPos:\t'+relPos.x+','+relPos.y)
+
+        refreshTable(document.getElementById('table_'+circle.getStage().id()));
+
+    });
+
+    // Show a stroke and label on hover
+    circle.on('mouseover mousemove dragmove', () => {
+        // Show border
+        circle.strokeWidth(2);
+
+        // Update tooltip
+        const absPos = circle.getAbsolutePosition();
+        // var mousePos = node.getStage().getPointerPosition();
+
+        tooltip[targetName]
+            .getText()
+            .text(document.getElementById(circle.id()).children[0].innerHTML);
+
+        // Prevent tooltip from getting out of frame
+        if (absPos.y < tooltip[targetName].height()) {
+            tag[targetName].pointerDirection('up')
+            tooltip[targetName].position({
+                x: absPos.x,
+                y: absPos.y + pointRadius,
+            });
+        }else{
+            tag[targetName].pointerDirection('down')
+            tooltip[targetName].position({
+                x: absPos.x,
+                y: absPos.y - pointRadius,
+            });
+        }
+
+        if (absPos.x < tooltip[targetName].width()/2) {
+            tag[targetName].pointerDirection('left')
+            tooltip[targetName].position({
+                x: absPos.x + pointRadius,
+                y: absPos.y,
+            });
+        }else if (absPos.x > stage[targetName].width() - tooltip[targetName].width()/2) {
+            tag[targetName].pointerDirection('right')
+            tooltip[targetName].position({
+                x: absPos.x - pointRadius,
+                y: absPos.y,
+            });
+        }
+
+        tooltip[targetName].show();
+    });
+
+    // Hide stoke and tooltip
+    circle.on('mouseout', function () {
+        // Hide border
+        circle.strokeWidth(0);
+        // Hide tooltip
+        tooltip[targetName].hide();
+    });
+    stage[targetName].on('mouseout', ()=>{tooltip[targetName].hide();});
+
+    // Delete circle with right click
+    circle.on('contextmenu', (e) => {
+        let activeTab = $('#navTab_mesure >> .nav-link.active')[0];
+
+        e.evt.preventDefault();
+        circle.destroy();
+        tooltip[activeTab.id.replace(/-tab/,"")].hide();
+
+        delete pointData[targetName][circle.id()];
+        document.getElementById(circle.id()).children[1].innerHTML='';
+        refreshTable(document.getElementById('table_'+activeTab.id.replace(/-tab/,"")));
+    });
+}
+
 // Refresh konva image frame size while changing navTab
 $('a[data-toggle="pill"]').on('shown.bs.tab',(e)=>{
     if (e.target.role == 'tab') {
@@ -448,15 +455,15 @@ function refreshTable(targetTable) {
     // Reinitialize the list table
     Array.from(targetTable.rows).forEach((e) => e.setAttribute('class',''));
     // 'Saved' point
-    for (let i in pointData) {
+    let targetName = targetTable.id.replace(/table_/,"")
+    for (let i in pointData[targetName]) {
         document.getElementById(i).setAttribute('class','table-success'); // Style included in Bootstrap template
         // Show saved data
-        document.getElementById(i).children[1].innerHTML='x:'+parseInt(pointData[i].x)+'&emsp;y:'+parseInt(pointData[i].y);
+        document.getElementById(i).children[1].innerHTML='x:'+parseInt(pointData[targetName][i].x)+'&emsp;y:'+parseInt(pointData[targetName][i].y);
         // Show saved status
         // document.getElementById(i).children[2].innerHTML='Enregistré';
     }
 
-    let targetName = targetTable.id.replace(/table_/,"");
     // 'Active' point
     if (pointIndex[targetName]>0 && pointIndex[targetName] < targetTable.rows.length){
         targetTable.rows[pointIndex[targetName]].setAttribute('class','table-info');
