@@ -44,6 +44,7 @@ for (let index in names) {
     // Main Konva frame
     stage[targetName] = new Konva.Stage({
         container: "konva_"+targetName,
+        id: targetName,
     });
 
     // Layer in Konva frame, must have a layer
