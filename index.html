@@ -201,10 +201,11 @@
 
                 <!-- Left Panel -->
                 <div class="col-xl-6 col-lg-6">
-                    <!-- Parameters -->
+                    <!-- Reglages -->
                     <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <!-- Reglage - Card Header -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between
+                            btn" data-toggle="collapse" href="#collapseReglage" role="button" aria-expanded="true" aria-controls="collapseReglage">
                             <h6 class="m-0 font-weight-bold text-primary">Réglages</h6>
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -221,8 +222,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Card Body -->
-                        <div class="card-body">
+                        <!-- Reglage - Card Body -->
+                        <div class="collapse show" id="collapseReglage">
+                            <div class="card-body">
                             <!--
                             <div class="tabbable" id="tabs-reglage">&lt;!&ndash; Only required for left/right tabs &ndash;&gt;
                                 <ul class="nav nav-tabs">
@@ -487,11 +489,11 @@
 
                     <!-- Patient -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
+                        <!-- Patient - Card Header -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between
+                        btn" data-toggle="collapse" href="#collapsePatient" role="button" aria-expanded="false" aria-controls="collapsePatient"">
                             <h6 class="m-0 font-weight-bold text-primary">Patient</h6>
                         </div>
-                        <div class="card-body row">
-                            <div class="shadow-sm col-sm-6">
                                 <p><span class="label"><b>Taille</b></span>
                                     <span class="fa-pull-right">
                                                     <span id="RangeOutputPatient_taille"
@@ -499,7 +501,10 @@
                                                         0
                                                     </span>
                                                     <span>
-                                                        cm
+                        <div class="card-body row collapse" id="collapsePatient">
+                                <div class="shadow-sm col-sm-6">
+                                                        <span id="RangeOutputPatient_taille"
+                                                              style="font-weight:bold;color:red">
                                                     </span>
                                                 </span>
                                 </p>
@@ -686,10 +691,11 @@
 
                     <!-- Comportement Patient -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between
+btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expanded="flase" aria-controls="collapseComportememt">
                             <h6 class="m-0 font-weight-bold text-primary">Comportement Patient</h6>
                         </div>
-                        <div class="card-body row">
+                        <div class="card-body row collapse" id="collapseComportement">
                             <div class="shadow-sm col-sm-6">
                                 <p><span class="label">Angle Main</span>
                                     <span class="fa-pull-right">
