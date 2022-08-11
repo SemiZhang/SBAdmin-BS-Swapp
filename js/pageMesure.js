@@ -34,6 +34,16 @@ var tooltipLayer = {};
 var tooltip = {};
 var tag = {};
 
+// Read localStorage data
+if (JSON.parse(localStorage.getItem("pointData"))){
+    console.log("Saved Data Found");
+    console.log(JSON.parse(localStorage.getItem("pointData")));
+
+    pointData=JSON.parse(localStorage.getItem("pointData"));
+
+};
+
+// Create Konva image frame
 // Repeat for each tab of photo
 for (let index in names) {
     let targetName = names[index];
@@ -274,6 +284,15 @@ for (let index in names) {
     });
 
 
+    // Load saved points
+    for (let point in pointData[targetName]){
+        addCircle(targetName,{x:pointData[targetName][point].x,y:pointData[targetName][point].y},point);
+    }
+
+    // refresh list table
+    refreshTable(document.getElementById('table_'+targetName));
+
+
     // Test Information on frame
     text[targetName] = new Konva.Text({
         text: 'Click on the canvas to draw a circle',
@@ -468,8 +487,10 @@ function refreshTable(targetTable) {
     if (pointIndex[targetName]>0 && pointIndex[targetName] < targetTable.rows.length){
         targetTable.rows[pointIndex[targetName]].setAttribute('class','table-info');
     }
-}
 
+    // Save data
+    save();
+}
 
 function resizeKonva(targetName) {
     var getStyle = function(dom, attr){
@@ -502,4 +523,10 @@ function resizeKonva(targetName) {
     groupPoint[targetName].children.forEach((child)=>{
         child.scale({x: 1/(stage[targetName].width()/naturalWidth), y: 1/(stage[targetName].width()/naturalWidth)});
     });
+
+function save(){
+    // Save data in localStorage
+    localStorage.setItem("pointData",JSON.stringify(pointData));
 }
+
+
