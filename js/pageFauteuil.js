@@ -1438,6 +1438,7 @@ function init_layout() {
 
 // Fonctions enregistrement
 
+// Load saved data into page list table
 function loadSave(){
     if (localStorage.getItem('saveFauteuil')){
         saved = JSON.parse(localStorage.getItem('saveFauteuil'));
@@ -1454,6 +1455,7 @@ function loadSave(){
     }
 }
 
+// Read data and show on plotly 3D
 function readSave(name){
     if (saved[name]) {
         init_coord_chair();
@@ -1472,21 +1474,26 @@ function readSave(name){
     init_slider();
 }
 
+// Make table list reponse to mouse click
 document.getElementById('table_saveFauteuil').addEventListener('mouseup',function(e){
+    // Get clicked row and Target fauteuil name
     let saveName = e.path[1].children[0].innerText;
     switch (e.button){
         case 0:
             readSave(saveName);
     }
-
 });
-
 document.getElementById('table_saveFauteuil').addEventListener('contextmenu',function(e){
+    // Clear list table
     this.children[1].innerHTML = ''
-    let saveName = e.path[1].children[0].innerText;
+    // Hide original right click menu
     e.preventDefault();
+    // Delete selected fauteuil
+    let saveName = e.path[1].children[0].innerText;
     delete saved[saveName];
+    // Resave lefting fauteuil
     localStorage.setItem('saveFauteuil',JSON.stringify(saved));
+    // Readd
     loadSave();
 });
 
