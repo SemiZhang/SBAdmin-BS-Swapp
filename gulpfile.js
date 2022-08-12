@@ -80,6 +80,7 @@ function modules() {
   // Plotly
   var plotly = gulp.src('./node_modules/plotly*/*.js')
       .pipe(gulp.dest('./vendor/plotly'));
+  // math.js
   var mathjs = gulp.src('./node_modules/mathjs/lib/browser/math.*')
       .pipe(gulp.dest('./vendor/mathjs'));
   // jasny-bootstrap
@@ -88,7 +89,14 @@ function modules() {
   // holderjs
   var holderjs = gulp.src('./node_modules/holderjs/holder.*')
       .pipe(gulp.dest('./vendor/holderjs'));
-  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing, plotly, mathjs, jasny, holderjs);
+  // konvajs
+  var konva = gulp.src('./node_modules/konva/konva.*')
+      .pipe(gulp.dest('./vendor/konva'));
+  return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing,
+      plotly, mathjs,
+      jasny, holderjs,
+      konva
+      );
 }
 
 // CSS task
@@ -154,3 +162,4 @@ exports.vendor = vendor;
 exports.build = build;
 exports.watch = watch;
 exports.default = build;
+
