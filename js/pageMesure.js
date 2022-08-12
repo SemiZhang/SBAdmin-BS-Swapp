@@ -492,7 +492,7 @@ function refreshTable(targetTable) {
     }
 
     // Save data
-    save();
+    savePoint();
 }
 
 function resizeKonva(targetName) {
@@ -528,7 +528,7 @@ function resizeKonva(targetName) {
     });
 }
 
-function save(){
+function savePoint(){
     // Save data in localStorage
     localStorage.setItem("pointData",JSON.stringify(pointData));
 }
@@ -696,4 +696,18 @@ function calcul(){
             },
         },
     }
+}
+
+function saveResult() {
+    let saving = {};
+    let date;
+    date = new Date().toLocaleString();
+    if (localStorage.getItem('saveFauteuil')){
+        saving = JSON.parse(localStorage.getItem('saveFauteuil'));
+    }
+    saving[date]=result;
+    saving[date].time = new Date().toISOString();
+    console.log(saving)
+    localStorage.setItem('saveFauteuil',JSON.stringify(saving))
+    document.getElementById('button_save').className = "btn btn-success nav-link"
 }
