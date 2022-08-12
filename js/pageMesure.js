@@ -299,6 +299,7 @@ for (let index in names) {
         fontSize: 20,
         draggable: false,
         y:45,
+        listening: false,
     });
     layer[targetName].add(text[targetName]);
 
@@ -306,14 +307,16 @@ for (let index in names) {
         text: 'Pointer Position',
         fontSize: 20,
         y:0,
-    })
+        listening: false,
+    });
     layer[targetName].add(text2[targetName]);
 
     text3[targetName] = new Konva.Text({
         text: 'groupImage Position',
         fontSize: 20,
         y:20,
-    })
+        listening: false,
+    });
     layer[targetName].add(text3[targetName]);
 
     stage[targetName].on('mouseover mousemove dragmove', ()=>{
