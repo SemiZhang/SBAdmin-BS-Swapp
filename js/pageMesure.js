@@ -571,10 +571,9 @@ function angle(data){
 let resultCalcul = {};
 
 function calcul(){
-    // Profil
-    let d_photo=distance([pointData["fauteuil_profil"].tfp_c1b,pointData["fauteuil_profil"].tfp_c1h],1,1);
-    console.log(d_photo)
+    let d_photo;
 
+    // Profil
     let echelle1Profil = calibHauteur;
     let echelle2Profil = calibHauteur;
 
@@ -593,6 +592,8 @@ function calcul(){
     let SArr=pointData["fauteuil_profil"].tfp_sarr;
     let Dossier=pointData["fauteuil_profil"].tfp_dh;
 
+    // 1st plan
+    d_photo=distance([O1,x1],1,1);
     resultCalcul.diametreRoueArr=2*distance([CRArr,RArr],d_photo,echelle1Profil);
     resultCalcul.diametreMainCourante=2*distance([CRArr,MC],d_photo,echelle1Profil);
     resultCalcul.diametreRoueAvt=2*distance([CRAvt,RAvt],d_photo,echelle1Profil);
