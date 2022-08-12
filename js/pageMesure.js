@@ -580,7 +580,7 @@ function angle(data){
 
 let resultCalcul = {};
 
-function calcul(){
+function calculReglage(){
     if (Object.keys(pointData.fauteuil_face).length == document.getElementById('table_fauteuil_face').children[1].children.length && Object.keys(pointData.fauteuil_profil).length == document.getElementById('table_fauteuil_profil').children[1].children.length){
         let d_photo;
 
