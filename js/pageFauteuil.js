@@ -1,4 +1,5 @@
 let taille = 175;
+let indicator = {};
 init_coord_chair();
 init_coord_patient()
 init_layout();
@@ -173,9 +174,10 @@ function init_option() {
 
 function cal_model_fauteuil() {
     data = Array();
-    cal_data_plotly()
+    cal_data_plotly();
     // let layout = init_layout();
     Plotly.react('myPloty3DChart', data, plotly_layout, plotly_config);
+    cal_indicator();
 }
 
 // Fonction principale
@@ -1323,6 +1325,47 @@ function matrice_Translation(x,y,z) {
         [0,0,1,z],
         [0,0,0,1]
     ]
+}
+
+// Calcul Indicateurs
+
+
+
+function cal_indicator(){
+    // Grade au Sol
+    let pg=points_chair.siege.potence.g[1];
+    let pd=points_chair.siege.potence.d[1];
+    let siege1 = points_chair.siege.assise.ArrDroit1[1];
+    let siege2 = points_chair.siege.assise.ArrGauche1[1];
+
+    indicator.gardeSol = Math.min(pg,pd,siege1,siege2);
+    document.getElementById('ind_gardeAuSol').innerText = indicator.gardeSol.toFixed(1)
+
+    // Longueur hors tout
+    let pointArr =reglage_chair.roue.arr.deport + reglage_chair.roue.arr.rayon;
+    pointArr = Math.max(pointArr,0);
+
+    let alpha= reglage_chair.siege.potence.angle - ( 90 - reglage_chair.siege.assise.angle );
+    // todo: pointAvtRp calculation fault
+    let pointAvtRp   = reglage_chair.siege.assise.profondeur * (Math.cos(reglage_chair.siege.assise.angle)*180/Math.PI) + (Math.sin(alpha)*180/Math.PI) * reglage_chair.siege.potence.longueur + reglage_chair.siege.repose.largeur * (Math.cos(180-(90-alpha+reglage_chair.siege.potence.angle))*180/Math.PI);
+    let pointAvtRavt = reglage_chair.roue.avt.deport + reglage_chair.roue.avt.rayon ;
+    let pointAvtChasse = reglage_chair.roue.avt.deport + reglage_chair.siege.assise.distanceFourche ;
+    // console.log(pointAvtRp,pointAvtRavt,pointAvtChasse)
+    let pointAvt = Math.max(pointAvtRp,pointAvtRavt,pointAvtChasse);
+
+    indicator.longueurHorsTout = pointAvt + pointArr;
+
+    // Largeur hors tout
+    // plus diametre de la main courante
+    indicator.largeurhHorsTout = reglage_chair.roue.arr.voie + (reglage_chair.roue.arr.MC_rayon * Math.sin(reglage_chair.roue.arr.carrosage)*180/Math.PI + reglage_chair.roue.arr.MC_distance/(Math.cos(reglage_chair.roue.arr.carrosage)*180/Math.PI))*2;
+
+    document.getElementById('ind_horsTout').innerText = indicator.longueurHorsTout.toFixed(1) + " * " + indicator.largeurhHorsTout.toFixed(1);
+
+    // Aire de giration
+    // console.log(pointAvt,pointArr,indicator.largeurhHorsTout/2)
+    let rayonGiration = Math.max(pointAvt,pointArr,indicator.largeurhHorsTout/2);
+    indicator.diametreGiration = rayonGiration*2;
+    document.getElementById('ind_giration').innerText = indicator.diametreGiration.toFixed(1)
 }
 
 
