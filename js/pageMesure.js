@@ -708,9 +708,9 @@ function calculReglage(){
             },
         }
 
-        document.getElementById('button_calcul').className = "btn btn-success nav-link"
+        document.getElementById('button_calcul').className = "btn btn-success nav-link";
+        document.getElementById('button_save').className = 'btn btn-warning nav-link';
         document.getElementById('button_save').disabled = false;
-        document.getElementById('button_save').className = 'btn btn-warning nav-link'
 
         console.log(result)
     }else {
