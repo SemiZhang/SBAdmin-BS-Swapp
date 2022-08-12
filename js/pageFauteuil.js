@@ -10,6 +10,7 @@ init_slider();
 let saved;
 loadSave();
 
+
 function init_coord_chair() {
     reglage_chair = {
         siege: {
@@ -1337,14 +1338,12 @@ function cal_indicator(){
     let pd=points_chair.siege.potence.d[1];
     let siege1 = points_chair.siege.assise.ArrDroit1[1];
     let siege2 = points_chair.siege.assise.ArrGauche1[1];
-
     indicator.gardeSol = Math.min(pg,pd,siege1,siege2);
     document.getElementById('ind_gardeAuSol').innerText = indicator.gardeSol.toFixed(1)
 
     // Longueur hors tout
     let pointArr =reglage_chair.roue.arr.deport + reglage_chair.roue.arr.rayon;
     pointArr = Math.max(pointArr,0);
-
     let alpha= reglage_chair.siege.potence.angle - ( 90 - reglage_chair.siege.assise.angle );
     // todo: pointAvtRp calculation fault
     let pointAvtRp   = reglage_chair.siege.assise.profondeur * (Math.cos(reglage_chair.siege.assise.angle)*180/Math.PI) + (Math.sin(alpha)*180/Math.PI) * reglage_chair.siege.potence.longueur + reglage_chair.siege.repose.largeur * (Math.cos(180-(90-alpha+reglage_chair.siege.potence.angle))*180/Math.PI);
@@ -1352,13 +1351,11 @@ function cal_indicator(){
     let pointAvtChasse = reglage_chair.roue.avt.deport + reglage_chair.siege.assise.distanceFourche ;
     // console.log(pointAvtRp,pointAvtRavt,pointAvtChasse)
     let pointAvt = Math.max(pointAvtRp,pointAvtRavt,pointAvtChasse);
-
     indicator.longueurHorsTout = pointAvt + pointArr;
 
     // Largeur hors tout
     // plus diametre de la main courante
     indicator.largeurhHorsTout = reglage_chair.roue.arr.voie + (reglage_chair.roue.arr.MC_rayon * Math.sin(reglage_chair.roue.arr.carrosage)*180/Math.PI + reglage_chair.roue.arr.MC_distance/(Math.cos(reglage_chair.roue.arr.carrosage)*180/Math.PI))*2;
-
     document.getElementById('ind_horsTout').innerText = indicator.longueurHorsTout.toFixed(1) + " * " + indicator.largeurhHorsTout.toFixed(1);
 
     // Aire de giration
@@ -1366,6 +1363,11 @@ function cal_indicator(){
     let rayonGiration = Math.max(pointAvt,pointArr,indicator.largeurhHorsTout/2);
     indicator.diametreGiration = rayonGiration*2;
     document.getElementById('ind_giration').innerText = indicator.diametreGiration.toFixed(1)
+
+    // Stabilité
+    // todo:Indicateur stabilité
+    // indicator.stabilite = ;
+    // document.getElementById('ind_stab').innerText = indicator.stabilite.toFixed(2)
 }
 
 
@@ -1465,7 +1467,6 @@ function readSave(name){
         console.log(name)
         console.log(saved[name])
     }
-
     cal_model_fauteuil();
     init_slider();
 }

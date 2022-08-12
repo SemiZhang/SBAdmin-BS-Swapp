@@ -1,7 +1,7 @@
 .developing {
-  --filter: sepia() saturate(4) hue-rotate(195deg)
+  filter: blur(2px);
+  /*filter: sepia() saturate(4) hue-rotate(295deg);*/
 }
-
 
 .range-slider.grad {
   --progress-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) inset;
