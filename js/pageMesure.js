@@ -535,8 +535,8 @@ function save(){
 
 
 // Calculation
-let calibHauteur = document.getElementById('calib1').value;
-let calibSol = document.getElementById('calibSol').value;
+let calibHauteur = document.getElementById('calib1').valueAsNumber;
+let calibSol = document.getElementById('calibSol').valueAsNumber;
 
 document.getElementById('calib1').addEventListener('input', (e) => {
     if (e.target.value == ''){
