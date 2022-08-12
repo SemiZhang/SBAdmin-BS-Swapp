@@ -1077,9 +1077,6 @@ function point_coude() {
 
 }
 
-// import {matrice_normalize} from "/js/1_Initialisation/Functions/matrice_normalize.js";
-// import * as THREE from 'https://unpkg.com/three/build/three.module.js';
-
 function circle_sphere_intersection(c_c,r_c,c_s,r_s,n) {
     // console.log(c_c,r_c,c_s,r_s,n)
     let points;
