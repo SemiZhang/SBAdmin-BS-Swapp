@@ -1006,22 +1006,30 @@ function point_coude() {
     // console.log(coudeD)
     let coudeD_R0;
     // console.log(coudeD.length)
-    if (coudeD.length==2) {
-        let coude1_R0 = coudeD[0];
-        coude1_R0.push(1);
-        let coude2_R0 = coudeD[1]
-        coude2_R0.push(1);
-        if (coude1_R0[0] < coude2_R0[0]) {
-            // console.log("coude1_R0[0] < coude2_R0[0]")
-            coudeD_R0 = coude1_R0;
+    try{
+        if (coudeD.length==2) {
+            let coude1_R0 = coudeD[0];
+            coude1_R0.push(1);
+            let coude2_R0 = coudeD[1]
+            coude2_R0.push(1);
+            if (coude1_R0[0] < coude2_R0[0]) {
+                // console.log("coude1_R0[0] < coude2_R0[0]")
+                coudeD_R0 = coude1_R0;
+            }else{
+                // console.log("coude1_R0[0] > coude2_R0[0]")
+                coudeD_R0 = coude2_R0;
+            }
         }else{
-            // console.log("coude1_R0[0] > coude2_R0[0]")
-            coudeD_R0 = coude2_R0;
+            coudeD_R0 = [coudeD];
+            coudeD_R0.push(1);
         }
-    }else{
-        coudeD_R0 = coudeD;
+    }catch{
+        console.log(coudeD)
+        coudeD_R0 = [coudeD];
         coudeD_R0.push(1);
     }
+
+
     // console.log(coudeD);
     // console.log(coudeD_R0);
 
@@ -1084,7 +1092,7 @@ function circle_sphere_intersection(c_c,r_c,c_s,r_s,n) {
     // console.log(d)
     if (Math.abs(d)>r_s) {
         // aucune solution : le plan n ne coupe pas la sphere
-        let points = 0;
+        points = 0;
     }else{
         let c_p = math.add(c_s,math.multiply(d,n));
         // console.log(c_p)
@@ -1104,7 +1112,7 @@ function circle_sphere_intersection(c_c,r_c,c_s,r_s,n) {
             // console.log(t)
             let d2 = math.norm(math.add(c_p,math.multiply(c_c,-1)));
             if (d2 > r_c+r_p){
-                let points=0;
+                points=0;
             }else{
                 if (d2 == r_c+r_p){
                     // points=c_c+(c_p-c_c)*r_c/d2;
