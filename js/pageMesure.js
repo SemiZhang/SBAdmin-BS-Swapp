@@ -727,6 +727,7 @@ function saveResult() {
     }
     saving[date]=result;
     saving[date].time = new Date().toISOString();
+    saving[date].pointData = pointData;
     console.log(saving)
     localStorage.setItem('saveFauteuil',JSON.stringify(saving))
     document.getElementById('button_save').className = "btn btn-success nav-link"
