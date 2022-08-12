@@ -1405,6 +1405,7 @@ function loadSave(){
 
 function readSave(name){
     if (saved[name]) {
+        init_coord_chair();
         for (let i1 of ['roue','siege']){
             console.log(i1)
             for (let i2 in saved[name][i1]){
@@ -1416,9 +1417,20 @@ function readSave(name){
         console.log(name)
         console.log(saved[name])
     }
+
     cal_model_fauteuil();
     init_slider();
 }
+
+document.getElementById('table_saveFauteuil').addEventListener('mouseup',function(e){
+    console.log(e)
+    console.log(this)
+    let saveName = e.path[1].children[0].innerText;
+    readSave(saveName)
+});
+
+
+// Animation Plotly
 function rotation_model() {
     var gd = document.getElementById('myPloty3DChart');
 
