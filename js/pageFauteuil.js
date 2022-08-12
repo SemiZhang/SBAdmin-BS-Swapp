@@ -6,6 +6,9 @@ init_option();
 cal_model_fauteuil();
 init_slider();
 
+let saved;
+loadSave();
+
 function init_coord_chair() {
     reglage_chair = {
         siege: {
@@ -1382,8 +1385,40 @@ function init_layout() {
 }
 
 
-// Animation Plotly
+// Fonctions enregistrement
 
+function loadSave(){
+    if (localStorage.getItem('saveFauteuil')){
+        saved = JSON.parse(localStorage.getItem('saveFauteuil'));
+        for (let i in saved){
+            let myTR = document.createElement('tr');
+            let myTD = document.createElement('td');
+            myTD.appendChild(document.createTextNode(i));
+            myTR.appendChild(myTD);
+            let myTD2 = document.createElement('td');
+            myTD2.appendChild(document.createTextNode(Date(saved[i].time)));
+            myTR.appendChild(myTD2);
+            document.getElementById('tbody_saveFauteuil').appendChild(myTR);
+        }
+    }
+}
+
+function readSave(name){
+    if (saved[name]) {
+        for (let i1 of ['roue','siege']){
+            console.log(i1)
+            for (let i2 in saved[name][i1]){
+                reglage_chair[i1][i2] = saved[name][i1][i2]
+                console.log(i1+','+i2+'Loaded')
+            }
+        }
+    }else{
+        console.log(name)
+        console.log(saved[name])
+    }
+    cal_model_fauteuil();
+    init_slider();
+}
 function rotation_model() {
     var gd = document.getElementById('myPloty3DChart');
 
