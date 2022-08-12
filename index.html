@@ -209,6 +209,7 @@
                              data-toggle="collapse" href="#collapseReglage" role="button" aria-expanded="true"
                              aria-controls="collapseReglage">
                             <h6 class="m-0 font-weight-bold text-primary">Réglages</h6>
+                            <!--
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -223,501 +224,507 @@
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
                             </div>
+                            -->
                         </div>
                         <!-- Reglage - Card Body -->
                         <div class="collapse show" id="collapseReglage">
                             <div class="card-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="panel-fauteuil">
-                                        <div class="row">
-                                            <div class="shadow-sm col-sm-6">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Siege - Largeur</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_assise_largeur"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_assise_largeur"
-                                                           class="form-range" type="range"
-                                                           min="25" max="40"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-                                            <!--
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label"
-                                                            >Siege - Profondeur</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_assise_profondeur"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_assise_profondeur"
-                                                           class="form-range" type="range"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-                                            -->
-
-                                            <div class="shadow-sm col-sm-6">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Siege - Hauteur</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_assise_hauteur"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_assise_hauteur"
-                                                           step="0.2" min="30" max="46"
-                                                           class="form-range" type="range"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Siege - Angle</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_assise_angle"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                °
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_assise_angle"
-                                                           class="form-range" type="range"
-                                                           min="5" max="35"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Dossier - Largeur</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_dossier_largeur"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_dossier_largeur"
-                                                           min="20" max="45"
-                                                           class="form-range" type="range"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Dossier - Hauteur</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_dossier_hauteur"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_dossier_hauteur"
-                                                           min="0" max="60"
-                                                           class="form-range" type="range"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Dossier - Angle</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_dossier_angle"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                °
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_dossier_angle"
-                                                           min="30" max="150"
-                                                           class="form-range" type="range"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
+                                <div class="row">
+                                    <div class="shadow-sm col-sm-6">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Siege - Largeur</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_assise_largeur"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Roue Avant - Rayon</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_roue_avt_rayon"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_roue_avt_rayon"
-                                                           class="form-range" type="range"
-                                                           min="2" max="15"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_assise_largeur"
+                                                   class="form-range" type="range"
+                                                   min="25" max="40"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label"
+                                                    >Siege - Profondeur</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_assise_profondeur"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer range-slider"
+                                        style='--min:25; --max:40; --step:1; --value:35; --text-value:"35"; --prefix:""'>
+                                            <input id="RangeInput_siege_assise_profondeur"
+                                                   class="form-range" type="range"
+                                                   style="width: 100%"
+                                                   oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify((+this.value).toLocaleString()))"
+                                                   />
+                                        </div>
+                                    </div>
+                                    -->
 
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Roue Arrière - Rayon</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_roue_arr_rayon"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_roue_arr_rayon"
-                                                           class="form-range" type="range"
-                                                           min="27" max="38"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center ">
-                                                    <p><span class="label">Potence - Longueur</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_potence_longueur"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                cm
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_potence_longueur"
-                                                           class="form-range" type="range"
-                                                           max="40"
-                                                           style="width: 100%"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                                <div class="align-items-center">
-                                                    <p><span class="label">Potence - Angle</span>
-                                                        <span class="fa-pull-right">
-                                                            <span id="RangeOutput_siege_potence_angle"
-                                                                  style="font-weight:bold;color:red">
-                                                                0
-                                                            </span>
-                                                            <span>
-                                                                °
-                                                            </span>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                                <div class="slidecontainer">
-                                                    <input id="RangeInput_siege_potence_angle"
-                                                           min="60" max="180"
-                                                           class="form-range" type="range" style="width: 100%"/>
-                                                </div>
-                                            </div>
+                                    <div class="shadow-sm col-sm-6">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Siege - Hauteur</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_assise_hauteur"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_assise_hauteur"
+                                                   step="0.2" min="30" max="46"
+                                                   class="form-range" type="range"
+                                                   style="width: 100%"/>
                                         </div>
                                     </div>
 
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Siege - Angle</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_assise_angle"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        °
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_assise_angle"
+                                                   class="form-range" type="range"
+                                                   min="5" max="35"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
 
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Dossier - Largeur</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_dossier_largeur"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_dossier_largeur"
+                                                   min="20" max="45"
+                                                   class="form-range" type="range"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Dossier - Hauteur</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_dossier_hauteur"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_dossier_hauteur"
+                                                   min="0" max="60"
+                                                   class="form-range" type="range"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Dossier - Angle</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_dossier_angle"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        °
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_dossier_angle"
+                                                   min="30" max="150"
+                                                   class="form-range" type="range"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
                                 </div>
-<!--                            </div>-->
+                                <div class="row mt-2">
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Roue Avant - Rayon</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_roue_avt_rayon"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_roue_avt_rayon"
+                                                   class="form-range" type="range"
+                                                   min="2" max="15"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Roue Arrière - Rayon</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_roue_arr_rayon"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_roue_arr_rayon"
+                                                   class="form-range" type="range"
+                                                   min="27" max="38"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center ">
+                                            <p><span class="label">Potence - Longueur</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_potence_longueur"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        cm
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_potence_longueur"
+                                                   class="form-range" type="range"
+                                                   max="40"
+                                                   style="width: 100%"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                        <div class="align-items-center">
+                                            <p><span class="label">Potence - Angle</span>
+                                                <span class="fa-pull-right">
+                                                    <span id="RangeOutput_siege_potence_angle"
+                                                          style="font-weight:bold;color:red">
+                                                        0
+                                                    </span>
+                                                    <span>
+                                                        °
+                                                    </span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slidecontainer">
+                                            <input id="RangeInput_siege_potence_angle"
+                                                   min="60" max="180"
+                                                   class="form-range" type="range" style="width: 100%"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
 
                     <!-- Patient -->
                     <div class="card shadow mb-4">
                         <!-- Patient - Card Header -->
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between
-                        btn" data-toggle="collapse" href="#collapsePatient" role="button" aria-expanded="false" aria-controls="collapsePatient"">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between btn" data-toggle="collapse" href="#collapsePatient" role="button" aria-expanded="false"
+                             aria-controls="collapsePatient">
                             <h6 class="m-0 font-weight-bold text-primary">Patient</h6>
                         </div>
-                                <p><span class="label"><b>Taille</b></span>
-                                    <span class="fa-pull-right">
-                                                    <span id="RangeOutputPatient_taille"
-                                                          style="font-weight:bold;color:red">
-                                                        0
-                                                    </span>
-                                                    <span>
-                        <div class="card-body row collapse" id="collapsePatient">
+                        <div class="collapse"id="collapsePatient">
+                            <div class="card-body row">
                                 <div class="shadow-sm col-sm-6">
+                                    <p><span class="label"><b>Taille</b></span>
+                                        <span class="fa-pull-right">
                                                         <span id="RangeOutputPatient_taille"
                                                               style="font-weight:bold;color:red">
+                                                            0
+                                                        </span>
+                                                        <span>
+                                                            cm
+                                                        </span>
                                                     </span>
-                                                </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_taille"
-                                           min="120" max="190"
-                                           class="form-range slider" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_taille"
+                                               min="120" max="190"
+                                               class="form-range slider" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6">
-                                <p><span class="label"><b>Tronc</b> - Hauteur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_Htronc"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6">
+                                    <p><span class="label"><b>Tronc</b> - Hauteur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_Htronc"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_Htronc"
-                                           min="45" max="62" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_Htronc"
+                                               min="45" max="62" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Tronc</b> - Largeur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_ltronc"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Tronc</b> - Largeur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_ltronc"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_ltronc"
-                                           min="14" max="45" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_ltronc"
+                                               min="14" max="45" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Tronc</b> - Profondeur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_ptronc"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Tronc</b> - Profondeur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_ptronc"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_ptronc"
-                                           min="10" max="30" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_ptronc"
+                                               min="10" max="30" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Epaule</b> - Largeur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_Lepaule"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Epaule</b> - Largeur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_Lepaule"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_Lepaule"
-                                           min="35" max="52" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_Lepaule"
+                                               min="35" max="52" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Tête</b> - Longueur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_Ltete"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Tête</b> - Longueur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_Ltete"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_Ltete"
-                                           min="15" max="30" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_Ltete"
+                                               min="15" max="30" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Tête</b> - Largeur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_ltete"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Tête</b> - Largeur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_ltete"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_ltete"
-                                           min="12" max="25" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_ltete"
+                                               min="12" max="25" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Bras</b> - Longueur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_Lbras"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Bras</b> - Longueur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_Lbras"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_Lbras"
-                                           min="16" max="35" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_Lbras"
+                                               min="16" max="35" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Bras</b> - Largeur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_lbras"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Bras</b> - Largeur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_lbras"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_lbras"
-                                           min="5" max="15" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_lbras"
+                                               min="5" max="15" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
-                                <p><span class="label"><b>Bras</b> - Profondeur</span>
-                                    <span class="fa-pull-right">
-                                        <span id="RangeOutputPatient_pbras"
-                                              style="font-weight:bold;color:red">
-                                            0
+                                <div class="shadow-sm col-sm-6 mt-lg-3 mt-sm-2">
+                                    <p><span class="label"><b>Bras</b> - Profondeur</span>
+                                        <span class="fa-pull-right">
+                                            <span id="RangeOutputPatient_pbras"
+                                                  style="font-weight:bold;color:red">
+                                                0
+                                            </span>
+                                            <span>
+                                                cm
+                                            </span>
                                         </span>
-                                        <span>
-                                            cm
-                                        </span>
-                                    </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input id="RangeInputPatient_pbras"
-                                           min="5" max="15" step="0.5"
-                                           class="form-range" type="range" style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input id="RangeInputPatient_pbras"
+                                               min="5" max="15" step="0.5"
+                                               class="form-range" type="range" style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+
                     </div>
 
                     <!-- Comportement Patient -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between
-btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expanded="flase" aria-controls="collapseComportememt">
+btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expanded="flase"
+                             aria-controls="collapseComportememt">
                             <h6 class="m-0 font-weight-bold text-primary">Comportement Patient</h6>
                         </div>
-                        <div class="card-body row collapse" id="collapseComportement">
-                            <div class="shadow-sm col-sm-6">
-                                <p><span class="label">Angle Main</span>
-                                    <span class="fa-pull-right">
+                        <div class="collapse" id="collapseComportement">
+                            <div class="card-body row">
+                                <div class="shadow-sm col-sm-6">
+                                    <p><span class="label">Angle Main</span>
+                                        <span class="fa-pull-right">
 
                                         <span style="font-weight:bold;color:red">
                                             0
                                         </span>
                                     </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input class="form-range" type="range"
-                                           style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input class="form-range" type="range"
+                                               style="width: 100%"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="shadow-sm col-sm-6">
-                                <p><span class="label">Angle Bras</span>
-                                    <span class="fa-pull-right">
+                                <div class="shadow-sm col-sm-6">
+                                    <p><span class="label">Angle Bras</span>
+                                        <span class="fa-pull-right">
 
                                         <span style="font-weight:bold;color:red">
                                             0
                                         </span>
                                     </span>
-                                </p>
-                                <div class="slidecontainer">
-                                    <input class="form-range" type="range"
-                                           style="width: 100%"/>
+                                    </p>
+                                    <div class="slidecontainer">
+                                        <input class="form-range" type="range"
+                                               style="width: 100%"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- Approach -->
@@ -791,6 +798,9 @@ btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expa
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">0.76</div>
                                         </div>
+                                        <!--                                        <div class="col-auto">-->
+                                        <!--                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -809,6 +819,9 @@ btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expa
                                                 <p class="mb-0">40*67,5*75 cm</p>
                                             </div>
                                         </div>
+                                        <!--                                        <div class="col-auto">-->
+                                        <!--                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -838,6 +851,9 @@ btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expa
                                                 </div>
                                             </div>-->
                                         </div>
+                                        <!--                                        <div class="col-auto">-->
+                                        <!--                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -854,6 +870,9 @@ btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expa
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">28 cm</div>
                                         </div>
+                                        <!--                                        <div class="col-auto">-->
+                                        <!--                                            <i class="fas fa-comments fa-2x text-gray-300"></i>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -899,13 +918,6 @@ btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expa
                     </div>
                 </div>
 
-<!--
-                &lt;!&ndash; Content Row &ndash;&gt;
-                <div class="col-lg-5 mb-4">
-
-                </div>
--->
-
             </div>
 
         </div>
@@ -932,9 +944,6 @@ btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expa
     <i class="fas fa-angle-up"></i>
 </a>
 
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.slim.min.js"></script>
@@ -945,6 +954,7 @@ btn" data-toggle="collapse" href="#collapseComportement" role="button" aria-expa
 
 <!-- Custom scripts for all pages-->
 <script src="js/sb-admin-2.min.js" async></script>
+
 
 <!-- Page level plugins -->
 <script src="vendor/chart.js/Chart.min.js" async></script>
