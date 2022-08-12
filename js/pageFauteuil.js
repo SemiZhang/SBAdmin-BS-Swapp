@@ -1428,10 +1428,21 @@ function readSave(name){
 }
 
 document.getElementById('table_saveFauteuil').addEventListener('mouseup',function(e){
-    console.log(e)
-    console.log(this)
     let saveName = e.path[1].children[0].innerText;
-    readSave(saveName)
+    switch (e.button){
+        case 0:
+            readSave(saveName);
+    }
+
+});
+
+document.getElementById('table_saveFauteuil').addEventListener('contextmenu',function(e){
+    this.children[1].innerHTML = ''
+    let saveName = e.path[1].children[0].innerText;
+    e.preventDefault();
+    delete saved[saveName];
+    localStorage.setItem('saveFauteuil',JSON.stringify(saved));
+    loadSave();
 });
 
 
