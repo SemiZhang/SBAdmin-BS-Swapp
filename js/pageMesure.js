@@ -491,6 +491,16 @@ function refreshTable(targetTable) {
         targetTable.rows[pointIndex[targetName]].setAttribute('class','table-info');
     }
 
+    if (Object.keys(pointData.fauteuil_face).length == document.getElementById('table_fauteuil_face').children[1].children.length && Object.keys(pointData.fauteuil_profil).length == document.getElementById('table_fauteuil_profil').children[1].children.length) {
+        document.getElementById('button_calcul').className = 'btn btn-warning nav-link'
+        document.getElementById('button_calcul').disabled=false;
+    }else{
+        document.getElementById('button_calcul').disabled=true;
+        document.getElementById('button_calcul').className = 'btn btn-secondary nav-link'
+        document.getElementById('button_save').disabled = true;
+        document.getElementById('button_save').className = 'btn btn-secondary nav-link'
+    }
+
     // Save data
     savePoint();
 }
@@ -571,130 +581,140 @@ function angle(data){
 let resultCalcul = {};
 
 function calcul(){
-    let d_photo;
+    if (Object.keys(pointData.fauteuil_face).length == document.getElementById('table_fauteuil_face').children[1].children.length && Object.keys(pointData.fauteuil_profil).length == document.getElementById('table_fauteuil_profil').children[1].children.length){
+        let d_photo;
 
-    // Profil
-    let echelle1Profil = calibHauteur;
-    let echelle2Profil = calibHauteur;
+        // Profil
+        let echelle1Profil = calibHauteur;
+        let echelle2Profil = calibHauteur;
 
-    let O1=pointData["fauteuil_profil"].tfp_c1b;
-    let x1=pointData["fauteuil_profil"].tfp_c1h;
-    let O2=pointData["fauteuil_profil"].tfp_c2b;
-    let x2=pointData["fauteuil_profil"].tfp_c2h;
-    let CRAvt=pointData["fauteuil_profil"].tfp_ravtc;
-    let RAvt=pointData["fauteuil_profil"].tfp_ravte;
-    let Fourche=pointData["fauteuil_profil"].tfp_fh;
-    let Potence=pointData["fauteuil_profil"].tfp_pp;
-    let SAvt=pointData["fauteuil_profil"].tfp_savt;
-    let RArr=pointData["fauteuil_profil"].tfp_rarre;
-    let MC=pointData["fauteuil_profil"].tfp_mce;
-    let CRArr=pointData["fauteuil_profil"].tfp_rarrc;
-    let SArr=pointData["fauteuil_profil"].tfp_sarr;
-    let Dossier=pointData["fauteuil_profil"].tfp_dh;
+        let O1=pointData["fauteuil_profil"].tfp_c1b;
+        let x1=pointData["fauteuil_profil"].tfp_c1h;
+        let O2=pointData["fauteuil_profil"].tfp_c2b;
+        let x2=pointData["fauteuil_profil"].tfp_c2h;
+        let CRAvt=pointData["fauteuil_profil"].tfp_ravtc;
+        let RAvt=pointData["fauteuil_profil"].tfp_ravte;
+        let Fourche=pointData["fauteuil_profil"].tfp_fh;
+        let Potence=pointData["fauteuil_profil"].tfp_pp;
+        let SAvt=pointData["fauteuil_profil"].tfp_savt;
+        let RArr=pointData["fauteuil_profil"].tfp_rarre;
+        let MC=pointData["fauteuil_profil"].tfp_mce;
+        let CRArr=pointData["fauteuil_profil"].tfp_rarrc;
+        let SArr=pointData["fauteuil_profil"].tfp_sarr;
+        let Dossier=pointData["fauteuil_profil"].tfp_dh;
 
-    // 1st plan
-    d_photo=distance([O1,x1],1,1);
-    resultCalcul.diametreRoueArr=2*distance([CRArr,RArr],d_photo,echelle1Profil);
-    resultCalcul.diametreMainCourante=2*distance([CRArr,MC],d_photo,echelle1Profil);
-    resultCalcul.diametreRoueAvt=2*distance([CRAvt,RAvt],d_photo,echelle1Profil);
+        // 1st plan
+        d_photo=distance([O1,x1],1,1);
+        resultCalcul.diametreRoueArr=2*distance([CRArr,RArr],d_photo,echelle1Profil);
+        resultCalcul.diametreMainCourante=2*distance([CRArr,MC],d_photo,echelle1Profil);
+        resultCalcul.diametreRoueAvt=2*distance([CRAvt,RAvt],d_photo,echelle1Profil);
 
-    // photo direction
-    let sens=Math.sign((CRAvt.x-CRArr.x));
-    resultCalcul.deportRoueAvt = Math.abs((CRAvt.x-CRArr.x))*echelle1Profil / d_photo;
-    resultCalcul.deportRoueArr = sens * (SArr.x-CRArr.x) * echelle1Profil / d_photo;
-    
-    // 2nd plan
-    d_photo=distance([O2,x2],1,1);
-    let SAvt2={x:SAvt.x,y:O2.y};
-    let SArr2={x:SArr.x,y:O2.y};
-    resultCalcul.hauteurSiegeAvt=distance([SAvt,SAvt2],d_photo,echelle2Profil)+calibSol;
-    resultCalcul.hauteurSiegeArr=distance([SArr,SArr2],d_photo,echelle2Profil)+calibSol;
-    resultCalcul.angleSiege=90-angle([O2,x2,SArr,SAvt],d_photo,echelle2Profil);
+        // photo direction
+        let sens=Math.sign((CRAvt.x-CRArr.x));
+        resultCalcul.deportRoueAvt = Math.abs((CRAvt.x-CRArr.x))*echelle1Profil / d_photo;
+        resultCalcul.deportRoueArr = sens * (SArr.x-CRArr.x) * echelle1Profil / d_photo;
 
-    resultCalcul.profondeurSiege=distance([SArr,SAvt],d_photo,echelle2Profil);
+        // 2nd plan
+        d_photo=distance([O2,x2],1,1);
+        let SAvt2={x:SAvt.x,y:O2.y};
+        let SArr2={x:SArr.x,y:O2.y};
+        resultCalcul.hauteurSiegeAvt=distance([SAvt,SAvt2],d_photo,echelle2Profil)+calibSol;
+        resultCalcul.hauteurSiegeArr=distance([SArr,SArr2],d_photo,echelle2Profil)+calibSol;
+        resultCalcul.angleSiege=90-angle([O2,x2,SArr,SAvt],d_photo,echelle2Profil);
 
-    resultCalcul.hauteurDossier=distance([SArr,Dossier],d_photo,echelle2Profil);
-    resultCalcul.angleDossier=angle([SArr,SAvt,SArr,Dossier],d_photo,echelle2Profil);
-    resultCalcul.angleDossierPrVerticale=angle([O2,x2,SArr,Dossier],d_photo,echelle2Profil);
+        resultCalcul.profondeurSiege=distance([SArr,SAvt],d_photo,echelle2Profil);
 
-    resultCalcul.longueurPotence=distance([SAvt,Potence],d_photo,echelle2Profil);
-    resultCalcul.anglePotence=angle([SAvt,SArr,SAvt,Potence],d_photo,echelle2Profil);
-    resultCalcul.anglePotencePrVerticale=angle([O2,x2,SAvt,Potence],d_photo,echelle2Profil);
+        resultCalcul.hauteurDossier=distance([SArr,Dossier],d_photo,echelle2Profil);
+        resultCalcul.angleDossier=angle([SArr,SAvt,SArr,Dossier],d_photo,echelle2Profil);
+        resultCalcul.angleDossierPrVerticale=angle([O2,x2,SArr,Dossier],d_photo,echelle2Profil);
+
+        resultCalcul.longueurPotence=distance([SAvt,Potence],d_photo,echelle2Profil);
+        resultCalcul.anglePotence=angle([SAvt,SArr,SAvt,Potence],d_photo,echelle2Profil);
+        resultCalcul.anglePotencePrVerticale=angle([O2,x2,SAvt,Potence],d_photo,echelle2Profil);
 
 
-    let dChasse_Fourche_profil=(CRAvt.x-Fourche.x)*echelle2Profil/d_photo;
-    
-    // Face
-    let echelle1Face = calibHauteur;
-    let echelle2Face = calibHauteur;
+        let dChasse_Fourche_profil=(CRAvt.x-Fourche.x)*echelle2Profil/d_photo;
 
-    O1=pointData["fauteuil_face"].tff_c1b;
-    x1=pointData["fauteuil_face"].tff_c1h;
-    O2=pointData["fauteuil_face"].tff_c2b;
-    x2=pointData["fauteuil_face"].tff_c2h;
-    let CRAvtG=pointData["fauteuil_face"].tff_gravtc;
-    let FourcheG=pointData["fauteuil_face"].tff_gf;
-    let CRArrG=pointData["fauteuil_face"].tff_grarrc;
-    let MCextG=pointData["fauteuil_face"].tff_gmce;
-    let RArrGmilieu=pointData["fauteuil_face"].tff_grarrm;
-    let RArrGhaut=pointData["fauteuil_face"].tff_grarrh;
-    let SG=pointData["fauteuil_face"].tff_gs;
-    let DG=pointData["fauteuil_face"].tff_gd;
-    let DD=pointData["fauteuil_face"].tff_dd;
-    let SD=pointData["fauteuil_face"].tff_ds;
-    let CRArrD=pointData["fauteuil_face"].tff_drarrc;
-    let CRAvtD=pointData["fauteuil_face"].tff_dravtc;
+        // Face
+        let echelle1Face = calibHauteur;
+        let echelle2Face = calibHauteur;
 
-    // 1st plan
-    d_photo=distance([O1,x1],1,1);
+        O1=pointData["fauteuil_face"].tff_c1b;
+        x1=pointData["fauteuil_face"].tff_c1h;
+        O2=pointData["fauteuil_face"].tff_c2b;
+        x2=pointData["fauteuil_face"].tff_c2h;
+        let CRAvtG=pointData["fauteuil_face"].tff_gravtc;
+        let FourcheG=pointData["fauteuil_face"].tff_gf;
+        let CRArrG=pointData["fauteuil_face"].tff_grarrc;
+        let MCextG=pointData["fauteuil_face"].tff_gmce;
+        let RArrGmilieu=pointData["fauteuil_face"].tff_grarrm;
+        let RArrGhaut=pointData["fauteuil_face"].tff_grarrh;
+        let SG=pointData["fauteuil_face"].tff_gs;
+        let DG=pointData["fauteuil_face"].tff_gd;
+        let DD=pointData["fauteuil_face"].tff_dd;
+        let SD=pointData["fauteuil_face"].tff_ds;
+        let CRArrD=pointData["fauteuil_face"].tff_drarrc;
+        let CRAvtD=pointData["fauteuil_face"].tff_dravtc;
 
-    let dChasse_Fourche_face=(FourcheG.x-CRAvtG.x)*echelle1Face/d_photo;
-    resultCalcul.distanceChasseFourche=Math.pow(Math.pow(dChasse_Fourche_profil,2)+Math.pow(dChasse_Fourche_face,2),-2);
-    resultCalcul.voieAvt=distance([CRAvtG,CRAvtD],d_photo,echelle1Face);
-    resultCalcul.largeurSiege=distance([SG,SD],d_photo,echelle1Face);
-    resultCalcul.distanceRoueMC=distance([RArrGmilieu,MCextG],d_photo,echelle1Face);
+        // 1st plan
+        d_photo=distance([O1,x1],1,1);
 
-    // 2nd plan
-    d_photo=distance([O2,x2],1,1);
-    resultCalcul.angleCarrossage=angle([O2,x2,CRArrG,RArrGhaut]);
-    resultCalcul.voieArr=distance([CRArrG,CRArrD],d_photo,echelle2Face);
+        let dChasse_Fourche_face=(FourcheG.x-CRAvtG.x)*echelle1Face/d_photo;
+        resultCalcul.distanceChasseFourche=Math.pow(Math.pow(dChasse_Fourche_profil,2)+Math.pow(dChasse_Fourche_face,2),-2);
+        resultCalcul.voieAvt=distance([CRAvtG,CRAvtD],d_photo,echelle1Face);
+        resultCalcul.largeurSiege=distance([SG,SD],d_photo,echelle1Face);
+        resultCalcul.distanceRoueMC=distance([RArrGmilieu,MCextG],d_photo,echelle1Face);
 
-    resultCalcul.largeurDossier=distance([DG,DD],d_photo,echelle2Face);
+        // 2nd plan
+        d_photo=distance([O2,x2],1,1);
+        resultCalcul.angleCarrossage=angle([O2,x2,CRArrG,RArrGhaut]);
+        resultCalcul.voieArr=distance([CRArrG,CRArrD],d_photo,echelle2Face);
 
-    result = {
-        siege: {
-            assise:{
-                largeur: resultCalcul.largeurSiege,
-                profondeur: resultCalcul.profondeurSiege,
-                hauteur: resultCalcul.hauteurSiegeAvt,
-                angle: resultCalcul.angleSiege,
-                distanceFourche: resultCalcul.distanceChasseFourche,
+        resultCalcul.largeurDossier=distance([DG,DD],d_photo,echelle2Face);
+
+        result = {
+            siege: {
+                assise:{
+                    largeur: resultCalcul.largeurSiege,
+                    profondeur: resultCalcul.profondeurSiege,
+                    hauteur: resultCalcul.hauteurSiegeAvt,
+                    angle: resultCalcul.angleSiege,
+                    distanceFourche: resultCalcul.distanceChasseFourche,
+                },
+                dossier:{
+                    largeur: resultCalcul.largeurDossier,
+                    hauteur: resultCalcul.hauteurDossier,
+                    angle: resultCalcul.angleDossier,
+                },
+                potence:{
+                    longueur: resultCalcul.longueurPotence,
+                    angle: resultCalcul.anglePotence,
+                },
             },
-            dossier:{
-                largeur: resultCalcul.largeurDossier,
-                hauteur: resultCalcul.hauteurDossier,
-                angle: resultCalcul.angleDossier,
+            roue: {
+                avt: {
+                    deport: resultCalcul.deportRoueAvt,
+                    voie: resultCalcul.voieAvt/2,
+                    rayon: resultCalcul.diametreRoueAvt/2,
+                },
+                arr: {
+                    deport: resultCalcul.deportRoueArr,
+                    voie: resultCalcul.voieArr/2,
+                    rayon: resultCalcul.diametreRoueArr/2,
+                    carrosage: resultCalcul.angleCarrossage,
+                    MC_distance: resultCalcul.distanceRoueMC,
+                    MC_rayon: resultCalcul.diametreMainCourante/2,
+                },
             },
-            potence:{
-                longueur: resultCalcul.longueurPotence,
-                angle: resultCalcul.anglePotence,
-            },
-        },
-        roue: {
-            avt: {
-                deport: resultCalcul.deportRoueAvt,
-                voie: resultCalcul.voieAvt/2,
-                rayon: resultCalcul.diametreRoueAvt/2,
-            },
-            arr: {
-                deport: resultCalcul.deportRoueArr,
-                voie: resultCalcul.voieArr/2,
-                rayon: resultCalcul.diametreRoueArr/2,
-                carrosage: resultCalcul.angleCarrossage,
-                MC_distance: resultCalcul.distanceRoueMC,
-                MC_rayon: resultCalcul.diametreMainCourante/2,
-            },
-        },
+        }
+
+        document.getElementById('button_calcul').className = "btn btn-success nav-link"
+        document.getElementById('button_save').disabled = false;
+        document.getElementById('button_save').className = 'btn btn-warning nav-link'
+
+        console.log(result)
+    }else {
+        window.alert('Pointage incomplet')
     }
 }
 
