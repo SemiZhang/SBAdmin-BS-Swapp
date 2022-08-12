@@ -560,6 +560,14 @@ function distance(data,d,dReal){
     return result_photo * dReal / d;
 }
 
+function angle(data){
+    let u = [data[1].x-data[0].x,data[1].y-data[0].y];
+    u[2]=1;
+    let v = [data[3].x-data[2].x,data[3].y-data[2].y];
+    v[2]=1;
+    return math.atan2(math.norm(math.cross(u,v)),math.dot(u,v))*180/Math.PI;
+}
+
 let resultCalcul = {};
 
 function calcul(){
