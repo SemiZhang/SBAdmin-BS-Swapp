@@ -612,12 +612,12 @@ function calcul(){
     resultCalcul.angleSiege=90-angle([O2,x2,SArr,SAvt],d_photo,echelle2Profil);
 
     resultCalcul.profondeurSiege=distance([SArr,SAvt],d_photo,echelle2Profil);
+
     resultCalcul.hauteurDossier=distance([SArr,Dossier],d_photo,echelle2Profil);
-    resultCalcul.longueurPotence=distance([SAvt,Potence],d_photo,echelle2Profil);
-
-
     resultCalcul.angleDossier=angle([SArr,SAvt,SArr,Dossier],d_photo,echelle2Profil);
     resultCalcul.angleDossierPrVerticale=angle([O2,x2,SArr,Dossier],d_photo,echelle2Profil);
+
+    resultCalcul.longueurPotence=distance([SAvt,Potence],d_photo,echelle2Profil);
     resultCalcul.anglePotence=angle([SAvt,SArr,SAvt,Potence],d_photo,echelle2Profil);
     resultCalcul.anglePotencePrVerticale=angle([O2,x2,SAvt,Potence],d_photo,echelle2Profil);
 
@@ -658,5 +658,42 @@ function calcul(){
     d_photo=distance([O2,x2],1,1);
     resultCalcul.angleCarrossage=angle([O2,x2,CRArrG,RArrGhaut]);
     resultCalcul.voieArr=distance([CRArrG,CRArrD],d_photo,echelle2Face);
+
     resultCalcul.largeurDossier=distance([DG,DD],d_photo,echelle2Face);
+
+    result = {
+        siege: {
+            assise:{
+                largeur: resultCalcul.largeurSiege,
+                profondeur: resultCalcul.profondeurSiege,
+                hauteur: resultCalcul.hauteurSiegeAvt,
+                angle: resultCalcul.angleSiege,
+                distanceFourche: resultCalcul.distanceChasseFourche,
+            },
+            dossier:{
+                largeur: resultCalcul.largeurDossier,
+                hauteur: resultCalcul.hauteurDossier,
+                angle: resultCalcul.angleDossier,
+            },
+            potence:{
+                longueur: resultCalcul.longueurPotence,
+                angle: resultCalcul.anglePotence,
+            },
+        },
+        roue: {
+            avt: {
+                deport: resultCalcul.deportRoueAvt,
+                voie: resultCalcul.voieAvt/2,
+                rayon: resultCalcul.diametreRoueAvt/2,
+            },
+            arr: {
+                deport: resultCalcul.deportRoueArr,
+                voie: resultCalcul.voieArr/2,
+                rayon: resultCalcul.diametreRoueArr/2,
+                carrosage: resultCalcul.angleCarrossage,
+                MC_distance: resultCalcul.distanceRoueMC,
+                MC_rayon: resultCalcul.diametreMainCourante/2,
+            },
+        },
+    }
 }
