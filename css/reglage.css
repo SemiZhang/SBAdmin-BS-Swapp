@@ -1,6 +1,5 @@
 .developing {
-  filter: blur(2px);
-  /*filter: sepia() saturate(4) hue-rotate(295deg);*/
+  filter: blur(1.5px);
 }
 
 .range-slider.grad {

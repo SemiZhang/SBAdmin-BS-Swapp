@@ -1,3 +1,7 @@
+.developing {
+    filter: blur(1.5px);
+}
+
 .circle {
     width: 10px;
     height: 10px;
