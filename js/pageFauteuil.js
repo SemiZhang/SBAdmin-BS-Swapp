@@ -1346,9 +1346,10 @@ function cal_indicator(){
     pointArr = Math.max(pointArr,0);
     let alpha= reglage_chair.siege.potence.angle - ( 90 - reglage_chair.siege.assise.angle );
     // todo: pointAvtRp calculation fault
-    let pointAvtRp   = reglage_chair.siege.assise.profondeur * (Math.cos(reglage_chair.siege.assise.angle)*180/Math.PI) + (Math.sin(alpha)*180/Math.PI) * reglage_chair.siege.potence.longueur + reglage_chair.siege.repose.largeur * (Math.cos(180-(90-alpha+reglage_chair.siege.potence.angle))*180/Math.PI);
-    let pointAvtRavt = reglage_chair.roue.avt.deport + reglage_chair.roue.avt.rayon ;
-    let pointAvtChasse = reglage_chair.roue.avt.deport + reglage_chair.siege.assise.distanceFourche ;
+    // let pointAvtRp   = reglage_chair.siege.assise.profondeur * (Math.cos(reglage_chair.siege.assise.angle)*180/Math.PI) + (Math.sin(alpha)*180/Math.PI) * reglage_chair.siege.potence.longueur + reglage_chair.siege.repose.largeur * (Math.cos(180-(90-alpha+reglage_chair.siege.potence.angle))*180/Math.PI);
+    let pointAvtRp = points_chair.siege.potence.g[1];
+    let pointAvtRavt = reglage_chair.roue.avt.deport/2 + reglage_chair.roue.avt.rayon ;
+    let pointAvtChasse = reglage_chair.roue.avt.deport/2 + reglage_chair.siege.assise.distanceFourche ;
     // console.log(pointAvtRp,pointAvtRavt,pointAvtChasse)
     let pointAvt = Math.max(pointAvtRp,pointAvtRavt,pointAvtChasse);
     indicator.longueurHorsTout = pointAvt + pointArr;
